@@ -112,6 +112,12 @@ export function PeopleDirectory() {
                 {person.name}
               </h3>
 
+              {person.isVolunteer && (
+                <span className="inline-flex mb-2 px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wide bg-amber-950/70 text-amber-300 border border-amber-700/60">
+                  Volunteer
+                </span>
+              )}
+
               <p className="text-xs font-mono font-semibold text-red-400 mb-3">
                 {person.role}
               </p>

@@ -1,88 +1,79 @@
 "use client";
 
 import { useState } from "react";
+import { africaGeoJSON } from "african-countries";
 import { countries } from "@/data/countries";
 import { Country } from "@/types";
 import { MapPin, ArrowRight, Activity, Layers, Database } from "lucide-react";
 import Link from "next/link";
 
-// Simplified high-precision vector SVG representation for African operational countries & continent outline
-interface SVGCountryPath {
-  code: string;
-  name: string;
-  d: string;
-  labelX: number;
-  labelY: number;
+type Position = [number, number];
+type AfricaGeometry =
+  | { type: "Polygon"; coordinates: Position[][] }
+  | { type: "MultiPolygon"; coordinates: Position[][][] };
+
+const mapBounds = {
+  minLongitude: -17.625043,
+  maxLongitude: 51.13387,
+  minLatitude: -34.819166,
+  maxLatitude: 37.349994,
+};
+
+const mapDimensions = { width: 620, height: 660, padding: 18 };
+
+function projectPoint([longitude, latitude]: Position): [number, number] {
+  const { minLongitude, maxLongitude, minLatitude, maxLatitude } = mapBounds;
+  const { width, height, padding } = mapDimensions;
+
+  const x = padding + ((longitude - minLongitude) / (maxLongitude - minLongitude)) * (width - padding * 2);
+  const y = padding + ((maxLatitude - latitude) / (maxLatitude - minLatitude)) * (height - padding * 2);
+
+  return [x, y];
 }
 
-const africaPaths: SVGCountryPath[] = [
-  {
-    code: "KE",
-    name: "Kenya",
-    d: "M 520,380 L 550,385 L 560,420 L 535,445 L 505,430 L 500,400 Z",
-    labelX: 530,
-    labelY: 410,
-  },
-  {
-    code: "UG",
-    name: "Uganda",
-    d: "M 480,390 L 505,390 L 505,425 L 475,420 Z",
-    labelX: 490,
-    labelY: 405,
-  },
-  {
-    code: "TZ",
-    name: "Tanzania",
-    d: "M 505,430 L 535,445 L 535,490 L 490,490 L 480,445 Z",
-    labelX: 510,
-    labelY: 460,
-  },
-  {
-    code: "SO",
-    name: "Somalia",
-    d: "M 550,345 L 610,330 L 585,395 L 550,385 Z",
-    labelX: 575,
-    labelY: 360,
-  },
-  {
-    code: "ET",
-    name: "Ethiopia",
-    d: "M 500,320 L 560,325 L 550,380 L 515,375 L 485,340 Z",
-    labelX: 525,
-    labelY: 345,
-  },
-  {
-    code: "SS",
-    name: "South Sudan",
-    d: "M 445,345 L 490,345 L 480,390 L 440,385 Z",
-    labelX: 465,
-    labelY: 365,
-  },
-  {
-    code: "RW",
-    name: "Rwanda",
-    d: "M 470,420 L 482,420 L 482,432 L 470,432 Z",
-    labelX: 476,
-    labelY: 426,
-  },
-  {
-    code: "CD",
-    name: "DR Congo",
-    d: "M 390,370 L 440,370 L 465,420 L 430,460 L 375,420 Z",
-    labelX: 420,
-    labelY: 410,
-  },
-];
+function ringToPath(ring: Position[]) {
+  return ring
+    .map((point, index) => {
+      const [x, y] = projectPoint(point);
+      return `${index === 0 ? "M" : "L"}${x.toFixed(2)},${y.toFixed(2)}`;
+    })
+    .join("") + "Z";
+}
 
-// Muted outline path representing broader Africa landmass
-const africaContinentPath =
-  "M 260,180 L 360,120 L 460,140 L 540,210 L 620,330 L 580,420 L 530,520 L 480,600 L 430,640 L 400,600 L 370,480 L 320,440 L 250,340 L 220,260 Z";
+function geometryToPath(geometry: AfricaGeometry) {
+  const polygons = geometry.type === "Polygon" ? [geometry.coordinates] : geometry.coordinates;
+  return polygons.flatMap((polygon) => polygon.map(ringToPath)).join("");
+}
+
+const mapCountries = africaGeoJSON.features.map((feature) => ({
+  code: feature.properties.alpha2,
+  name: feature.properties.name,
+  path: geometryToPath(feature.geometry as AfricaGeometry),
+}));
 
 export function AfricaMap({ isCompact = false }: { isCompact?: boolean }) {
   const [selectedCountryCode, setSelectedCountryCode] = useState<string>("KE");
   const [hoveredCountry, setHoveredCountry] = useState<Country | null>(null);
+  const [hoveredMapCountryCode, setHoveredMapCountryCode] = useState<string | null>(null);
 
   const selectedCountry = countries.find((c) => c.code === selectedCountryCode) || countries[0];
+
+  const handleCountryMouseEnter = (countryCode: string) => {
+    const countryData = countries.find((c) => c.code === countryCode);
+    setHoveredMapCountryCode(countryCode);
+    setHoveredCountry(countryData || null);
+  };
+
+  const handleCountryMouseLeave = () => {
+    setHoveredMapCountryCode(null);
+    setHoveredCountry(null);
+  };
+
+  const selectCountry = (countryCode: string | null) => {
+    if (countryCode && countries.some((country) => country.code === countryCode)) {
+      setSelectedCountryCode(countryCode);
+    }
+  };
 
   return (
     <div className="relative w-full rounded-2xl bg-slate-900 border border-slate-800 p-6 shadow-2xl overflow-hidden text-white">
@@ -118,70 +109,44 @@ export function AfricaMap({ isCompact = false }: { isCompact?: boolean }) {
         <div className="lg:col-span-7 relative flex justify-center items-center py-4">
           <div className="relative w-full max-w-[540px] aspect-[4/3]">
             <svg
-              viewBox="200 100 440 560"
-              className="w-full h-full drop-shadow-2xl"
-              aria-label="Interactive Africa Vector Map"
+              viewBox={`0 0 ${mapDimensions.width} ${mapDimensions.height}`}
+              className="h-full w-full drop-shadow-2xl"
+              role="group"
+              aria-label="Interactive map of Africa"
             >
-              {/* Continent Muted Base Layer */}
-              <path
-                d={africaContinentPath}
-                fill="#1E293B"
-                stroke="#334155"
-                strokeWidth="1.5"
-                strokeLinejoin="round"
-                opacity="0.7"
-              />
-
-              {/* Active Country Vector Paths */}
-              {africaPaths.map((item) => {
-                const countryData = countries.find((c) => c.code === item.code);
-                const isSelected = selectedCountryCode === item.code;
-                const isHovered = hoveredCountry?.code === item.code;
+              {mapCountries.map((country) => {
+                const isOperationalCountry = countries.some((item) => item.code === country.code);
+                const isSelected = selectedCountryCode === country.code;
+                const isHovered = hoveredMapCountryCode === country.code;
 
                 return (
-                  <g key={item.code} className="cursor-pointer">
-                    <path
-                      d={item.d}
-                      fill={
-                        isSelected
-                          ? "#D32F2F"
-                          : isHovered
-                          ? "#EF4444"
-                          : item.code === "KE"
-                          ? "#B91C1C"
-                          : "#334155"
+                  <path
+                    key={country.name}
+                    d={country.path}
+                    fill={isSelected ? "#dc2626" : isHovered ? "#ef4444" : isOperationalCountry ? "#b91c1c" : "#334155"}
+                    stroke={isSelected ? "#ffffff" : "#475569"}
+                    strokeWidth={isSelected ? 2 : 1}
+                    strokeLinejoin="round"
+                    className="cursor-pointer transition-colors duration-150 focus:outline-none"
+                    role="button"
+                    tabIndex={0}
+                    aria-label={`${country.name}${isOperationalCountry ? ", active operational hub" : ""}`}
+                    onClick={() => selectCountry(country.code)}
+                    onKeyDown={(event) => {
+                      if (event.key === "Enter" || event.key === " ") {
+                        event.preventDefault();
+                        selectCountry(country.code);
                       }
-                      stroke={isSelected ? "#FFFFFF" : "#475569"}
-                      strokeWidth={isSelected ? "2.5" : "1.5"}
-                      className="transition-all duration-200 hover:opacity-90"
-                      onClick={() => setSelectedCountryCode(item.code)}
-                      onMouseEnter={() => setHoveredCountry(countryData || null)}
-                      onMouseLeave={() => setHoveredCountry(null)}
-                    />
-                    {/* SVG Label Pin */}
-                    <circle
-                      cx={item.labelX}
-                      cy={item.labelY}
-                      r={isSelected ? "5" : "3.5"}
-                      fill={isSelected ? "#FFFFFF" : "#F8FAFC"}
-                      className="pointer-events-none"
-                    />
-                    <text
-                      x={item.labelX + 8}
-                      y={item.labelY + 4}
-                      fill={isSelected ? "#FFFFFF" : "#94A3B8"}
-                      fontSize={isSelected ? "14" : "11"}
-                      fontWeight={isSelected ? "bold" : "normal"}
-                      fontFamily="monospace"
-                      className="pointer-events-none select-none"
-                    >
-                      {item.code}
-                    </text>
-                  </g>
+                    }}
+                    onMouseEnter={() => handleCountryMouseEnter(country.code || "")}
+                    onMouseLeave={handleCountryMouseLeave}
+                  >
+                    <title>{country.name}</title>
+                  </path>
                 );
               })}
             </svg>
-
+            
             {/* Hover Tooltip Overlay */}
             {hoveredCountry && (
               <div className="absolute top-2 left-2 z-20 px-3 py-1.5 rounded-lg bg-slate-950/95 border border-red-500/40 text-xs font-mono text-white shadow-xl pointer-events-none animate-in fade-in duration-150">

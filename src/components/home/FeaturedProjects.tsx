@@ -54,14 +54,7 @@ export function FeaturedProjects() {
                   <div className="relative group rounded-2xl bg-gradient-to-br from-slate-800 to-slate-950 p-6 border border-slate-800 hover:border-red-500/50 transition-all duration-300 shadow-2xl overflow-hidden">
                     {/* Visual Card Mock Header */}
                     <div className="flex items-center justify-between border-b border-slate-800/80 pb-3 mb-4">
-                      <div className="flex items-center gap-2">
-                        <span className="w-2.5 h-2.5 rounded-full bg-red-500" />
-                        <span className="w-2.5 h-2.5 rounded-full bg-amber-500" />
-                        <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
-                        <span className="ml-2 font-mono text-[11px] text-slate-400">
-                          krcs://portfolio/{project.slug}
-                        </span>
-                      </div>
+                     
                       <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-red-950/80 text-red-400 border border-red-800/50">
                         {project.year}
                       </span>

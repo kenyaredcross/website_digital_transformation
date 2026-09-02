@@ -62,9 +62,16 @@ export default async function PersonProfilePage({
                 {person.name.split(" ").map((n) => n[0]).join("")}
               </div>
               <div>
-                <span className="px-3 py-1 rounded-full text-xs font-mono font-bold bg-slate-900 text-red-400 border border-slate-800 inline-block mb-2">
-                  {person.department}
-                </span>
+                <div className="flex flex-wrap items-center gap-2 mb-2">
+                  <span className="px-3 py-1 rounded-full text-xs font-mono font-bold bg-slate-900 text-red-400 border border-slate-800">
+                    {person.department}
+                  </span>
+                  {person.isVolunteer && (
+                    <span className="px-3 py-1 rounded-full text-xs font-mono font-bold bg-amber-950/70 text-amber-300 border border-amber-700/60">
+                      Volunteer
+                    </span>
+                  )}
+                </div>
                 <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight">
                   {person.name}
                 </h1>
@@ -207,6 +214,10 @@ export default async function PersonProfilePage({
                   <div>
                     <span className="block font-mono text-slate-500">Unit / Department</span>
                     <span className="font-semibold text-white">{person.department}</span>
+                  </div>
+                  <div>
+                    <span className="block font-mono text-slate-500">Engagement</span>
+                    <span className="font-semibold text-white">{person.isVolunteer ? "Volunteer" : "Team member"}</span>
                   </div>
                   {person.email && (
                     <div>

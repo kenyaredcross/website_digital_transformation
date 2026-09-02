@@ -27,7 +27,8 @@ export interface Person {
   slug: string;
   name: string;
   role: string;
-  department: "Leadership" | "Technology" | "Data" | "GIS" | "Product" | "Operations" | "Contributors";
+  department: "Leadership" | "Technology" | "Data" | "GIS" | "Product" | "Operations" | "Contributors" | "Volunteers";
+  isVolunteer?: boolean;
   bio: string;
   shortBio: string;
   avatar: string;

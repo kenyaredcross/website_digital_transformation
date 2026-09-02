@@ -41,9 +41,7 @@ export function BrandLogo({ variant = "dark", size = "md" }: BrandLogoProps) {
           <span className={`font-semibold tracking-wider text-[10px] md:text-[11px] uppercase ${textSecondary}`}>
             Digital Transformation
           </span>
-          <span className={`hidden sm:inline-block px-1.5 py-0.2 text-[9px] font-bold rounded bg-red-600/10 text-red-600 dark:bg-red-500/20 dark:text-red-400 border border-red-500/20`}>
-            DEPT
-          </span>
+          
         </div>
       </div>
     </Link>
