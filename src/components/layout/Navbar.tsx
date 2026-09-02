@@ -36,7 +36,7 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <BrandLogo size="md" />
+          <BrandLogo variant={isScrolled ? "dark" : "light"} size="md" />
 
           {/* Desktop Nav Links */}
           <nav className="hidden md:flex items-center space-x-1 lg:space-x-2">
@@ -52,7 +52,9 @@ export function Navbar() {
                   className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                     isActive
                       ? "text-red-600 bg-red-50 dark:bg-red-950/40 dark:text-red-400 font-semibold"
-                      : "text-slate-700 hover:text-red-600 hover:bg-slate-50 dark:text-slate-300 dark:hover:text-white dark:hover:bg-slate-800/60"
+                      : isScrolled
+                      ? "text-slate-700 hover:text-red-600 hover:bg-slate-50 dark:text-slate-300 dark:hover:text-white dark:hover:bg-slate-800/60"
+                      : "text-white hover:text-red-400 hover:bg-white/10"
                   }`}
                 >
                   {item.title}
@@ -65,7 +67,11 @@ export function Navbar() {
           <div className="flex items-center gap-3">
             <Link
               href="/portfolio"
-              className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs md:text-sm font-semibold text-white bg-red-600 hover:bg-red-700 active:bg-red-800 shadow-sm transition-all hover:shadow hover:-translate-y-0.5"
+              className={`hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs md:text-sm font-semibold shadow-sm transition-all hover:shadow hover:-translate-y-0.5 ${
+                isScrolled
+                  ? "text-white bg-red-600 hover:bg-red-700 active:bg-red-800"
+                  : "text-white bg-red-600/90 backdrop-blur-sm hover:bg-red-600 active:bg-red-700"
+              }`}
             >
               <span>Explore Our Work</span>
               <ArrowRight className="w-4 h-4" />
@@ -75,7 +81,11 @@ export function Navbar() {
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 rounded-lg text-slate-700 hover:text-red-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800 focus:outline-none"
+              className={`md:hidden p-2 rounded-lg focus:outline-none transition-colors ${
+                isScrolled
+                  ? "text-slate-700 hover:text-red-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"
+                  : "text-white hover:text-red-400 hover:bg-white/10"
+              }`}
               aria-label="Toggle Navigation Menu"
               aria-expanded={mobileMenuOpen}
             >
