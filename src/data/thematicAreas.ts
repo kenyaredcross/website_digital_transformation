@@ -1,0 +1,152 @@
+import { ThematicArea } from "@/types";
+
+export const thematicAreas: ThematicArea[] = [
+  {
+    id: "digital-products",
+    slug: "digital-products",
+    number: "01",
+    title: "Digital Products & Platforms",
+    shortTitle: "Digital Products",
+    tagline: "Building resilient digital infrastructure for field operations and community response.",
+    description:
+      "We design, build, and deploy production-grade software applications tailored for complex humanitarian environments—from cash distribution platforms to field team dispatch apps.",
+    detailedDescription:
+      "The Digital Products unit builds mission-critical web applications, mobile tools, and operational management systems designed for rapid response and field reliability. Operating in remote and low-connectivity environments requires offline-first mobile apps, light client payloads, and modular software architectures. Our platforms empower disaster response teams, community health workers, and volunteer networks to execute interventions with speed and precision.",
+    capabilities: [
+      {
+        title: "Offline-First Mobile Apps",
+        description: "Mobile data collection and relief management tools designed to sync seamlessly when network connectivity resumes.",
+      },
+      {
+        title: "Cash & Voucher Assistance (CVA) Systems",
+        description: "Secure digital wallet integrations and disbursement platforms ensuring direct, transparent cash assistance to affected families.",
+      },
+      {
+        title: "Incident & Response Management",
+        description: "Command center software providing real-time tracking of emergency dispatch, relief distribution, and volunteer deployments.",
+      },
+      {
+        title: "Community Feedback & Accountability",
+        description: "Two-way communication platforms giving affected populations direct channels to request help and offer feedback.",
+      },
+    ],
+    impactMetrics: [
+      { label: "Deployments", value: "20+ Active Systems" },
+      { label: "Transaction Volume", value: "$15M+ Cash Aid Disbursed" },
+      { label: "System Uptime", value: "99.9% Field Reliability" },
+    ],
+    iconName: "Smartphone",
+    featuredImageUrl: "/images/thematic/digital-products.webp",
+  },
+  {
+    id: "data-services",
+    slug: "data-services",
+    number: "02",
+    title: "Data Services & Analytics",
+    shortTitle: "Data Services",
+    tagline: "Transforming raw operational data into actionable early action intelligence.",
+    description:
+      "We establish end-to-end data pipelines, predictive models, and real-time operational dashboards that empower leadership to make evidence-based decisions.",
+    detailedDescription:
+      "Data saves lives when it is timely, accurate, and actionable. The Data Services unit operates automated ETL pipelines, data warehouses, and decision-support engines that synthesize satellite imagery, weather telemetry, disease surveillance reports, and field surveys. By transforming fragmented data into unified intelligence dashboards, we enable anticipatory action—moving from reactive relief to proactive risk mitigation before disasters strike.",
+    capabilities: [
+      {
+        title: "Predictive Early Warning Systems",
+        description: "Machine learning models synthesizing rainfall forecasts, river gauges, and drought indices to trigger pre-disaster funding releases.",
+      },
+      {
+        title: "Real-Time Operational Dashboards",
+        description: "Interactive command-center visual analytics tracking active emergencies, resource stocks, and response progress.",
+      },
+      {
+        title: "Epidemic Surveillance & Outbreak Modeling",
+        description: "Spatiotemporal analysis mapping disease transmission vectors to target vaccination and sanitation interventions.",
+      },
+      {
+        title: "Humanitarian Data Governance & Ethics",
+        description: "Enforcing strict data protection, anonymization, and ethical AI standards across all humanitarian datasets.",
+      },
+    ],
+    impactMetrics: [
+      { label: "Data Pipelines", value: "15+ Real-Time Feeds" },
+      { label: "Early Action Trigger", value: "72 Hours Advance Warning" },
+      { label: "Records Processed", value: "50M+ Data Points" },
+    ],
+    iconName: "BarChart3",
+    featuredImageUrl: "/images/thematic/data-services.webp",
+  },
+  {
+    id: "gis-spatial",
+    slug: "gis-spatial",
+    number: "03",
+    title: "GIS & Spatial Intelligence",
+    shortTitle: "GIS & Spatial",
+    tagline: "Mapping vulnerability and optimizing emergency response geography.",
+    description:
+      "We harness high-resolution satellite imagery, spatial analytics, and participatory community mapping to pinpoint vulnerability and optimize logistics.",
+    detailedDescription:
+      "Location is at the heart of every humanitarian emergency. The GIS & Spatial Intelligence unit leverages Earth observation satellites, drone surveys, and community mapping programs to create detailed geospatial layers of informal settlements, flood plains, and remote settlements. Our maps guide rescue operations, assess structural damage after extreme weather events, and map unmapped rural communities to ensure no one is left behind.",
+    capabilities: [
+      {
+        title: "Flood & Drought Risk Mapping",
+        description: "High-resolution hydrological and terrain modeling highlighting communities in immediate inundation or drought danger.",
+      },
+      {
+        title: "Satellite Damage Assessment",
+        description: "Computer-vision analysis of post-disaster imagery to assess shelter damage and infrastructure blockages in hours.",
+      },
+      {
+        title: "OpenStreetMap & YouthMappers",
+        description: "Engaging youth volunteers to map unmapped roads, healthcare facilities, and water access points across East Africa.",
+      },
+      {
+        title: "Spatial Logistics Optimization",
+        description: "Routing algorithms calculating optimal evacuation paths and warehouse-to-field distribution networks during crises.",
+      },
+    ],
+    impactMetrics: [
+      { label: "Mapped Area", value: "47 Kenyan Counties" },
+      { label: "Building Footprints", value: "2.5M Mapped" },
+      { label: "Drone Flights", value: "350+ Surveys" },
+    ],
+    iconName: "MapPin",
+    featuredImageUrl: "/images/thematic/gis-spatial.webp",
+  },
+  {
+    id: "innovation-ai",
+    slug: "innovation-ai",
+    number: "04",
+    title: "Digital Innovation & AI for Good",
+    shortTitle: "AI & Innovation",
+    tagline: "Pioneering frontier technologies to solve complex humanitarian challenges.",
+    description:
+      "We experiment with Artificial Intelligence, IoT sensors, and decentralized technologies to pioneer next-generation humanitarian tools.",
+    detailedDescription:
+      "Technology evolves rapidly, and humanitarian action must evolve with it. The Digital Innovation unit serves as an R&D incubator within the Kenya Red Cross Society, testing emerging technologies in real field conditions. From generative AI assistants that translate health guidance into local languages (Swahili, Somali, Turkana) to IoT sensors installed in flash-flood rivers, we prototype, validate, and scale responsible technologies that solve unsolvable field problems.",
+    capabilities: [
+      {
+        title: "Multilingual AI Chatbots & Assistants",
+        description: "Natural language interfaces providing 24/7 disaster preparedness advice and health answers in local dialects.",
+      },
+      {
+        title: "IoT Flood Telemetry Sensors",
+        description: "Solar-powered ultrasonic water level sensors deployed along river basins transmitting real-time river levels via cellular/LoRaWAN.",
+      },
+      {
+        title: "Drones for Humanitarian Logistics",
+        description: "Testing automated aerial delivery for critical medical supplies, vaccines, and emergency blood plasma in inaccessible terrain.",
+      },
+      {
+        title: "Humanitarian Innovation Sandbox",
+        description: "Partnering with tech startups, universities, and open-source communities to co-create solutions with local communities.",
+      },
+    ],
+    impactMetrics: [
+      { label: "IoT Sensors", value: "45 River Telemetry Nodes" },
+      { label: "Languages Supported", value: "6 Local Languages" },
+      { label: "Innovations Scaled", value: "8 Pilot-to-Prod Systems" },
+    ],
+    iconName: "Cpu",
+    featuredImageUrl: "/images/thematic/innovation-ai.webp",
+  },
+];
