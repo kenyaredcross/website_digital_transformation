@@ -35,4 +35,9 @@ export const mainNav: NavItem[] = [
     href: "/partners",
     description: "Collaborations with global tech firms, UN agencies, and research bodies.",
   },
+  {
+    title: "Blog",
+    href: "/blog",
+    description: "Insights, field case studies, tech deployments, and innovation stories.",
+  },
 ];

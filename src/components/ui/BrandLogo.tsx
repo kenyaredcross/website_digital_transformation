@@ -20,9 +20,9 @@ export function BrandLogo({ variant = "dark", size = "md" }: BrandLogoProps) {
       {/* Official-style Red Cross Emblem */}
       <div className={`relative flex items-center justify-center rounded-full bg-white shadow-sm ring-1 ring-slate-200/80 ${emblemSizes[size]} shrink-0`}>
         {/* Outer Red Ring */}
-        <div className="absolute inset-0.5 rounded-full border-2 border-[#D32F2F]/20" />
+        <div className="absolute inset-0.5 rounded-full border-2 border-[#EE2435]/20" />
         {/* Red Cross Icon */}
-        <svg viewBox="0 0 100 100" className="w-3/5 h-3/5 text-[#D32F2F]" fill="currentColor">
+        <svg viewBox="0 0 100 100" className="w-3/5 h-3/5 text-[#EE2435]" fill="currentColor">
           {/* Vertical Bar */}
           <rect x="38" y="10" width="24" height="80" rx="2" />
           {/* Horizontal Bar */}

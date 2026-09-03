@@ -154,3 +154,37 @@ export interface SiteConfig {
     youtube: string;
   };
 }
+
+export interface BlogPost {
+  id: string;
+  slug: string;
+  title: string;
+  excerpt: string;
+  content: string[];
+  category: "Early Warning" | "Cash Aid" | "GIS & Mapping" | "AI & Innovation" | "Field Operations" | "Data Ethics";
+  publishedDate: string;
+  readTime: string;
+  author: {
+    name: string;
+    role: string;
+    avatar: string;
+  };
+  coverImage: string; // Online Flickr or asset URL
+  flickrAlbumUrl?: string;
+  galleryImages?: string[]; // Flickr or online URLs
+  videoEmbedUrl?: string; // YouTube or Vimeo iframe URL
+  tags: string[];
+  featured?: boolean;
+}
+
+export interface Testimonial {
+  id: string;
+  quote: string;
+  authorName: string;
+  authorRole: string;
+  organization: string;
+  location: string;
+  avatar: string;
+  category: "Field Volunteer" | "County Leadership" | "Community Beneficiary" | "International Partner";
+  featured?: boolean;
+}

@@ -11,12 +11,12 @@
   --font-mono: var(--font-geist-mono);
   --font-heading: var(--font-sans);
 
-  --color-brand-red: #D32F2F;
-  --color-brand-red-hover: #C62828;
+  --color-brand-red: #EE2435;
+  --color-brand-red-hover: #D01C2B;
   --color-brand-red-light: #FFEBEE;
-  --color-brand-navy: #0F172A;
-  --color-brand-navy-light: #1E293B;
-  --color-brand-navy-dark: #0A192F;
+  --color-brand-navy: #011E41;
+  --color-brand-navy-light: #0A2D5C;
+  --color-brand-navy-dark: #001229;
   --color-brand-muted: #64748B;
   
   --color-sidebar-ring: var(--sidebar-ring);
@@ -51,45 +51,45 @@
 
 :root {
   --background: #FFFFFF;
-  --foreground: #0F172A;
+  --foreground: #011E41;
   --card: #FFFFFF;
-  --card-foreground: #0F172A;
+  --card-foreground: #011E41;
   --popover: #FFFFFF;
-  --popover-foreground: #0F172A;
-  --primary: #D32F2F;
+  --popover-foreground: #011E41;
+  --primary: #EE2435;
   --primary-foreground: #FFFFFF;
-  --secondary: #0F172A;
+  --secondary: #011E41;
   --secondary-foreground: #FFFFFF;
   --muted: #F8FAFC;
   --muted-foreground: #64748B;
   --accent: #FFEBEE;
-  --accent-foreground: #C62828;
+  --accent-foreground: #D01C2B;
   --destructive: #EF4444;
   --border: #E2E8F0;
   --input: #E2E8F0;
-  --ring: #D32F2F;
+  --ring: #EE2435;
   --radius: 0.5rem;
 }
 
 .dark {
-  --background: #0A192F;
+  --background: #001229;
   --foreground: #F8FAFC;
-  --card: #0F172A;
+  --card: #011E41;
   --card-foreground: #F8FAFC;
-  --popover: #0F172A;
+  --popover: #011E41;
   --popover-foreground: #F8FAFC;
-  --primary: #E53935;
+  --primary: #EE2435;
   --primary-foreground: #FFFFFF;
-  --secondary: #1E293B;
+  --secondary: #0A2D5C;
   --secondary-foreground: #F8FAFC;
-  --muted: #1E293B;
+  --muted: #0A2D5C;
   --muted-foreground: #94A3B8;
-  --accent: #1E293B;
+  --accent: #0A2D5C;
   --accent-foreground: #FF8A80;
   --destructive: #EF4444;
-  --border: #334155;
-  --input: #334155;
-  --ring: #E53935;
+  --border: #1E3A5F;
+  --input: #1E3A5F;
+  --ring: #EE2435;
 }
 
 @layer base {
@@ -105,8 +105,8 @@
 .bg-grid-pattern {
   background-size: 32px 32px;
   background-image: 
-    linear-gradient(to right, rgba(15, 23, 42, 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(15, 23, 42, 0.05) 1px, transparent 1px);
+    linear-gradient(to right, rgba(1, 30, 65, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(1, 30, 65, 0.05) 1px, transparent 1px);
 }
 
 .dark .bg-grid-pattern {
@@ -116,7 +116,7 @@
 }
 
 .bg-dots-pattern {
-  background-image: radial-gradient(rgba(211, 47, 47, 0.2) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(238, 36, 53, 0.2) 1px, transparent 1px);
   background-size: 20px 20px;
 }
 
