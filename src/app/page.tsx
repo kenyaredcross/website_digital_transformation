@@ -40,7 +40,8 @@ export default function HomePage() {
       <PartnersPreview />
 
       {/* Final Homepage CTA Section */}
-      <section className="py-24 bg-gradient-to-b from-slate-900 via-slate-950 to-slate-950 text-white border-t border-slate-800 text-center relative overflow-hidden">
+
+      {/* <section className="py-24 bg-gradient-to-b from-slate-900 via-slate-950 to-slate-950 text-white border-t border-slate-800 text-center relative overflow-hidden">
         <div className="absolute inset-0 bg-dots-pattern opacity-20 pointer-events-none" />
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-6">
           <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-950/80 border border-red-800/60 text-xs font-mono font-bold text-red-400">
@@ -72,7 +73,7 @@ export default function HomePage() {
             </Link>
           </div>
         </div>
-      </section>
+      </section> */}
     </div>
   );
 }

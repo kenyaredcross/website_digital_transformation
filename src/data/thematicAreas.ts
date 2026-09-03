@@ -32,7 +32,7 @@ export const thematicAreas: ThematicArea[] = [
     ],
     impactMetrics: [
       { label: "Deployments", value: "20+ Active Systems" },
-      { label: "Transaction Volume", value: "$15M+ Cash Aid Disbursed" },
+      { label: "Transaction Volume", value: "KES 15M+ Cash Aid Disbursed" },
       { label: "System Uptime", value: "99.9% Field Reliability" },
     ],
     iconName: "Smartphone",

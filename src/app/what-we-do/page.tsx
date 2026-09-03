@@ -21,8 +21,8 @@ export default function WhatWeDoPage() {
     <div className="pt-28 pb-20 bg-slate-950 text-white min-h-screen">
       {/* Header */}
       <section className="py-16 md:py-24 border-b border-slate-800 bg-grid-pattern opacity-95">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
-          <span className="text-xs font-mono font-bold uppercase tracking-widest text-red-500 bg-red-950/80 px-3 py-1 rounded border border-red-800/60">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+          <span className="inline-block text-xs font-mono font-bold uppercase tracking-widest text-red-500 bg-red-950/80 px-3 py-1 rounded border border-red-800/60">
             Core Capabilities
           </span>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight">
