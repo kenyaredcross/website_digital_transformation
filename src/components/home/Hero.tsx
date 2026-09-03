@@ -1,13 +1,24 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowRight, Users } from "lucide-react";
 
 export function Hero() {
   return (
     <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden bg-slate-950 text-white">
-      {/* Background Ambient Grid */}
+      {/* Background image and readability overlays */}
+      <Image
+        src="/assets/images/hero/hero.jpg"
+        alt=""
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover object-center opacity-50"
+      />
+      <div className="absolute inset-0 bg-slate-950/70 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-950/60 via-slate-950/35 to-slate-950/80 pointer-events-none" />
       <div className="absolute inset-0 bg-grid-pattern opacity-10 pointer-events-none" />
       <div className="absolute bottom-10 right-10 w-[400px] h-[400px] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none" />
 

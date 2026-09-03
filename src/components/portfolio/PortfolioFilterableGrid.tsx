@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { projects } from "@/data/projects";
 import { thematicAreas } from "@/data/thematicAreas";
 import { Search, Filter, Layers, ArrowRight, Grid, List } from "lucide-react";
@@ -212,6 +213,20 @@ export function PortfolioFilterableGrid() {
               key={project.id}
               className="group rounded-2xl bg-slate-900 border border-slate-800 hover:border-red-500/50 transition-all duration-300 flex flex-col justify-between overflow-hidden shadow-xl"
             >
+              <Link
+                href={`/portfolio/${project.slug}`}
+                className="relative block aspect-[16/9] overflow-hidden bg-slate-950"
+                aria-label={`View ${project.title} case study`}
+              >
+                <Image
+                  src={project.image}
+                  alt={`${project.title} project preview`}
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent" />
+              </Link>
               <div className="p-6 space-y-4">
                 <div className="flex items-center justify-between">
                   <span className="px-2.5 py-1 rounded text-xs font-mono font-bold bg-red-950 text-red-400 border border-red-800">
@@ -270,6 +285,19 @@ export function PortfolioFilterableGrid() {
               key={project.id}
               className="p-6 rounded-2xl bg-slate-900 border border-slate-800 hover:border-red-500/50 transition-all flex flex-col md:flex-row items-start md:items-center justify-between gap-6"
             >
+              <Link
+                href={`/portfolio/${project.slug}`}
+                className="relative block w-full md:w-48 aspect-[16/9] shrink-0 overflow-hidden rounded-xl bg-slate-950"
+                aria-label={`View ${project.title} case study`}
+              >
+                <Image
+                  src={project.image}
+                  alt={`${project.title} project preview`}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 192px"
+                  className="object-cover transition-transform duration-500 hover:scale-105"
+                />
+              </Link>
               <div className="space-y-2 flex-1">
                 <div className="flex items-center gap-3 text-xs font-mono">
                   <span className="text-red-400 font-bold">{project.category}</span>

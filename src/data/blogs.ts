@@ -20,10 +20,10 @@ export const blogs: BlogPost[] = [
     author: {
       name: "Dr. Ahmed Idris",
       role: "Head of Digital Transformation & Innovation",
-      avatar: "/assets/images/people/ahmed-idris.webp",
+      avatar: "/assets/images/people/p1.jpeg",
     },
     // Online Flickr image URL
-    coverImage: "https://live.staticflickr.com/65535/53612345678_ab12345678_b.jpg",
+    coverImage: "https://plus.unsplash.com/premium_photo-1733342648363-81cd437f9e43?q=80&w=871&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     flickrAlbumUrl: "https://www.flickr.com/photos/154940827@N06/55504073680/in/album-72177720335418161",
     galleryImages: [
       "https://images.unsplash.com/photo-1547683905-f686c993aae5?q=80&w=1200",
@@ -51,12 +51,12 @@ export const blogs: BlogPost[] = [
     author: {
       name: "Grace Wambui",
       role: "Lead Software Architect",
-      avatar: "/assets/images/people/grace-wambui.webp",
+      avatar: "/assets/images/people/p2.jpeg",
     },
-    coverImage: "https://images.unsplash.com/photo-1556742049-0a67daf4005a?q=80&w=1200",
+    coverImage: "https://plus.unsplash.com/premium_photo-1739995619648-e463f3ecdbc4?q=80&w=1032&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     flickrAlbumUrl: "https://www.flickr.com/photos/154940827@N06/55504073680/in/album-72177720335418161",
     galleryImages: [
-      "https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1200",
+      "https://images.unsplash.com/photo-1642403711604-3908e90960ce?q=80&w=1032&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     ],
     videoEmbedUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
     tags: ["Mobile Cash", "M-PESA", "Offline First", "React Native", "Humanitarian Aid"],
@@ -80,7 +80,7 @@ export const blogs: BlogPost[] = [
     author: {
       name: "Amina Hassan",
       role: "Senior GIS & Spatial Analytics Lead",
-      avatar: "/assets/images/people/amina-hassan.webp",
+      avatar: "/assets/images/people/p3.jpeg",
     },
     coverImage: "https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=1200",
     flickrAlbumUrl: "https://www.flickr.com/photos/154940827@N06/55504073680/in/album-72177720335418161",
@@ -109,12 +109,12 @@ export const blogs: BlogPost[] = [
     author: {
       name: "Samuel Otieno",
       role: "Principal Data Scientist & AI Lead",
-      avatar: "/assets/images/people/samuel-otieno.webp",
+      avatar: "/assets/images/people/p5.jpeg",
     },
     coverImage: "https://images.unsplash.com/photo-1531746790731-6c087fecd65a?q=80&w=1200",
     flickrAlbumUrl: "https://www.flickr.com/photos/154940827@N06/55504073680/in/album-72177720335418161",
     galleryImages: [
-      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200",
+      "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1032&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     ],
     videoEmbedUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
     tags: ["AI", "Gemini API", "WhatsApp", "Multilingual NLP", "Disaster Response"],

@@ -1,9 +1,17 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { projects } from "@/data/projects";
 import { ArrowRight, Layers, Sparkles, ExternalLink } from "lucide-react";
+
+const featuredProjectImages: Record<string, string> = {
+  hazina: "/assets/images/portfolio/Hazina.jpg",
+  bomacare: "/assets/images/portfolio/BomaCare.jpg",
+  redpulse: "/assets/images/portfolio/RedPulse.jpg",
+  "rafiki-ai": "/assets/images/portfolio/rafikiAI.jpg",
+};
 
 export function FeaturedProjects() {
   const featured = projects.filter((p) => p.featured);
@@ -51,48 +59,21 @@ export function FeaturedProjects() {
                     isEven ? "lg:order-1" : "lg:order-2"
                   }`}
                 >
-                  <div className="relative group rounded-2xl bg-gradient-to-br from-slate-800 to-slate-950 p-6 border border-slate-800 hover:border-red-500/50 transition-all duration-300 shadow-2xl overflow-hidden">
-                    {/* Visual Card Mock Header */}
-                    <div className="flex items-center justify-between border-b border-slate-800/80 pb-3 mb-4">
-                     
-                      <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-red-950/80 text-red-400 border border-red-800/50">
+                  <div className="relative group aspect-[4/3] rounded-2xl bg-slate-950 border border-slate-800 hover:border-red-500/50 transition-all duration-300 shadow-2xl overflow-hidden">
+                    <Image
+                      src={featuredProjectImages[project.id]}
+                      alt={`${project.title} project preview`}
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 58vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 bg-gradient-to-t from-slate-950/90 via-slate-950/35 to-transparent px-5 pb-5 pt-16">
+                      <span className="text-xs font-mono font-bold text-white">
+                        {project.countries.join(" • ")}
+                      </span>
+                      <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-red-950/90 text-red-300 border border-red-800/60">
                         {project.year}
                       </span>
-                    </div>
-
-                    {/* Content Preview Box */}
-                    <div className="p-6 rounded-xl bg-slate-950/90 border border-slate-800 space-y-4">
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs font-mono font-bold text-red-400 uppercase tracking-wider">
-                          {project.category}
-                        </span>
-                        <div className="flex items-center gap-2 text-xs font-mono text-slate-400">
-                          <span>{project.countries.join(" • ")}</span>
-                        </div>
-                      </div>
-
-                      <h4 className="text-xl sm:text-2xl font-bold text-white">
-                        {project.title}
-                      </h4>
-                      <p className="text-sm text-slate-300 leading-relaxed">
-                        {project.description}
-                      </p>
-
-                      {/* Impact Metrics Snippet */}
-                      {project.impactMetrics && project.impactMetrics.length > 0 && (
-                        <div className="pt-2 grid grid-cols-3 gap-2 border-t border-slate-900">
-                          {project.impactMetrics.map((m) => (
-                            <div key={m.label} className="bg-slate-900/60 p-2.5 rounded-lg border border-slate-800/60">
-                              <span className="block text-sm sm:text-base font-black font-mono text-red-400">
-                                {m.value}
-                              </span>
-                              <span className="text-[10px] text-slate-400 block font-medium truncate">
-                                {m.label}
-                              </span>
-                            </div>
-                          ))}
-                        </div>
-                      )}
                     </div>
                   </div>
                 </div>

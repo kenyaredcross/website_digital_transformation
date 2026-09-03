@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { thematicAreas } from "@/data/thematicAreas";
 import { Smartphone, BarChart3, MapPin, Cpu, ArrowUpRight, CheckCircle2 } from "lucide-react";
 import type { Metadata } from "next";
@@ -87,26 +88,27 @@ export default function WhatWeDoPage() {
                     </div>
                   </div>
 
-                  {/* Right Side: Metrics & Detail CTA */}
-                  <div className="lg:col-span-4 bg-slate-950 p-6 rounded-2xl border border-slate-800 space-y-6">
-                    <span className="text-xs font-mono font-bold text-slate-400 uppercase tracking-wider block border-b border-slate-800 pb-2">
-                      Operational Highlights
-                    </span>
+                  {/* Right Side: Thematic image & detail CTA */}
+                  <div className="lg:col-span-4 space-y-5">
+                    <Link
+                      href={`/what-we-do/${area.slug}`}
+                      className="relative block aspect-square overflow-hidden rounded-2xl border border-slate-800 bg-slate-950 shadow-xl"
+                      aria-label={`Explore ${area.title}`}
+                    >
+                      <Image
+                        src={area.featuredImageUrl}
+                        alt={`${area.title} in action`}
+                        fill
+                        sizes="(max-width: 1024px) 100vw, 33vw"
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-transparent to-transparent" />
+                      <span className="absolute inset-x-5 bottom-5 text-sm font-bold text-white">
+                        {area.shortTitle}
+                      </span>
+                    </Link>
 
-                    <div className="space-y-4">
-                      {area.impactMetrics.map((m) => (
-                        <div key={m.label} className="p-3 rounded-xl bg-slate-900 border border-slate-800">
-                          <span className="block text-xl font-black font-mono text-red-400">
-                            {m.value}
-                          </span>
-                          <span className="text-xs text-slate-400 font-medium">
-                            {m.label}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-
-                    <div className="pt-2">
+                    <div>
                       <Link
                         href={`/what-we-do/${area.slug}`}
                         className="w-full inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl font-bold text-sm text-white bg-red-600 hover:bg-red-700 transition-colors shadow-lg"

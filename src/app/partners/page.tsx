@@ -2,6 +2,7 @@ import { partners } from "@/data/partners";
 import { projects } from "@/data/projects";
 import { Handshake, ExternalLink, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -71,6 +72,16 @@ export default function PartnersPage() {
                               <span>Official Site</span>
                               <ExternalLink className="w-3.5 h-3.5" />
                             </a>
+                          </div>
+
+                          <div className="relative h-28 w-full overflow-hidden rounded-xl bg-white p-3">
+                            <Image
+                              src={partner.logo}
+                              alt={`${partner.name} logo`}
+                              fill
+                              sizes="(max-width: 768px) 100vw, 50vw"
+                              className="object-contain"
+                            />
                           </div>
 
                           <h3 className="text-2xl font-bold text-white">

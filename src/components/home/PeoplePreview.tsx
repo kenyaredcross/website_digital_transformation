@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { people } from "@/data/people";
 import { ArrowRight, Users } from "lucide-react";
@@ -38,16 +39,14 @@ export function PeoplePreview() {
               className="group relative rounded-2xl bg-slate-50 dark:bg-slate-950 p-6 border border-slate-200 dark:border-slate-800 hover:border-red-500/50 transition-all duration-300 flex flex-col justify-between"
             >
               <div>
-                {/* Avatar Placeholder / Graphic Box */}
-                <div className="relative w-full aspect-square rounded-xl bg-gradient-to-br from-slate-200 to-slate-300 dark:from-slate-800 dark:to-slate-900 mb-6 flex items-center justify-center border border-slate-200 dark:border-slate-800 group-hover:scale-[1.02] transition-transform overflow-hidden">
-                  <div className="text-center p-4">
-                    <div className="w-16 h-16 rounded-full bg-red-600/10 dark:bg-red-500/20 text-red-600 dark:text-red-400 flex items-center justify-center font-bold text-2xl font-mono mx-auto mb-2 border border-red-500/30">
-                      {person.name.split(" ").map((n) => n[0]).join("")}
-                    </div>
-                    <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase tracking-widest block">
-                      {person.department}
-                    </span>
-                  </div>
+                <div className="relative w-full aspect-square rounded-xl bg-slate-200 dark:bg-slate-900 mb-6 border border-slate-200 dark:border-slate-800 group-hover:scale-[1.02] transition-transform overflow-hidden">
+                  <Image
+                    src={person.avatar}
+                    alt={`Portrait of ${person.name}`}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                    className="object-cover"
+                  />
                 </div>
 
                 <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-1 group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors">

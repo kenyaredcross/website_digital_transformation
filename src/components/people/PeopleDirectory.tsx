@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { people } from "@/data/people";
 import { Search, Filter, ArrowRight } from "lucide-react";
@@ -96,16 +97,14 @@ export function PeopleDirectory() {
             className="group rounded-2xl bg-slate-900 border border-slate-800 hover:border-red-500/50 transition-all duration-300 p-6 flex flex-col justify-between"
           >
             <div>
-              {/* Graphic Avatar Box */}
-              <div className="relative w-full aspect-square rounded-xl bg-slate-950 border border-slate-800 mb-6 flex items-center justify-center group-hover:border-red-500/30 transition-colors">
-                <div className="text-center p-4">
-                  <div className="w-16 h-16 rounded-full bg-red-950 text-red-400 border border-red-800 font-mono font-black text-2xl flex items-center justify-center mx-auto mb-2">
-                    {person.name.split(" ").map((n) => n[0]).join("")}
-                  </div>
-                  <span className="text-[10px] font-mono text-slate-400 uppercase tracking-widest block">
-                    {person.department}
-                  </span>
-                </div>
+              <div className="relative w-full aspect-square overflow-hidden rounded-xl bg-slate-950 border border-slate-800 mb-6 group-hover:border-red-500/30 transition-colors">
+                <Image
+                  src={person.avatar}
+                  alt={`Portrait of ${person.name}`}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  className="object-cover transition-transform duration-300 group-hover:scale-105"
+                />
               </div>
 
               <h3 className="text-xl font-bold text-white mb-1 group-hover:text-red-400 transition-colors">

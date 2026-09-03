@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { people } from "@/data/people";
 import { projects } from "@/data/projects";
 import { ArrowLeft, ArrowRight, Mail, Globe, ExternalLink, Layers, Award, CheckCircle2 } from "lucide-react";
@@ -58,8 +59,14 @@ export default async function PersonProfilePage({
 
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
             <div className="flex items-center gap-6">
-              <div className="w-20 h-20 rounded-2xl bg-red-950 text-red-400 font-mono font-black text-3xl flex items-center justify-center border-2 border-red-800 shadow-xl shrink-0">
-                {person.name.split(" ").map((n) => n[0]).join("")}
+              <div className="relative w-20 h-20 rounded-2xl overflow-hidden border-2 border-red-800 shadow-xl shrink-0 bg-slate-900">
+                <Image
+                  src={person.avatar}
+                  alt={`Portrait of ${person.name}`}
+                  fill
+                  sizes="80px"
+                  className="object-cover"
+                />
               </div>
               <div>
                 <div className="flex flex-wrap items-center gap-2 mb-2">
