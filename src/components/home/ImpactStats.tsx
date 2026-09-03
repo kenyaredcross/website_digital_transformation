@@ -80,9 +80,7 @@ export function ImpactStats() {
                   <div className="p-3 rounded-xl bg-red-600/10 border border-red-500/20 text-red-500 group-hover:scale-110 transition-transform">
                     <Icon className="w-6 h-6" />
                   </div>
-                  <span className="text-[11px] font-mono text-slate-500 uppercase tracking-wider">
-                    Metrics 0{idx + 1}
-                  </span>
+             
                 </div>
 
                 <div className="text-4xl sm:text-5xl font-black text-white mb-2">

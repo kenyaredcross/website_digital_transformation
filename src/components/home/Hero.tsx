@@ -15,17 +15,7 @@ export function Hero() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           {/* Left Column - Text Content */}
           <div className="lg:col-span-12 space-y-6 text-center">
-            {/* Department Badge */}
-            
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-slate-800 text-xs font-semibold tracking-wide text-red-400 shadow-inner"
-            >
-              <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-              <span>Kenya Red Cross Society — Digital Transformation</span>
-            </motion.div>
+           
 
             {/* Headline */}
             <motion.h1
