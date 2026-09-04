@@ -198,8 +198,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           </button>
 
           <Link href="/admin" className="flex items-center gap-2.5">
-            <div className="w-9 h-9 bg-[#EE2435] rounded-lg flex items-center justify-center shadow-md">
-              <span className="text-white font-black text-lg">⚡</span>
+            <div className="w-9 h-9 rounded-lg overflow-hidden bg-white shadow-md shrink-0">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/assets/images/logo/KRCS_logo.jpeg" alt="KRCS logo" className="w-full h-full object-contain" />
             </div>
             <div className="hidden sm:block">
               <span className="block text-white font-bold text-sm leading-tight">Kenya Red Cross</span>

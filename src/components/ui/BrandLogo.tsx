@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 interface BrandLogoProps {
   variant?: "light" | "dark";
@@ -6,42 +7,61 @@ interface BrandLogoProps {
 }
 
 export function BrandLogo({ variant = "dark", size = "md" }: BrandLogoProps) {
-  const emblemSizes = {
-    sm: "w-8 h-8",
-    md: "w-10 h-10",
-    lg: "w-12 h-12",
+  const imgSizes = {
+    sm: { w: 32, h: 32, cls: "w-8 h-8" },
+    md: { w: 44, h: 44, cls: "w-11 h-11" },
+    lg: { w: 56, h: 56, cls: "w-14 h-14" },
   };
 
-  const textPrimary = variant === "light" ? "text-white" : "text-slate-900 dark:text-white";
-  const textSecondary = variant === "light" ? "text-red-200" : "text-red-600 dark:text-red-400";
+  const textPrimary =
+    variant === "light" ? "text-white" : "text-slate-900 dark:text-white";
+  const textSecondary =
+    variant === "light"
+      ? "text-red-200"
+      : "text-red-600 dark:text-red-400";
+
+  const { w, h, cls } = imgSizes[size];
 
   return (
-    <Link href="/" className="group flex items-center gap-3 transition-opacity hover:opacity-95">
-      {/* Official-style Red Cross Emblem */}
-      <div className={`relative flex items-center justify-center rounded-full bg-white shadow-sm ring-1 ring-slate-200/80 ${emblemSizes[size]} shrink-0`}>
-        {/* Outer Red Ring */}
-        <div className="absolute inset-0.5 rounded-full border-2 border-[#EE2435]/20" />
-        {/* Red Cross Icon */}
-        <svg viewBox="0 0 100 100" className="w-3/5 h-3/5 text-[#EE2435]" fill="currentColor">
-          {/* Vertical Bar */}
-          <rect x="38" y="10" width="24" height="80" rx="2" />
-          {/* Horizontal Bar */}
-          <rect x="10" y="38" width="80" height="24" rx="2" />
-        </svg>
+    <Link
+      href="/"
+      className="group flex items-center gap-3 transition-opacity hover:opacity-95"
+    >
+      {/* KRCS Logo */}
+      <div
+        className={`relative ${cls} shrink-0 rounded-full overflow-hidden bg-white shadow-sm ring-1 ring-slate-200/60`}
+      >
+        <Image
+          src="/assets/images/logo/KRCS_logo.jpeg"
+          alt="Kenya Red Cross Society logo"
+          width={w}
+          height={h}
+          className="object-contain w-full h-full"
+          priority
+        />
       </div>
 
       {/* Brand Typography */}
       <div className="flex flex-col">
         <div className="flex items-center gap-1.5 leading-none">
-          <span className={`font-black tracking-tight uppercase ${size === "sm" ? "text-sm" : size === "lg" ? "text-xl" : "text-base"} ${textPrimary}`}>
+          <span
+            className={`font-black tracking-tight uppercase ${
+              size === "sm"
+                ? "text-sm"
+                : size === "lg"
+                ? "text-xl"
+                : "text-base"
+            } ${textPrimary}`}
+          >
             Kenya Red Cross
           </span>
         </div>
         <div className="flex items-center gap-1.5 mt-0.5 leading-none">
-          <span className={`font-semibold tracking-wider text-[10px] md:text-[11px] uppercase ${textSecondary}`}>
+          <span
+            className={`font-semibold tracking-wider text-[10px] md:text-[11px] uppercase ${textSecondary}`}
+          >
             Digital Transformation
           </span>
-          
         </div>
       </div>
     </Link>

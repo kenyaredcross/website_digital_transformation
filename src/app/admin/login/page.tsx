@@ -60,8 +60,9 @@ export default function AdminLoginPage() {
         {/* Header Branding */}
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-3 mb-3 group">
-            <div className="w-12 h-12 bg-[#EE2435] rounded-xl flex items-center justify-center shadow-lg shadow-[#EE2435]/30 group-hover:scale-105 transition-transform">
-              <span className="text-white font-black text-2xl">⚡</span>
+            <div className="w-12 h-12 rounded-xl overflow-hidden bg-white shadow-lg group-hover:scale-105 transition-transform shrink-0">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/assets/images/logo/KRCS_logo.jpeg" alt="KRCS logo" className="w-full h-full object-contain" />
             </div>
             <div className="text-left">
               <span className="block text-white font-bold text-lg leading-none">Kenya Red Cross</span>
