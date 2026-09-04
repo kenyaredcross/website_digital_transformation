@@ -1,21 +1,33 @@
 "use client";
 
-import { useState, useMemo } from "react";
-import { blogs } from "@/data/blogs";
+import { useState, useEffect, useMemo } from "react";
+import { blogs as initialBlogs } from "@/data/blogs";
+import { BlogPost } from "@/types";
 import { BlogCard } from "@/components/blog/BlogCard";
 import { Search, Filter, BookOpen } from "lucide-react";
 
 export function BlogFilterableGrid() {
+  const [blogsList, setBlogsList] = useState<BlogPost[]>(initialBlogs);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
 
-  const categories = [
-    "All",
-    ...Array.from(new Set(blogs.map((b) => b.category))),
-  ];
+  useEffect(() => {
+    fetch("/api/data/blogs")
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          setBlogsList(data);
+        }
+      })
+      .catch((err) => console.error("Failed to load live blogs:", err));
+  }, []);
+
+  const categories = useMemo(() => {
+    return ["All", ...Array.from(new Set(blogsList.map((b) => b.category)))];
+  }, [blogsList]);
 
   const filteredBlogs = useMemo(() => {
-    return blogs.filter((post) => {
+    return blogsList.filter((post) => {
       if (selectedCategory !== "All" && post.category !== selectedCategory) {
         return false;
       }
@@ -24,7 +36,7 @@ export function BlogFilterableGrid() {
         const q = searchQuery.toLowerCase();
         const matchTitle = post.title.toLowerCase().includes(q);
         const matchExcerpt = post.excerpt.toLowerCase().includes(q);
-        const matchTags = post.tags.some((t) => t.toLowerCase().includes(q));
+        const matchTags = post.tags?.some((t) => t.toLowerCase().includes(q));
 
         if (!matchTitle && !matchExcerpt && !matchTags) {
           return false;
@@ -33,7 +45,7 @@ export function BlogFilterableGrid() {
 
       return true;
     });
-  }, [searchQuery, selectedCategory]);
+  }, [blogsList, searchQuery, selectedCategory]);
 
   return (
     <div className="space-y-10">

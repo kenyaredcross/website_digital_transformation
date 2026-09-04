@@ -1,11 +1,12 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { blogs } from "@/data/blogs";
+import { getBlogs, getBlogBySlug } from "@/lib/get-data";
 import { ArrowLeft, ArrowRight, Calendar, Clock, Video, ExternalLink, Tag } from "lucide-react";
 import type { Metadata } from "next";
 
 export function generateStaticParams() {
+  const blogs = getBlogs();
   return blogs.map((b) => ({
     slug: b.slug,
   }));
@@ -17,7 +18,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const resolvedParams = await params;
-  const post = blogs.find((b) => b.slug === resolvedParams.slug);
+  const post = getBlogBySlug(resolvedParams.slug);
 
   if (!post) {
     return { title: "Article Not Found" };
@@ -35,13 +36,14 @@ export default async function BlogPostPage({
   params: Promise<{ slug: string }>;
 }) {
   const resolvedParams = await params;
-  const post = blogs.find((b) => b.slug === resolvedParams.slug);
+  const post = getBlogBySlug(resolvedParams.slug);
 
   if (!post) {
     notFound();
   }
 
-  const relatedPosts = blogs.filter((b) => b.id !== post.id).slice(0, 3);
+  const allBlogs = getBlogs();
+  const relatedPosts = allBlogs.filter((b) => b.id !== post.id).slice(0, 3);
 
   return (
     <div className="pt-28 pb-20 bg-slate-950 text-white min-h-screen">

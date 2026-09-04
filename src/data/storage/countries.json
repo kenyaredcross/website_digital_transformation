@@ -1,0 +1,160 @@
+[
+  {
+    "id": "kenya",
+    "code": "KE",
+    "name": "Kenya",
+    "region": "East Africa",
+    "isActive": true,
+    "shortDescription": "Primary operational headquarters across all 47 counties, managing full-suite digital products, GIS mapping, and early warning systems.",
+    "activeInitiativesCount": 18,
+    "digitalProductsCount": 12,
+    "dataServicesCount": 8,
+    "keyInitiatives": [
+      "Hazina Early Warning Platform",
+      "BomaCare Cash & Voucher Assistance",
+      "RedPulse Outbreak Analytics",
+      "47-County GIS Vulnerability Index",
+      "River Tana IoT Flood Telemetry"
+    ],
+    "coordinates": {
+      "lat": -0.0236,
+      "lng": 37.9062
+    }
+  },
+  {
+    "id": "uganda",
+    "code": "UG",
+    "name": "Uganda",
+    "region": "East Africa",
+    "isActive": true,
+    "shortDescription": "Regional cross-border epidemic surveillance and flood early action collaboration with Uganda Red Cross Society.",
+    "activeInitiativesCount": 6,
+    "digitalProductsCount": 4,
+    "dataServicesCount": 3,
+    "keyInitiatives": [
+      "Cross-Border Outbreak Tracker",
+      "Karamoja Drought Early Warning Feed",
+      "Lake Victoria Spatial Navigation Map"
+    ],
+    "coordinates": {
+      "lat": 1.3733,
+      "lng": 32.2903
+    }
+  },
+  {
+    "id": "tanzania",
+    "code": "TZ",
+    "name": "Tanzania",
+    "region": "East Africa",
+    "isActive": true,
+    "shortDescription": "Joint coastal flood mapping, cholera surveillance dashboard, and community mHealth training programs.",
+    "activeInitiativesCount": 5,
+    "digitalProductsCount": 3,
+    "dataServicesCount": 2,
+    "keyInitiatives": [
+      "Coastal Flood Storm Surge Modeling",
+      "Cholera Outbreak Telemetry",
+      "Swahili Natural Language Health Chatbot"
+    ],
+    "coordinates": {
+      "lat": -6.369,
+      "lng": 34.8888
+    }
+  },
+  {
+    "id": "somalia",
+    "code": "SO",
+    "name": "Somalia",
+    "region": "Horn of Africa",
+    "isActive": true,
+    "shortDescription": "Cross-border drought tracking, displaced population cash assistance platform deployment, and satellite damage assessment.",
+    "activeInitiativesCount": 7,
+    "digitalProductsCount": 4,
+    "dataServicesCount": 4,
+    "keyInitiatives": [
+      "Horn of Africa Drought Index",
+      "Mobile Cash Disbursement Gateway",
+      "Satellite Shelter Damage Classifier"
+    ],
+    "coordinates": {
+      "lat": 5.1521,
+      "lng": 46.1996
+    }
+  },
+  {
+    "id": "ethiopia",
+    "code": "ET",
+    "name": "Ethiopia",
+    "region": "Horn of Africa",
+    "isActive": true,
+    "shortDescription": "Shared hydrological data pipelines along Omo and Dawa river basins for anticipatory flood warnings.",
+    "activeInitiativesCount": 4,
+    "digitalProductsCount": 2,
+    "dataServicesCount": 3,
+    "keyInitiatives": [
+      "Basin Hydrological Data Exchange",
+      "Locust Migration Satellite Tracker"
+    ],
+    "coordinates": {
+      "lat": 9.145,
+      "lng": 40.4897
+    }
+  },
+  {
+    "id": "south-sudan",
+    "code": "SS",
+    "name": "South Sudan",
+    "region": "East & Central Africa",
+    "isActive": true,
+    "shortDescription": "Sudd wetland flood inundation mapping and offline mobile health survey tool deployment.",
+    "activeInitiativesCount": 4,
+    "digitalProductsCount": 3,
+    "dataServicesCount": 2,
+    "keyInitiatives": [
+      "Sudd Wetland Inundation Radar Mapping",
+      "Offline Vaccine Logistics Tracker"
+    ],
+    "coordinates": {
+      "lat": 6.877,
+      "lng": 31.307
+    }
+  },
+  {
+    "id": "rwanda",
+    "code": "RW",
+    "name": "Rwanda",
+    "region": "East Africa",
+    "isActive": true,
+    "shortDescription": "Technical knowledge exchange on drone imagery processing and emergency dispatch automation.",
+    "activeInitiativesCount": 3,
+    "digitalProductsCount": 2,
+    "dataServicesCount": 2,
+    "keyInitiatives": [
+      "Landslide Spatial Early Warning",
+      "Drone Flight Imagery Pipeline"
+    ],
+    "coordinates": {
+      "lat": -1.9403,
+      "lng": 29.8739
+    }
+  },
+  {
+    "id": "drc",
+    "code": "CD",
+    "name": "Democratic Republic of Congo",
+    "region": "Central Africa",
+    "isActive": true,
+    "shortDescription": "Ebola & Marburg epidemic surveillance data integration with regional Red Cross outbreak dashboards.",
+    "activeInitiativesCount": 3,
+    "digitalProductsCount": 2,
+    "dataServicesCount": 2,
+    "keyInitiatives": [
+      "Viral Hemorrhagic Fever Early Warning",
+      "Community Epidemic Response Portal"
+    ],
+    "coordinates": {
+      "lat": -4.0383,
+      "lng": 21.7587
+    }
+  }
+]

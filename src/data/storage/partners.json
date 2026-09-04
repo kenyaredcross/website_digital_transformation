@@ -1,0 +1,82 @@
+[
+  {
+    "id": "ifrc",
+    "name": "International Federation of Red Cross (IFRC)",
+    "category": "Strategic",
+    "logo": "/assets/images/partners/ifrc.jpg",
+    "description": "Global governing body supporting digital transformation standards, emergency funding mechanisms, and global knowledge exchange.",
+    "website": "https://www.ifrc.org",
+    "collaborationFocus": "Global Standards, Anticipatory Action & Emergency Funds",
+    "featured": true
+  },
+  {
+    "id": "icrc",
+    "name": "International Committee of the Red Cross (ICRC)",
+    "category": "Strategic",
+    "logo": "/assets/images/partners/icrc.jpg",
+    "description": "Collaborating on humanitarian data protection, data protection in armed conflict settings, and restoring family links (RFL) platforms.",
+    "website": "https://www.icrc.org",
+    "collaborationFocus": "Data Ethics, Protection & Family Links",
+    "featured": true
+  },
+  {
+    "id": "un-ocha",
+    "name": "UN OCHA (Centre for Humanitarian Data)",
+    "category": "Technology",
+    "logo": "/assets/images/partners/ocha.jpg",
+    "description": "Partnering on HDX data sharing protocols, predictive analytics frameworks, and standardized humanitarian data exchanges.",
+    "website": "https://centre.humdata.org",
+    "collaborationFocus": "Humanitarian Data Exchange (HDX) & Analytics",
+    "featured": true
+  },
+  {
+    "id": "google-org",
+    "name": "Google.org & AI for Good",
+    "category": "Technology",
+    "logo": "/assets/images/partners/google.jpg",
+    "description": "Technical mentorship, cloud credits, and AI grant supporting our early flood warning sensors and natural language AI models.",
+    "website": "https://google.org",
+    "collaborationFocus": "AI for Disaster Response & Flood Forecasting",
+    "featured": true
+  },
+  {
+    "id": "world-bank",
+    "name": "World Bank GFDRR",
+    "category": "Funding",
+    "logo": "/assets/images/partners/GFDRR.jpeg",
+    "description": "Global Facility for Disaster Reduction and Recovery funding resilient GIS infrastructure and vulnerability index mapping.",
+    "website": "https://www.gfdrr.org",
+    "collaborationFocus": "GIS Infrastructure & Climate Vulnerability Index",
+    "featured": true
+  },
+  {
+    "id": "university-nairobi",
+    "name": "University of Nairobi C4D Lab",
+    "category": "Implementation",
+    "logo": "/assets/images/partners/uon.jpg",
+    "description": "Academic collaboration on student developer fellowships, user research in informal settlements, and open-source hackathons.",
+    "website": "http://c4dlab.ac.ke",
+    "collaborationFocus": "Research, Student Innovation & Open Source",
+    "featured": false
+  },
+  {
+    "id": "safaricom-foundation",
+    "name": "Safaricom Foundation",
+    "category": "Implementation",
+    "logo": "/assets/images/partners/safaricom_foundation.png",
+    "description": "National telecommunications partner enabling USSD, M-PESA API integrations for cash assistance, and SMS early warning distribution.",
+    "website": "https://www.safaricomfoundation.org",
+    "collaborationFocus": "M-PESA Integration & Mass SMS Telemetry",
+    "featured": true
+  },
+  {
+    "id": "esa",
+    "name": "European Space Agency (ESA)",
+    "category": "Technology",
+    "logo": "/assets/images/partners/esa.jpg",
+    "description": "Providing high-resolution Sentinel satellite imagery data for drought monitoring and flood extent mapping across Kenya.",
+    "website": "https://www.esa.int",
+    "collaborationFocus": "Earth Observation Data & Satellite Remote Sensing",
+    "featured": false
+  }
+]
