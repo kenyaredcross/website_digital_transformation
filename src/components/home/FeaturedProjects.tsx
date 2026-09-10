@@ -9,7 +9,7 @@ import { ArrowRight, Layers, Sparkles, ExternalLink } from "lucide-react";
 const featuredProjectImages: Record<string, string> = {
   hazina: "/assets/images/dt_updates/app.jpg",
   bomacare: "/assets/images/dt_updates/app_phone.jpg",
-  redpulse: "/assets/images/dt_updates/person_standing.jpg",
+  redpulse: "/assets/images/dt_updates/person_standingl.jpg",
   "rafiki-ai": "/assets/images/dt_updates/learning.jpg",
 };
 
