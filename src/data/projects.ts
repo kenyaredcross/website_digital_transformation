@@ -23,7 +23,7 @@ export const projects: Project[] = [
     teamIds: ["p1", "p2", "p3", "p4"],
     partnerIds: ["ifrc", "google-org", "esa", "safaricom-foundation"],
     featured: true,
-    image: "public/assets/images/dt_updates/app.jpg",
+    image: "/assets/images/dt_updates/app.jpg",
     gallery: [
       "/assets/images/portfolio/hazina-dashboard.webp",
       "/assets/images/portfolio/hazina-map.webp",
@@ -53,7 +53,7 @@ export const projects: Project[] = [
     teamIds: ["p2", "p5", "p6", "p7"],
     partnerIds: ["ifrc", "icrc", "safaricom-foundation"],
     featured: true,
-    image: "public/assets/images/dt_updates/app_phone.jpg",
+    image: "/assets/images/dt_updates/app_phone.jpg",
     gallery: [
       "/assets/images/portfolio/bomacare-app.webp",
       "/assets/images/portfolio/bomacare-disbursement.webp",
@@ -82,7 +82,7 @@ export const projects: Project[] = [
     teamIds: ["p3", "p4", "p8"],
     partnerIds: ["un-ocha", "google-org"],
     featured: true,
-    image: "public/assets/images/dt_updates/person_standing.jpg",
+    image: "/assets/images/dt_updates/person_standing.jpg",
     gallery: [
       "/assets/images/portfolio/redpulse-heatmaps.webp",
       "/assets/images/portfolio/redpulse-analytics.webp",
@@ -111,7 +111,7 @@ export const projects: Project[] = [
     teamIds: ["p4", "p3", "p7"],
     partnerIds: ["world-bank", "esa", "un-ocha"],
     featured: false,
-    image: "public/assets/images/dt_updates/hunger_s.jpg",
+    image: "/assets/images/dt_updates/hunger_s.jpg",
     gallery: [
       "/assets/images/portfolio/resiliencemap-atlas.webp",
       "/assets/images/portfolio/resiliencemap-layers.webp",
@@ -140,7 +140,7 @@ export const projects: Project[] = [
     teamIds: ["p2", "p5", "p8"],
     partnerIds: ["ifrc", "safaricom-foundation"],
     featured: false,
-    image: "public/assets/images/dt_updates/reliefs.jpg",
+    image: "/assets/images/dt_updates/reliefs.jpg",
     gallery: [
       "/assets/images/portfolio/mamaafya-screens.webp",
     ],
@@ -167,7 +167,7 @@ export const projects: Project[] = [
     teamIds: ["p3", "p1", "p7"],
     partnerIds: ["google-org", "safaricom-foundation"],
     featured: true,
-    image: "public/assets/images/dt_updates/learning.jpg",
+    image: "/assets/images/dt_updates/learning.jpg",
     gallery: [
       "/assets/images/portfolio/rafiki-chat.webp",
     ],
