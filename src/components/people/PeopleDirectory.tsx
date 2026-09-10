@@ -1,14 +1,33 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { people } from "@/data/people";
 import { Search, Filter, ArrowRight } from "lucide-react";
+import type { Person } from "@/types";
+import { people as staticPeople } from "@/data/people";
 
-export function PeopleDirectory() {
+interface PeopleDirectoryProps {
+  initialPeople?: Person[];
+}
+
+export function PeopleDirectory({ initialPeople }: PeopleDirectoryProps = {}) {
+  const [people, setPeople] = useState<Person[]>(
+    initialPeople && initialPeople.length > 0 ? initialPeople : staticPeople
+  );
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedDepartment, setSelectedDepartment] = useState<string>("All");
+
+  useEffect(() => {
+    fetch("/api/data/people")
+      .then((r) => r.json())
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          setPeople(data);
+        }
+      })
+      .catch(console.error);
+  }, []);
 
   const departments = [
     "All",
@@ -92,9 +111,10 @@ export function PeopleDirectory() {
       {/* Directory Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
         {filteredPeople.map((person) => (
-          <div
+          <Link
             key={person.id}
-            className="group rounded-2xl bg-slate-900 border border-slate-800 hover:border-red-500/50 transition-all duration-300 p-6 flex flex-col justify-between"
+            href={`/people/${person.slug}`}
+            className="group rounded-2xl bg-slate-900 border border-slate-800 hover:border-red-500/50 hover:shadow-xl hover:shadow-red-500/5 transition-all duration-300 p-6 flex flex-col justify-between cursor-pointer"
           >
             <div>
               <div className="relative w-full aspect-square overflow-hidden rounded-xl bg-slate-950 border border-slate-800 mb-6 group-hover:border-red-500/30 transition-colors">
@@ -139,15 +159,12 @@ export function PeopleDirectory() {
                 ))}
               </div>
 
-              <Link
-                href={`/people/${person.slug}`}
-                className="w-full flex items-center justify-between text-xs font-bold text-white hover:text-red-400 pt-2 border-t border-slate-800/60 transition-colors"
-              >
+              <div className="w-full flex items-center justify-between text-xs font-bold text-white group-hover:text-red-400 pt-2 border-t border-slate-800/60 transition-colors">
                 <span>View Full Profile & Projects</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+              </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

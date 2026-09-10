@@ -1,4 +1,5 @@
 import { PeopleDirectory } from "@/components/people/PeopleDirectory";
+import { getPeople } from "@/lib/get-data";
 import { Users } from "lucide-react";
 import type { Metadata } from "next";
 
@@ -9,6 +10,8 @@ export const metadata: Metadata = {
 };
 
 export default function PeoplePage() {
+  const initialPeople = getPeople();
+
   return (
     <div className="pt-28 pb-20 bg-slate-950 text-white min-h-screen">
       {/* Header */}
@@ -29,7 +32,7 @@ export default function PeoplePage() {
       {/* Directory Section */}
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <PeopleDirectory />
+          <PeopleDirectory initialPeople={initialPeople} />
         </div>
       </section>
     </div>

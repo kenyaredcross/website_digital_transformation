@@ -1,10 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { projects } from "@/data/projects";
-import { people } from "@/data/people";
-import { partners } from "@/data/partners";
-import { thematicAreas } from "@/data/thematicAreas";
-import { countries } from "@/data/countries";
+import { getProjects, getPeople, getPartners, getThematicAreas, getCountries } from "@/lib/get-data";
 import {
   ArrowLeft,
   ArrowRight,
@@ -14,7 +10,11 @@ import {
 } from "lucide-react";
 import type { Metadata } from "next";
 
+// Allow slugs not pre-rendered at build time to be SSR'd on demand
+export const dynamicParams = true;
+
 export function generateStaticParams() {
+  const projects = getProjects();
   return projects.map((p) => ({
     slug: p.slug,
   }));
@@ -26,6 +26,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const resolvedParams = await params;
+  const projects = getProjects();
   const project = projects.find((p) => p.slug === resolvedParams.slug);
 
   if (!project) {
@@ -44,6 +45,9 @@ export default async function ProjectDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const resolvedParams = await params;
+  const projects = getProjects();
+  const people = getPeople();
+  const partners = getPartners();
   const project = projects.find((p) => p.slug === resolvedParams.slug);
 
   if (!project) {
@@ -55,6 +59,9 @@ export default async function ProjectDetailPage({
 
   // Resolve partners from partnerIds
   const projectPartners = partners.filter((pt) => project.partnerIds?.includes(pt.id));
+
+  const thematicAreas = getThematicAreas();
+  const countries = getCountries();
 
   // Resolve thematic area
   const thematicArea = thematicAreas.find((t) => t.slug === project.thematicAreaSlug);

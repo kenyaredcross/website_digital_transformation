@@ -1,4 +1,7 @@
+import Image from "next/image";
 import { aboutData } from "@/data/about";
+import { AboutGallery } from "@/components/about/AboutGallery";
+import { JourneyTimeline } from "@/components/about/JourneyTimeline";
 import { Search, PenTool, Code, Rocket, BarChart2, RefreshCw, Flag } from "lucide-react";
 import type { Metadata } from "next";
 
@@ -20,16 +23,33 @@ const iconMap = {
 export default function AboutPage() {
   return (
     <div className="pt-28 pb-20 bg-slate-950 text-white min-h-screen">
-      {/* Hero Section */}
-      <section className="relative py-16 md:py-24 border-b border-slate-800 bg-grid-pattern opacity-95">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
-          <span className="inline-block text-xs font-mono font-bold uppercase tracking-widest text-red-500 bg-red-950/80 px-3 py-1 rounded border border-red-800/60">
+      {/* Hero Section with lowered opacity hands1.jpg background */}
+      <section className="relative py-20 md:py-28 border-b border-slate-800 bg-slate-950 overflow-hidden">
+        {/* Background Image hands1.jpg with lowered opacity */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/assets/images/distro/hands1.jpg"
+            alt="Humanitarian Technology & Field Operations"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-center opacity-25"
+          />
+          {/* Subtle gradient overlays for optimal text contrast */}
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/85 to-slate-950/60" />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-slate-950/70" />
+          <div className="absolute inset-0 bg-grid-pattern opacity-30 mix-blend-overlay" />
+        </div>
+
+        {/* Hero Content */}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+          <span className="inline-block text-xs font-mono font-bold uppercase tracking-widest text-red-500 bg-red-950/90 px-3.5 py-1.5 rounded-full border border-red-800/70 shadow-lg backdrop-blur-md">
             About Our Department
           </span>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight drop-shadow-md">
             {aboutData.heroHeading}
           </h1>
-          <p className="text-xl text-slate-300 max-w-3xl leading-relaxed">
+          <p className="text-xl text-slate-200 max-w-3xl leading-relaxed drop-shadow">
             {aboutData.heroSubheading}
           </p>
         </div>
@@ -74,6 +94,9 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      {/* Field Operations & Deployments Photo Gallery */}
+      <AboutGallery />
 
       {/* Values Section */}
       <section className="py-24 bg-slate-950 border-b border-slate-800">
@@ -156,44 +179,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Milestones / Transformation Journey Timeline */}
-      <section className="py-24 bg-slate-950">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
-            <span className="text-xs font-bold uppercase tracking-widest text-red-500 font-mono flex items-center justify-center gap-2">
-              <Flag className="w-4 h-4" /> Timeline
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-              The Digital Transformation Journey
-            </h2>
-            <p className="text-slate-400 text-base">
-              Key milestones in our evolution into a leading humanitarian technology powerhouse.
-            </p>
-          </div>
-
-          <div className="relative max-w-3xl mx-auto space-y-8 before:absolute before:inset-0 before:left-4 md:before:left-1/2 before:-translate-x-px before:h-full before:w-0.5 before:bg-slate-800">
-            {aboutData.milestones.map((m) => (
-              <div
-                key={m.year}
-                className={`relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group`}
-              >
-                <div className="flex items-center justify-center w-9 h-9 rounded-full bg-red-600 text-white font-mono text-xs font-bold shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2">
-                  {m.year.slice(2)}
-                </div>
-                <div className="w-[calc(100%-3rem)] md:w-[calc(50%-2.5rem)] p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-2">
-                  <span className="text-xs font-mono font-bold text-red-400">
-                    {m.year}
-                  </span>
-                  <h3 className="text-lg font-bold text-white">{m.title}</h3>
-                  <p className="text-xs text-slate-300 leading-relaxed">
-                    {m.description}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Animated Digital Transformation Journey Timeline with Scroll Effects & Distro Images */}
+      <JourneyTimeline />
     </div>
   );
 }

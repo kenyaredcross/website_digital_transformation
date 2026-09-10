@@ -3,10 +3,25 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { people } from "@/data/people";
 import { ArrowRight, Users } from "lucide-react";
+import { useState, useEffect } from "react";
+import type { Person } from "@/types";
+import { people as defaultPeople } from "@/data/people";
 
 export function PeoplePreview() {
+  const [people, setPeople] = useState<Person[]>(defaultPeople);
+
+  useEffect(() => {
+    fetch("/api/data/people")
+      .then((r) => r.json())
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          setPeople(data);
+        }
+      })
+      .catch(console.error);
+  }, []);
+
   const featuredPeople = people.filter((p) => p.featured).slice(0, 4);
 
   return (
@@ -36,53 +51,54 @@ export function PeoplePreview() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="group relative rounded-2xl bg-slate-50 dark:bg-slate-950 p-6 border border-slate-200 dark:border-slate-800 hover:border-red-500/50 transition-all duration-300 flex flex-col justify-between"
             >
-              <div>
-                <div className="relative w-full aspect-square rounded-xl bg-slate-200 dark:bg-slate-900 mb-6 border border-slate-200 dark:border-slate-800 group-hover:scale-[1.02] transition-transform overflow-hidden">
-                  <Image
-                    src={person.avatar}
-                    alt={`Portrait of ${person.name}`}
-                    fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                    className="object-cover"
-                  />
+              <Link
+                href={`/people/${person.slug}`}
+                className="group relative rounded-2xl bg-slate-50 dark:bg-slate-950 p-6 border border-slate-200 dark:border-slate-800 hover:border-red-500/50 hover:shadow-xl hover:shadow-red-500/5 transition-all duration-300 flex flex-col justify-between h-full cursor-pointer"
+              >
+                <div>
+                  <div className="relative w-full aspect-square rounded-xl bg-slate-200 dark:bg-slate-900 mb-6 border border-slate-200 dark:border-slate-800 group-hover:scale-[1.02] transition-transform overflow-hidden">
+                    <Image
+                      src={person.avatar}
+                      alt={`Portrait of ${person.name}`}
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                      className="object-cover"
+                    />
+                  </div>
+
+                  <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-1 group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors">
+                    {person.name}
+                  </h3>
+
+                  <p className="text-xs font-mono font-semibold text-red-600 dark:text-red-400 mb-3">
+                    {person.role}
+                  </p>
+
+                  <p className="text-xs text-slate-600 dark:text-slate-400 line-clamp-3 leading-relaxed mb-4">
+                    {person.shortBio}
+                  </p>
                 </div>
 
-                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-1 group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors">
-                  {person.name}
-                </h3>
+                {/* Skills Tags */}
+                <div className="pt-4 border-t border-slate-200 dark:border-slate-800">
+                  <div className="flex flex-wrap gap-1.5">
+                    {person.expertise.slice(0, 2).map((exp) => (
+                      <span
+                        key={exp}
+                        className="px-2 py-0.5 rounded text-[10px] font-mono font-medium bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300"
+                      >
+                        {exp}
+                      </span>
+                    ))}
+                  </div>
 
-                <p className="text-xs font-mono font-semibold text-red-600 dark:text-red-400 mb-3">
-                  {person.role}
-                </p>
-
-                <p className="text-xs text-slate-600 dark:text-slate-400 line-clamp-3 leading-relaxed mb-4">
-                  {person.shortBio}
-                </p>
-              </div>
-
-              {/* Skills Tags */}
-              <div className="pt-4 border-t border-slate-200 dark:border-slate-800">
-                <div className="flex flex-wrap gap-1.5">
-                  {person.expertise.slice(0, 2).map((exp) => (
-                    <span
-                      key={exp}
-                      className="px-2 py-0.5 rounded text-[10px] font-mono font-medium bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300"
-                    >
-                      {exp}
-                    </span>
-                  ))}
+                  <div className="mt-4 w-full flex items-center justify-between text-xs font-bold text-slate-900 dark:text-white group-hover:text-red-600 dark:group-hover:text-red-400 pt-2 transition-colors">
+                    <span>View Full Profile</span>
+                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                  </div>
                 </div>
-
-                <Link
-                  href={`/people/${person.slug}`}
-                  className="mt-4 w-full flex items-center justify-between text-xs font-bold text-slate-900 dark:text-white hover:text-red-600 dark:hover:text-red-400 pt-2 transition-colors"
-                >
-                  <span>View Full Profile</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
-              </div>
+              </Link>
             </motion.div>
           ))}
         </div>

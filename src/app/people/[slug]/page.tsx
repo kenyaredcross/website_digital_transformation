@@ -1,12 +1,15 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { people } from "@/data/people";
-import { projects } from "@/data/projects";
+import { getPeople, getProjects } from "@/lib/get-data";
 import { ArrowLeft, ArrowRight, Mail, Globe, ExternalLink, Layers, Award, CheckCircle2 } from "lucide-react";
 import type { Metadata } from "next";
 
+// Allow slugs not pre-rendered at build time to be SSR'd on demand
+export const dynamicParams = true;
+
 export function generateStaticParams() {
+  const people = getPeople();
   return people.map((p) => ({
     slug: p.slug,
   }));
@@ -18,6 +21,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const resolvedParams = await params;
+  const people = getPeople();
   const person = people.find((p) => p.slug === resolvedParams.slug);
 
   if (!person) {
@@ -36,6 +40,8 @@ export default async function PersonProfilePage({
   params: Promise<{ slug: string }>;
 }) {
   const resolvedParams = await params;
+  const people = getPeople();
+  const projects = getProjects();
   const person = people.find((p) => p.slug === resolvedParams.slug);
 
   if (!person) {
