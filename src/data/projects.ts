@@ -23,7 +23,7 @@ export const projects: Project[] = [
     teamIds: ["p1", "p2", "p3", "p4"],
     partnerIds: ["ifrc", "google-org", "esa", "safaricom-foundation"],
     featured: true,
-    image: "/assets/images/portfolio/Hazina.jpg",
+    image: "/assets/images/updates/Digital Transformation - Images",
     gallery: [
       "/assets/images/portfolio/hazina-dashboard.webp",
       "/assets/images/portfolio/hazina-map.webp",
