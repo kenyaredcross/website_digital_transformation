@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { BrandLogo } from "@/components/ui/BrandLogo";
+import { ThemeToggle } from "@/components/theme/ThemeToggle";
 import { mainNav } from "@/data/navigation";
 import { Menu, X, ArrowRight, Globe } from "lucide-react";
 
@@ -30,7 +31,7 @@ export function Navbar() {
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
           ? "bg-white/90 dark:bg-slate-900/90 backdrop-blur-md shadow-sm border-b border-slate-200/60 dark:border-slate-800/60 py-3"
-          : "bg-transparent py-5"
+          : "bg-white/80 dark:bg-slate-950/80 backdrop-blur-md border-b border-slate-200/40 dark:border-slate-800/40 py-4"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -52,9 +53,7 @@ export function Navbar() {
                   className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                     isActive
                       ? "text-red-600 bg-red-50 dark:bg-red-950/40 dark:text-red-400 font-semibold"
-                      : isScrolled
-                      ? "text-slate-700 hover:text-red-600 hover:bg-slate-50 dark:text-slate-300 dark:hover:text-white dark:hover:bg-slate-800/60"
-                      : "text-white hover:text-red-400 hover:bg-white/10"
+                      : "text-slate-700 hover:text-red-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:text-white dark:hover:bg-slate-800/60"
                   }`}
                 >
                   {item.title}
@@ -63,14 +62,16 @@ export function Navbar() {
             })}
           </nav>
 
-          {/* Action CTA & Mobile Trigger */}
+          {/* Action CTA, Theme Toggle & Mobile Trigger */}
           <div className="flex items-center gap-3">
+            <ThemeToggle isScrolled={isScrolled} />
+
             <Link
               href="/portfolio"
               className={`hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs md:text-sm font-semibold shadow-sm transition-all hover:shadow hover:-translate-y-0.5 ${
                 isScrolled
                   ? "text-white bg-red-600 hover:bg-red-700 active:bg-red-800"
-                  : "text-white bg-red-600/90 backdrop-blur-sm hover:bg-red-600 active:bg-red-700"
+                  : "text-white bg-red-600 hover:bg-red-700 active:bg-red-800"
               }`}
             >
               <span>Explore Our Work</span>
@@ -81,11 +82,7 @@ export function Navbar() {
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className={`md:hidden p-2 rounded-lg focus:outline-none transition-colors ${
-                isScrolled
-                  ? "text-slate-700 hover:text-red-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"
-                  : "text-white hover:text-red-400 hover:bg-white/10"
-              }`}
+              className="md:hidden p-2 rounded-lg focus:outline-none transition-colors text-slate-700 hover:text-red-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"
               aria-label="Toggle Navigation Menu"
               aria-expanded={mobileMenuOpen}
             >
@@ -122,6 +119,11 @@ export function Navbar() {
             })}
 
             <div className="pt-4 mt-2 border-t border-slate-200 dark:border-slate-800 flex flex-col gap-3">
+              <div className="flex items-center justify-between px-2 py-1">
+                <span className="text-xs font-mono text-slate-500 dark:text-slate-400">Switch Theme</span>
+                <ThemeToggle isScrolled={true} />
+              </div>
+
               <Link
                 href="/portfolio"
                 onClick={() => setMobileMenuOpen(false)}

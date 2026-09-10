@@ -22,9 +22,9 @@ const iconMap = {
 
 export default function AboutPage() {
   return (
-    <div className="pt-28 pb-20 bg-slate-950 text-white min-h-screen">
+    <div className="pt-28 pb-20 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white min-h-screen transition-colors duration-300">
       {/* Hero Section with lowered opacity hands1.jpg background */}
-      <section className="relative py-20 md:py-28 border-b border-slate-800 bg-slate-950 overflow-hidden">
+      <section className="relative py-20 md:py-28 border-b border-slate-200 dark:border-slate-800 bg-slate-900 dark:bg-slate-950 overflow-hidden text-white">
         {/* Background Image hands1.jpg with lowered opacity */}
         <div className="absolute inset-0 z-0">
           <Image
@@ -33,7 +33,7 @@ export default function AboutPage() {
             fill
             priority
             sizes="100vw"
-            className="object-cover object-center opacity-25"
+            className="object-cover object-center opacity-25 dark:opacity-20"
           />
           {/* Subtle gradient overlays for optimal text contrast */}
           <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/85 to-slate-950/60" />
@@ -56,15 +56,15 @@ export default function AboutPage() {
       </section>
 
       {/* Who We Are & Mission / Vision Section */}
-      <section className="py-20 bg-slate-900 border-b border-slate-800">
+      <section className="py-20 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             {/* Left: Who We Are */}
             <div className="lg:col-span-7 space-y-6">
-              <h2 className="text-3xl font-bold text-white tracking-tight">
+              <h2 className="text-3xl font-bold text-slate-900 dark:text-white tracking-tight">
                 {aboutData.whoWeAreTitle}
               </h2>
-              <div className="space-y-4 text-slate-300 leading-relaxed text-base">
+              <div className="space-y-4 text-slate-600 dark:text-slate-300 leading-relaxed text-base">
                 {aboutData.whoWeAreParagraphs.map((p, idx) => (
                   <p key={idx}>{p}</p>
                 ))}
@@ -73,20 +73,20 @@ export default function AboutPage() {
 
             {/* Right: Mission & Vision Cards */}
             <div className="lg:col-span-5 space-y-6">
-              <div className="p-8 rounded-2xl bg-slate-950 border border-slate-800 border-l-4 border-l-red-500 shadow-xl space-y-3">
-                <span className="text-xs font-mono font-bold uppercase text-red-400">
+              <div className="p-8 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 border-l-4 border-l-red-500 shadow-md space-y-3">
+                <span className="text-xs font-mono font-bold uppercase text-red-600 dark:text-red-400">
                   Our Mission
                 </span>
-                <p className="text-lg font-semibold text-white leading-relaxed">
+                <p className="text-lg font-semibold text-slate-900 dark:text-white leading-relaxed">
                   &quot;{aboutData.mission}&quot;
                 </p>
               </div>
 
-              <div className="p-8 rounded-2xl bg-slate-950 border border-slate-800 border-l-4 border-l-blue-500 shadow-xl space-y-3">
-                <span className="text-xs font-mono font-bold uppercase text-blue-400">
+              <div className="p-8 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 border-l-4 border-l-blue-600 dark:border-l-blue-500 shadow-md space-y-3">
+                <span className="text-xs font-mono font-bold uppercase text-blue-600 dark:text-blue-400">
                   Our Vision
                 </span>
-                <p className="text-lg font-semibold text-white leading-relaxed">
+                <p className="text-lg font-semibold text-slate-900 dark:text-white leading-relaxed">
                   &quot;{aboutData.vision}&quot;
                 </p>
               </div>
@@ -99,16 +99,16 @@ export default function AboutPage() {
       <AboutGallery />
 
       {/* Values Section */}
-      <section className="py-24 bg-slate-950 border-b border-slate-800">
+      <section className="py-24 bg-slate-50 dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
-            <span className="text-xs font-bold uppercase tracking-widest text-red-500 font-mono">
+            <span className="text-xs font-bold uppercase tracking-widest text-red-600 dark:text-red-500 font-mono">
               Guiding Principles
             </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
               Our Core Values
             </h2>
-            <p className="text-slate-400 text-base">
+            <p className="text-slate-600 dark:text-slate-400 text-base">
               The ethical and operational foundation guiding our software development and data governance.
             </p>
           </div>
@@ -117,13 +117,13 @@ export default function AboutPage() {
             {aboutData.values.map((val) => (
               <div
                 key={val.number}
-                className="p-8 rounded-2xl bg-slate-900/90 border border-slate-800 hover:border-red-500/40 transition-all duration-300 space-y-4"
+                className="p-8 rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 hover:border-red-500/40 transition-all duration-300 space-y-4 shadow-sm"
               >
-                <span className="text-3xl font-black font-mono text-red-500">
+                <span className="text-3xl font-black font-mono text-red-600 dark:text-red-500">
                   {val.number}
                 </span>
-                <h3 className="text-xl font-bold text-white">{val.title}</h3>
-                <p className="text-sm text-slate-300 leading-relaxed">
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white">{val.title}</h3>
+                <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
                   {val.description}
                 </p>
               </div>
@@ -133,16 +133,16 @@ export default function AboutPage() {
       </section>
 
       {/* 6-Step Visual Approach */}
-      <section className="py-24 bg-slate-900 border-b border-slate-800">
+      <section className="py-24 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
-            <span className="text-xs font-bold uppercase tracking-widest text-red-500 font-mono">
+            <span className="text-xs font-bold uppercase tracking-widest text-red-600 dark:text-red-500 font-mono">
               Humanitarian Innovation Process
             </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
               Our 6-Step Approach
             </h2>
-            <p className="text-slate-400 text-base">
+            <p className="text-slate-600 dark:text-slate-400 text-base">
               From field immersion to continuous telemetry monitoring, how we build technology for extreme environments.
             </p>
           </div>
@@ -154,21 +154,21 @@ export default function AboutPage() {
               return (
                 <div
                   key={step.step}
-                  className="relative p-6 rounded-2xl bg-slate-950 border border-slate-800 flex flex-col justify-between"
+                  className="relative p-6 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 flex flex-col justify-between shadow-sm"
                 >
                   <div>
                     <div className="flex items-center justify-between mb-4">
-                      <span className="text-2xl font-black font-mono text-red-500">
+                      <span className="text-2xl font-black font-mono text-red-600 dark:text-red-500">
                         0{step.step}
                       </span>
-                      <div className="p-2.5 rounded-lg bg-red-950/60 border border-red-800/50 text-red-400">
+                      <div className="p-2.5 rounded-lg bg-red-100 dark:bg-red-950/60 border border-red-200 dark:border-red-800/50 text-red-600 dark:text-red-400">
                         <Icon className="w-5 h-5" />
                       </div>
                     </div>
-                    <h3 className="text-base font-bold text-white mb-2">
+                    <h3 className="text-base font-bold text-slate-900 dark:text-white mb-2">
                       {step.title}
                     </h3>
-                    <p className="text-xs text-slate-400 leading-relaxed">
+                    <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
                       {step.description}
                     </p>
                   </div>

@@ -76,17 +76,17 @@ export function AfricaMap({ isCompact = false }: { isCompact?: boolean }) {
   };
 
   return (
-    <div className="relative w-full rounded-2xl bg-slate-900 border border-slate-800 p-6 shadow-2xl overflow-hidden text-white">
+    <div className="relative w-full rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 shadow-xl overflow-hidden text-slate-900 dark:text-white transition-colors duration-300">
       {/* Map Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4 mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-4 mb-6">
         <div>
           <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-ping" />
-            <h3 className="text-base font-extrabold text-white tracking-wide uppercase font-mono">
+            <span className="w-2.5 h-2.5 rounded-full bg-red-600 dark:bg-red-500 animate-ping" />
+            <h3 className="text-base font-extrabold text-slate-900 dark:text-white tracking-wide uppercase font-mono">
               Regional Operations Map
             </h3>
           </div>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
             Active digital products and data feeds deployed across East & Horn of Africa
           </p>
         </div>
@@ -95,11 +95,11 @@ export function AfricaMap({ isCompact = false }: { isCompact?: boolean }) {
         <div className="flex items-center gap-4 text-xs font-mono">
           <div className="flex items-center gap-1.5">
             <span className="w-3 h-3 rounded bg-red-600 border border-red-400" />
-            <span className="text-slate-300">Active Operational Hub</span>
+            <span className="text-slate-700 dark:text-slate-300">Active Operational Hub</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <span className="w-3 h-3 rounded bg-slate-800 border border-slate-700" />
-            <span className="text-slate-500">Muted Landmass</span>
+            <span className="w-3 h-3 rounded bg-slate-300 dark:bg-slate-800 border border-slate-400 dark:border-slate-700" />
+            <span className="text-slate-500 dark:text-slate-500">Muted Landmass</span>
           </div>
         </div>
       </div>
@@ -110,7 +110,7 @@ export function AfricaMap({ isCompact = false }: { isCompact?: boolean }) {
           <div className="relative w-full max-w-[540px] aspect-[4/3]">
             <svg
               viewBox={`0 0 ${mapDimensions.width} ${mapDimensions.height}`}
-              className="h-full w-full drop-shadow-2xl"
+              className="h-full w-full drop-shadow-xl"
               role="group"
               aria-label="Interactive map of Africa"
             >
@@ -123,8 +123,8 @@ export function AfricaMap({ isCompact = false }: { isCompact?: boolean }) {
                   <path
                     key={country.name}
                     d={country.path}
-                    fill={isSelected ? "#dc2626" : isHovered ? "#ef4444" : isOperationalCountry ? "#b91c1c" : "#334155"}
-                    stroke={isSelected ? "#ffffff" : "#475569"}
+                    fill={isSelected ? "#dc2626" : isHovered ? "#ef4444" : isOperationalCountry ? "#b91c1c" : "#94a3b8"}
+                    stroke={isSelected ? "#ffffff" : "#64748b"}
                     strokeWidth={isSelected ? 2 : 1}
                     strokeLinejoin="round"
                     className="cursor-pointer transition-colors duration-150 focus:outline-none"
@@ -149,9 +149,9 @@ export function AfricaMap({ isCompact = false }: { isCompact?: boolean }) {
             
             {/* Hover Tooltip Overlay */}
             {hoveredCountry && (
-              <div className="absolute top-2 left-2 z-20 px-3 py-1.5 rounded-lg bg-slate-950/95 border border-red-500/40 text-xs font-mono text-white shadow-xl pointer-events-none animate-in fade-in duration-150">
+              <div className="absolute top-2 left-2 z-20 px-3 py-1.5 rounded-lg bg-slate-900/95 dark:bg-slate-950/95 border border-red-500/40 text-xs font-mono text-white shadow-xl pointer-events-none animate-in fade-in duration-150">
                 <span className="font-bold text-red-400">{hoveredCountry.name}</span>
-                <span className="block text-[10px] text-slate-400">
+                <span className="block text-[10px] text-slate-300 dark:text-slate-400">
                   {hoveredCountry.activeInitiativesCount} Active Digital Initiatives
                 </span>
               </div>
@@ -160,52 +160,52 @@ export function AfricaMap({ isCompact = false }: { isCompact?: boolean }) {
         </div>
 
         {/* Selected Country Details Side Panel */}
-        <div className="lg:col-span-5 space-y-5 bg-slate-950/90 p-6 rounded-xl border border-slate-800">
-          <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div className="lg:col-span-5 space-y-5 bg-slate-50 dark:bg-slate-950/90 p-6 rounded-xl border border-slate-200 dark:border-slate-800">
+          <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
             <div>
-              <span className="text-[10px] font-mono text-red-400 uppercase tracking-widest font-bold">
+              <span className="text-[10px] font-mono text-red-600 dark:text-red-400 uppercase tracking-widest font-bold">
                 Selected Country
               </span>
-              <h4 className="text-2xl font-black text-white flex items-center gap-2">
-                <MapPin className="w-5 h-5 text-red-500" />
+              <h4 className="text-2xl font-black text-slate-900 dark:text-white flex items-center gap-2">
+                <MapPin className="w-5 h-5 text-red-600 dark:text-red-500" />
                 <span>{selectedCountry.name}</span>
               </h4>
             </div>
-            <span className="px-2.5 py-1 rounded-md text-xs font-mono font-bold bg-red-950 text-red-400 border border-red-800">
+            <span className="px-2.5 py-1 rounded-md text-xs font-mono font-bold bg-red-100 dark:bg-red-950 text-red-600 dark:text-red-400 border border-red-200 dark:border-red-800">
               ISO: {selectedCountry.code}
             </span>
           </div>
 
-          <p className="text-xs text-slate-300 leading-relaxed">
+          <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
             {selectedCountry.shortDescription}
           </p>
 
           {/* Statistics Grid */}
           <div className="grid grid-cols-3 gap-3 text-center">
-            <div className="p-3 rounded-lg bg-slate-900 border border-slate-800">
-              <Activity className="w-4 h-4 text-red-400 mx-auto mb-1" />
-              <span className="block text-lg font-black font-mono text-white">
+            <div className="p-3 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+              <Activity className="w-4 h-4 text-red-600 dark:text-red-400 mx-auto mb-1" />
+              <span className="block text-lg font-black font-mono text-slate-900 dark:text-white">
                 {selectedCountry.activeInitiativesCount}
               </span>
-              <span className="text-[9px] text-slate-400 block font-medium">
+              <span className="text-[9px] text-slate-500 dark:text-slate-400 block font-medium">
                 Initiatives
               </span>
             </div>
-            <div className="p-3 rounded-lg bg-slate-900 border border-slate-800">
-              <Layers className="w-4 h-4 text-blue-400 mx-auto mb-1" />
-              <span className="block text-lg font-black font-mono text-white">
+            <div className="p-3 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+              <Layers className="w-4 h-4 text-blue-600 dark:text-blue-400 mx-auto mb-1" />
+              <span className="block text-lg font-black font-mono text-slate-900 dark:text-white">
                 {selectedCountry.digitalProductsCount}
               </span>
-              <span className="text-[9px] text-slate-400 block font-medium">
+              <span className="text-[9px] text-slate-500 dark:text-slate-400 block font-medium">
                 Products
               </span>
             </div>
-            <div className="p-3 rounded-lg bg-slate-900 border border-slate-800">
-              <Database className="w-4 h-4 text-purple-400 mx-auto mb-1" />
-              <span className="block text-lg font-black font-mono text-white">
+            <div className="p-3 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+              <Database className="w-4 h-4 text-purple-600 dark:text-purple-400 mx-auto mb-1" />
+              <span className="block text-lg font-black font-mono text-slate-900 dark:text-white">
                 {selectedCountry.dataServicesCount}
               </span>
-              <span className="text-[9px] text-slate-400 block font-medium">
+              <span className="text-[9px] text-slate-500 dark:text-slate-400 block font-medium">
                 Data Feeds
               </span>
             </div>
@@ -213,13 +213,13 @@ export function AfricaMap({ isCompact = false }: { isCompact?: boolean }) {
 
           {/* Key Initiatives List */}
           <div className="space-y-2">
-            <span className="text-[11px] font-mono font-bold text-slate-400 uppercase tracking-wider block">
+            <span className="text-[11px] font-mono font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
               Key Deployed Initiatives
             </span>
-            <ul className="space-y-1.5 text-xs text-slate-300">
+            <ul className="space-y-1.5 text-xs text-slate-600 dark:text-slate-300">
               {selectedCountry.keyInitiatives.map((item) => (
                 <li key={item} className="flex items-center gap-2 font-medium">
-                  <span className="w-1.5 h-1.5 rounded-full bg-red-500 shrink-0" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-red-600 dark:bg-red-500 shrink-0" />
                   <span>{item}</span>
                 </li>
               ))}

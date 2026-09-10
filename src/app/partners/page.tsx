@@ -15,17 +15,17 @@ export default function PartnersPage() {
   const categories = ["Strategic", "Technology", "Implementation", "Funding"] as const;
 
   return (
-    <div className="pt-28 pb-20 bg-slate-950 text-white min-h-screen">
+    <div className="pt-28 pb-20 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white min-h-screen transition-colors duration-300">
       {/* Header */}
-      <section className="py-16 md:py-24 border-b border-slate-800 bg-grid-pattern opacity-95">
+      <section className="py-16 md:py-24 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 opacity-95">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
-          <span className="text-xs font-mono font-bold uppercase tracking-widest text-red-500 bg-red-950/80 px-3 py-1 rounded border border-red-800/60 flex items-center gap-2 w-fit">
+          <span className="text-xs font-mono font-bold uppercase tracking-widest text-red-600 dark:text-red-500 bg-red-100 dark:bg-red-950/80 px-3 py-1 rounded border border-red-200 dark:border-red-800/60 flex items-center gap-2 w-fit">
             <Handshake className="w-4 h-4" /> Global Collaborations
           </span>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 dark:text-white tracking-tight">
             Partners in transformation.
           </h1>
-          <p className="text-xl text-slate-300 max-w-3xl leading-relaxed">
+          <p className="text-xl text-slate-600 dark:text-slate-300 max-w-3xl leading-relaxed">
             Collaborating with global tech pioneers, UN agencies, research institutions, and telecommunications networks to scale digital humanitarian impact.
           </p>
         </div>
@@ -40,9 +40,9 @@ export default function PartnersPage() {
 
             return (
               <div key={cat} className="space-y-8">
-                <div className="flex items-center gap-3 pb-3 border-b border-slate-800">
-                  <span className="w-3 h-3 rounded-full bg-red-500" />
-                  <h2 className="text-2xl font-extrabold text-white uppercase font-mono tracking-wider">
+                <div className="flex items-center gap-3 pb-3 border-b border-slate-200 dark:border-slate-800">
+                  <span className="w-3 h-3 rounded-full bg-red-600 dark:bg-red-500" />
+                  <h2 className="text-2xl font-extrabold text-slate-900 dark:text-white uppercase font-mono tracking-wider">
                     {cat} Partners
                   </h2>
                 </div>
@@ -56,25 +56,25 @@ export default function PartnersPage() {
                     return (
                       <div
                         key={partner.id}
-                        className="p-8 rounded-2xl bg-slate-900 border border-slate-800 hover:border-red-500/50 transition-all duration-300 flex flex-col justify-between"
+                        className="p-8 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-red-500/50 transition-all duration-300 flex flex-col justify-between shadow-sm"
                       >
                         <div className="space-y-4">
                           <div className="flex items-center justify-between">
-                            <span className="px-2.5 py-1 rounded text-xs font-mono font-bold bg-slate-950 text-red-400 border border-slate-800">
+                            <span className="px-2.5 py-1 rounded text-xs font-mono font-bold bg-slate-50 dark:bg-slate-950 text-red-600 dark:text-red-400 border border-slate-200 dark:border-slate-800">
                               {partner.category} Partner
                             </span>
                             <a
                               href={partner.website}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="inline-flex items-center gap-1 text-xs font-mono text-slate-400 hover:text-white transition-colors"
+                              className="inline-flex items-center gap-1 text-xs font-mono text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors"
                             >
                               <span>Official Site</span>
                               <ExternalLink className="w-3.5 h-3.5" />
                             </a>
                           </div>
 
-                          <div className="relative h-28 w-full overflow-hidden rounded-xl bg-white p-3">
+                          <div className="relative h-28 w-full overflow-hidden rounded-xl bg-slate-50 dark:bg-white p-3 border border-slate-200 dark:border-transparent">
                             <Image
                               src={partner.logo}
                               alt={`${partner.name} logo`}
@@ -84,24 +84,24 @@ export default function PartnersPage() {
                             />
                           </div>
 
-                          <h3 className="text-2xl font-bold text-white">
+                          <h3 className="text-2xl font-bold text-slate-900 dark:text-white">
                             {partner.name}
                           </h3>
 
-                          <p className="text-xs text-slate-300 leading-relaxed">
+                          <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
                             {partner.description}
                           </p>
 
-                          <div className="p-3 rounded-xl bg-slate-950 border border-slate-800/80 text-xs font-mono">
+                          <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800/80 text-xs font-mono">
                             <span className="text-slate-500 block mb-0.5">Collaboration Focus:</span>
-                            <span className="text-red-400 font-bold">{partner.collaborationFocus}</span>
+                            <span className="text-red-600 dark:text-red-400 font-bold">{partner.collaborationFocus}</span>
                           </div>
                         </div>
 
                         {/* Related Projects */}
                         {relatedProjects.length > 0 && (
-                          <div className="mt-6 pt-4 border-t border-slate-800 space-y-2">
-                            <span className="text-[10px] font-mono font-bold text-slate-400 uppercase">
+                          <div className="mt-6 pt-4 border-t border-slate-200 dark:border-slate-800 space-y-2">
+                            <span className="text-[10px] font-mono font-bold text-slate-500 dark:text-slate-400 uppercase">
                               Joint Projects
                             </span>
                             <div className="flex flex-wrap gap-2">
@@ -109,7 +109,7 @@ export default function PartnersPage() {
                                 <Link
                                   key={rp.id}
                                   href={`/portfolio/${rp.slug}`}
-                                  className="px-2.5 py-1 rounded text-xs font-mono bg-slate-800 hover:bg-red-950 text-slate-200 hover:text-red-400 transition-colors border border-slate-700/60 inline-flex items-center gap-1"
+                                  className="px-2.5 py-1 rounded text-xs font-mono bg-slate-100 dark:bg-slate-800 hover:bg-red-100 dark:hover:bg-red-950 text-slate-700 dark:text-slate-200 hover:text-red-600 dark:hover:text-red-400 transition-colors border border-slate-200 dark:border-slate-700/60 inline-flex items-center gap-1"
                                 >
                                   <span>{rp.title}</span>
                                   <ArrowRight className="w-3 h-3" />

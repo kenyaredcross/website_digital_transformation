@@ -59,7 +59,7 @@ export function PortfolioFilterableGrid() {
   return (
     <div className="space-y-10">
       {/* Controls Bar */}
-      <div className="p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-6">
+      <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-6 shadow-sm">
         {/* Top Controls: Search Bar & Filters */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
           {/* Search Input */}
@@ -70,12 +70,12 @@ export function PortfolioFilterableGrid() {
               placeholder="Search by title, technology (e.g. Next.js, Python), or keyword..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-red-500 transition-colors font-medium"
+              className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-red-500 transition-colors font-medium"
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery("")}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-mono text-slate-400 hover:text-white"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-mono text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
               >
                 Clear
               </button>
@@ -87,7 +87,7 @@ export function PortfolioFilterableGrid() {
             <select
               value={selectedThematicArea}
               onChange={(e) => setSelectedThematicArea(e.target.value)}
-              className="w-full px-3 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-slate-200 focus:outline-none focus:border-red-500 font-mono"
+              className="w-full px-3 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:border-red-500 font-mono"
             >
               <option value="All">All Thematic Areas</option>
               {thematicAreas.map((area) => (
@@ -103,7 +103,7 @@ export function PortfolioFilterableGrid() {
             <select
               value={selectedYear}
               onChange={(e) => setSelectedYear(e.target.value)}
-              className="w-full px-3 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-slate-200 focus:outline-none focus:border-red-500 font-mono"
+              className="w-full px-3 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:border-red-500 font-mono"
             >
               <option value="All">All Years</option>
               {years.filter((y) => y !== "All").map((year) => (
@@ -114,13 +114,13 @@ export function PortfolioFilterableGrid() {
             </select>
 
             {/* View Mode Toggle */}
-            <div className="flex items-center bg-slate-950 p-1 rounded-xl border border-slate-800 shrink-0">
+            <div className="flex items-center bg-slate-50 dark:bg-slate-950 p-1 rounded-xl border border-slate-200 dark:border-slate-800 shrink-0">
               <button
                 onClick={() => setViewMode("grid")}
                 className={`p-1.5 rounded-lg text-xs transition-colors ${
                   viewMode === "grid"
                     ? "bg-red-600 text-white"
-                    : "text-slate-400 hover:text-white"
+                    : "text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
                 }`}
                 title="Grid View"
               >
@@ -131,7 +131,7 @@ export function PortfolioFilterableGrid() {
                 className={`p-1.5 rounded-lg text-xs transition-colors ${
                   viewMode === "list"
                     ? "bg-red-600 text-white"
-                    : "text-slate-400 hover:text-white"
+                    : "text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
                 }`}
                 title="List View"
               >
@@ -142,8 +142,8 @@ export function PortfolioFilterableGrid() {
         </div>
 
         {/* Category Pills */}
-        <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-slate-800">
-          <span className="text-xs font-mono font-bold text-slate-400 mr-2 flex items-center gap-1">
+        <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-slate-200 dark:border-slate-800">
+          <span className="text-xs font-mono font-bold text-slate-500 dark:text-slate-400 mr-2 flex items-center gap-1">
             <Filter className="w-3.5 h-3.5" /> Category:
           </span>
           {categories.map((cat) => (
@@ -153,7 +153,7 @@ export function PortfolioFilterableGrid() {
               className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-all ${
                 selectedCategory === cat
                   ? "bg-red-600 text-white font-bold shadow"
-                  : "bg-slate-950 text-slate-300 hover:bg-slate-800 border border-slate-800"
+                  : "bg-slate-50 dark:bg-slate-950 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800"
               }`}
             >
               {cat}
@@ -163,9 +163,9 @@ export function PortfolioFilterableGrid() {
       </div>
 
       {/* Results Header */}
-      <div className="flex items-center justify-between text-xs font-mono text-slate-400 px-1">
+      <div className="flex items-center justify-between text-xs font-mono text-slate-600 dark:text-slate-400 px-1">
         <span>
-          Showing <strong className="text-white">{filteredProjects.length}</strong> of{" "}
+          Showing <strong className="text-slate-900 dark:text-white">{filteredProjects.length}</strong> of{" "}
           {projects.length} digital solutions
         </span>
         {(selectedCategory !== "All" ||
@@ -179,7 +179,7 @@ export function PortfolioFilterableGrid() {
               setSelectedYear("All");
               setSearchQuery("");
             }}
-            className="text-red-400 hover:underline"
+            className="text-red-600 dark:text-red-400 hover:underline"
           >
             Reset Filters
           </button>
@@ -188,10 +188,10 @@ export function PortfolioFilterableGrid() {
 
       {/* Projects Display */}
       {filteredProjects.length === 0 ? (
-        <div className="p-16 rounded-2xl bg-slate-900 border border-slate-800 text-center space-y-4">
-          <Layers className="w-12 h-12 text-slate-600 mx-auto" />
-          <h3 className="text-xl font-bold text-white">No projects found</h3>
-          <p className="text-sm text-slate-400 max-w-md mx-auto">
+        <div className="p-16 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-center space-y-4 shadow-sm">
+          <Layers className="w-12 h-12 text-slate-400 dark:text-slate-600 mx-auto" />
+          <h3 className="text-xl font-bold text-slate-900 dark:text-white">No projects found</h3>
+          <p className="text-sm text-slate-600 dark:text-slate-400 max-w-md mx-auto">
             No digital products match your current search query or filter criteria. Try adjusting your parameters.
           </p>
           <button
@@ -211,11 +211,11 @@ export function PortfolioFilterableGrid() {
           {filteredProjects.map((project) => (
             <div
               key={project.id}
-              className="group rounded-2xl bg-slate-900 border border-slate-800 hover:border-red-500/50 transition-all duration-300 flex flex-col justify-between overflow-hidden shadow-xl"
+              className="group rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-red-500/50 transition-all duration-300 flex flex-col justify-between overflow-hidden shadow-sm hover:shadow-md"
             >
               <Link
                 href={`/portfolio/${project.slug}`}
-                className="relative block aspect-[16/9] overflow-hidden bg-slate-950"
+                className="relative block aspect-[16/9] overflow-hidden bg-slate-100 dark:bg-slate-950"
                 aria-label={`View ${project.title} case study`}
               >
                 <Image
@@ -229,19 +229,19 @@ export function PortfolioFilterableGrid() {
               </Link>
               <div className="p-6 space-y-4">
                 <div className="flex items-center justify-between">
-                  <span className="px-2.5 py-1 rounded text-xs font-mono font-bold bg-red-950 text-red-400 border border-red-800">
+                  <span className="px-2.5 py-1 rounded text-xs font-mono font-bold bg-red-100 dark:bg-red-950 text-red-600 dark:text-red-400 border border-red-200 dark:border-red-800">
                     {project.category}
                   </span>
-                  <span className="text-xs font-mono text-slate-400">
+                  <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
                     {project.year}
                   </span>
                 </div>
 
-                <h3 className="text-2xl font-bold text-white group-hover:text-red-400 transition-colors">
+                <h3 className="text-2xl font-bold text-slate-900 dark:text-white group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors">
                   {project.title}
                 </h3>
 
-                <p className="text-xs text-slate-300 line-clamp-3 leading-relaxed">
+                <p className="text-xs text-slate-600 dark:text-slate-300 line-clamp-3 leading-relaxed">
                   {project.description}
                 </p>
 
@@ -250,7 +250,7 @@ export function PortfolioFilterableGrid() {
                   {project.technologies.slice(0, 4).map((tech) => (
                     <span
                       key={tech}
-                      className="px-2 py-0.5 rounded text-[10px] font-mono bg-slate-950 text-slate-300 border border-slate-800"
+                      className="px-2 py-0.5 rounded text-[10px] font-mono bg-slate-50 dark:bg-slate-950 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800"
                     >
                       {tech}
                     </span>
@@ -263,13 +263,13 @@ export function PortfolioFilterableGrid() {
                 </div>
               </div>
 
-              <div className="p-6 pt-4 border-t border-slate-800/80 bg-slate-950/60 flex items-center justify-between">
-                <span className="text-[11px] font-mono text-slate-400">
+              <div className="p-6 pt-4 border-t border-slate-200 dark:border-slate-800/80 bg-slate-50/60 dark:bg-slate-950/60 flex items-center justify-between">
+                <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
                   {project.countries.join(", ")}
                 </span>
                 <Link
                   href={`/portfolio/${project.slug}`}
-                  className="inline-flex items-center gap-1 text-xs font-bold text-red-400 hover:text-red-300 transition-colors"
+                  className="inline-flex items-center gap-1 text-xs font-bold text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 transition-colors"
                 >
                   <span>Explore Case Study</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -283,11 +283,11 @@ export function PortfolioFilterableGrid() {
           {filteredProjects.map((project) => (
             <div
               key={project.id}
-              className="p-6 rounded-2xl bg-slate-900 border border-slate-800 hover:border-red-500/50 transition-all flex flex-col md:flex-row items-start md:items-center justify-between gap-6"
+              className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-red-500/50 transition-all flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-sm"
             >
               <Link
                 href={`/portfolio/${project.slug}`}
-                className="relative block w-full md:w-48 aspect-[16/9] shrink-0 overflow-hidden rounded-xl bg-slate-950"
+                className="relative block w-full md:w-48 aspect-[16/9] shrink-0 overflow-hidden rounded-xl bg-slate-100 dark:bg-slate-950"
                 aria-label={`View ${project.title} case study`}
               >
                 <Image
@@ -300,17 +300,17 @@ export function PortfolioFilterableGrid() {
               </Link>
               <div className="space-y-2 flex-1">
                 <div className="flex items-center gap-3 text-xs font-mono">
-                  <span className="text-red-400 font-bold">{project.category}</span>
-                  <span className="text-slate-600">•</span>
-                  <span className="text-slate-400">{project.year}</span>
-                  <span className="text-slate-600">•</span>
-                  <span className="text-slate-400">{project.countries.join(", ")}</span>
+                  <span className="text-red-600 dark:text-red-400 font-bold">{project.category}</span>
+                  <span className="text-slate-300 dark:text-slate-600">•</span>
+                  <span className="text-slate-500 dark:text-slate-400">{project.year}</span>
+                  <span className="text-slate-300 dark:text-slate-600">•</span>
+                  <span className="text-slate-500 dark:text-slate-400">{project.countries.join(", ")}</span>
                 </div>
-                <h3 className="text-xl font-bold text-white">{project.title}</h3>
-                <p className="text-xs text-slate-300 max-w-2xl">{project.description}</p>
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white">{project.title}</h3>
+                <p className="text-xs text-slate-600 dark:text-slate-300 max-w-2xl">{project.description}</p>
                 <div className="flex flex-wrap gap-1.5 pt-1">
                   {project.technologies.map((t) => (
-                    <span key={t} className="px-2 py-0.5 text-[10px] font-mono bg-slate-950 text-slate-400 rounded">
+                    <span key={t} className="px-2 py-0.5 text-[10px] font-mono bg-slate-50 dark:bg-slate-950 text-slate-700 dark:text-slate-400 rounded border border-slate-200 dark:border-slate-800">
                       {t}
                     </span>
                   ))}

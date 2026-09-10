@@ -51,9 +51,9 @@ export function JourneyTimeline() {
   });
 
   return (
-    <section className="py-28 bg-slate-950 text-white relative overflow-hidden">
+    <section className="py-28 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white relative overflow-hidden transition-colors duration-300">
       {/* Background ambient lighting */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-red-600/10 blur-[140px] pointer-events-none rounded-full" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-red-600/10 dark:bg-red-600/10 blur-[140px] pointer-events-none rounded-full" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
@@ -62,16 +62,16 @@ export function JourneyTimeline() {
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-xs font-bold uppercase tracking-widest text-red-500 font-mono inline-flex items-center gap-2 bg-red-950/70 border border-red-800/60 px-3.5 py-1.5 rounded-full"
+            className="text-xs font-bold uppercase tracking-widest text-red-600 dark:text-red-500 font-mono inline-flex items-center gap-2 bg-red-100 dark:bg-red-950/70 border border-red-200 dark:border-red-800/60 px-3.5 py-1.5 rounded-full"
           >
-            <Flag className="w-4 h-4 text-red-500" /> Digital Transformation Journey
+            <Flag className="w-4 h-4 text-red-600 dark:text-red-500" /> Digital Transformation Journey
           </motion.span>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight"
+            className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white tracking-tight"
           >
             Our Evolution & Key Milestones
           </motion.h2>
@@ -80,7 +80,7 @@ export function JourneyTimeline() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-slate-300 text-base sm:text-lg leading-relaxed"
+            className="text-slate-600 dark:text-slate-300 text-base sm:text-lg leading-relaxed"
           >
             Scroll to explore how we grew from a newly established tech unit into a field-proven humanitarian technology powerhouse.
           </motion.p>
@@ -89,7 +89,7 @@ export function JourneyTimeline() {
         {/* Timeline Container */}
         <div ref={containerRef} className="relative max-w-5xl mx-auto">
           {/* Static Background Line */}
-          <div className="absolute left-6 md:left-1/2 top-4 bottom-4 w-0.5 -translate-x-1/2 bg-slate-800" />
+          <div className="absolute left-6 md:left-1/2 top-4 bottom-4 w-0.5 -translate-x-1/2 bg-slate-200 dark:bg-slate-800" />
 
           {/* Animated Dynamic Progress Line */}
           <motion.div
@@ -116,7 +116,7 @@ export function JourneyTimeline() {
                   <div className="absolute left-6 md:left-1/2 -translate-x-1/2 top-0 z-30 flex items-center justify-center">
                     <motion.div
                       whileHover={{ scale: 1.15 }}
-                      className="w-12 h-12 rounded-full bg-slate-950 border-2 border-red-500 text-red-400 font-mono text-sm font-black flex items-center justify-center shadow-[0_0_20px_rgba(238,36,53,0.5)] bg-gradient-to-b from-slate-900 to-slate-950"
+                      className="w-12 h-12 rounded-full bg-white dark:bg-slate-950 border-2 border-red-600 dark:border-red-500 text-red-600 dark:text-red-400 font-mono text-sm font-black flex items-center justify-center shadow-lg bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-950"
                     >
                       {m.year}
                     </motion.div>
@@ -128,36 +128,36 @@ export function JourneyTimeline() {
                       isEven ? "md:pr-12 md:text-right" : "md:pl-12 md:order-2"
                     }`}
                   >
-                    <div className="p-6 sm:p-8 rounded-2xl bg-slate-900/90 border border-slate-800/90 hover:border-red-500/50 transition-all duration-300 shadow-xl space-y-3 group hover:bg-slate-900">
+                    <div className="p-6 sm:p-8 rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800/90 hover:border-red-500/50 transition-all duration-300 shadow-lg space-y-3 group hover:bg-slate-50 dark:hover:bg-slate-900">
                       <div
                         className={`flex items-center gap-2 ${
                           isEven ? "md:justify-end" : "justify-start"
                         }`}
                       >
-                        <span className="text-xs font-mono font-bold uppercase text-red-400 bg-red-950/80 border border-red-800/40 px-2.5 py-0.5 rounded">
+                        <span className="text-xs font-mono font-bold uppercase text-red-600 dark:text-red-400 bg-red-100 dark:bg-red-950/80 border border-red-200 dark:border-red-800/40 px-2.5 py-0.5 rounded">
                           {m.year}
                         </span>
                         {media && (
-                          <span className="text-xs font-mono text-slate-400 bg-slate-800 px-2 py-0.5 rounded">
+                          <span className="text-xs font-mono text-slate-600 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded">
                             {media.tag}
                           </span>
                         )}
                       </div>
 
-                      <h3 className="text-xl sm:text-2xl font-bold text-white group-hover:text-red-400 transition-colors">
+                      <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors">
                         {m.title}
                       </h3>
 
-                      <p className="text-sm text-slate-300 leading-relaxed">
+                      <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
                         {m.description}
                       </p>
 
                       <div
-                        className={`pt-2 flex items-center gap-2 text-xs font-mono text-slate-400 ${
+                        className={`pt-2 flex items-center gap-2 text-xs font-mono text-slate-500 dark:text-slate-400 ${
                           isEven ? "md:justify-end" : "justify-start"
                         }`}
                       >
-                        <CheckCircle2 className="w-4 h-4 text-red-500" />
+                        <CheckCircle2 className="w-4 h-4 text-red-600 dark:text-red-500" />
                         <span>Verified Impact Milestone</span>
                       </div>
                     </div>

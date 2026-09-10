@@ -47,23 +47,23 @@ export function AboutGallery() {
   const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
 
   return (
-    <section className="py-24 bg-slate-950 border-b border-slate-800 relative">
+    <section className="py-24 bg-slate-50 dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 relative transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
           <div className="space-y-3 max-w-2xl">
-            <span className="text-xs font-bold uppercase tracking-widest text-red-500 font-mono flex items-center gap-2">
-              <Camera className="w-4 h-4 text-red-500" /> Field Operations & Impact
+            <span className="text-xs font-bold uppercase tracking-widest text-red-600 dark:text-red-500 font-mono flex items-center gap-2">
+              <Camera className="w-4 h-4 text-red-600 dark:text-red-500" /> Field Operations & Impact
             </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
               Frontline Deployments in Action
             </h2>
-            <p className="text-slate-400 text-base leading-relaxed">
+            <p className="text-slate-600 dark:text-slate-400 text-base leading-relaxed">
               Real moments from our digital transformation journey—from field distributions and environmental assessments to technical workshops and strategy sessions.
             </p>
           </div>
           <div className="hidden md:block text-right">
-            <span className="text-xs font-mono text-slate-500 bg-slate-900 border border-slate-800 px-4 py-2 rounded-full">
+            <span className="text-xs font-mono text-slate-600 dark:text-slate-400 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 px-4 py-2 rounded-full shadow-sm">
               4 Featured Field Snapshots
             </span>
           </div>

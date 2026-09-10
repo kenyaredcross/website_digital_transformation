@@ -52,20 +52,20 @@ export default async function PersonProfilePage({
   const personProjects = projects.filter((p) => p.teamIds.includes(person.id));
 
   return (
-    <div className="pt-28 pb-20 bg-slate-950 text-white min-h-screen">
+    <div className="pt-28 pb-20 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white min-h-screen transition-colors duration-300">
       {/* Header */}
-      <section className="py-16 md:py-24 border-b border-slate-800 bg-grid-pattern opacity-95">
+      <section className="py-16 md:py-24 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
           <Link
             href="/people"
-            className="inline-flex items-center gap-2 text-xs font-mono font-bold text-slate-400 hover:text-red-400 transition-colors"
+            className="inline-flex items-center gap-2 text-xs font-mono font-bold text-slate-600 dark:text-slate-400 hover:text-red-600 dark:hover:text-red-400 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" /> Back to Team Directory
           </Link>
 
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
             <div className="flex items-center gap-6">
-              <div className="relative w-20 h-20 rounded-2xl overflow-hidden border-2 border-red-800 shadow-xl shrink-0 bg-slate-900">
+              <div className="relative w-20 h-20 rounded-2xl overflow-hidden border-2 border-red-600 dark:border-red-800 shadow-xl shrink-0 bg-slate-100 dark:bg-slate-900">
                 <Image
                   src={person.avatar}
                   alt={`Portrait of ${person.name}`}
@@ -76,19 +76,19 @@ export default async function PersonProfilePage({
               </div>
               <div>
                 <div className="flex flex-wrap items-center gap-2 mb-2">
-                  <span className="px-3 py-1 rounded-full text-xs font-mono font-bold bg-slate-900 text-red-400 border border-slate-800">
+                  <span className="px-3 py-1 rounded-full text-xs font-mono font-bold bg-slate-100 dark:bg-slate-950 text-red-600 dark:text-red-400 border border-slate-200 dark:border-slate-800">
                     {person.department}
                   </span>
                   {person.isVolunteer && (
-                    <span className="px-3 py-1 rounded-full text-xs font-mono font-bold bg-amber-950/70 text-amber-300 border border-amber-700/60">
+                    <span className="px-3 py-1 rounded-full text-xs font-mono font-bold bg-amber-100 dark:bg-amber-950/70 text-amber-800 dark:text-amber-300 border border-amber-300 dark:border-amber-700/60">
                       Volunteer
                     </span>
                   )}
                 </div>
-                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight">
+                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white tracking-tight">
                   {person.name}
                 </h1>
-                <p className="text-base font-mono text-slate-400 font-semibold mt-1">
+                <p className="text-base font-mono text-slate-600 dark:text-slate-400 font-semibold mt-1">
                   {person.role}
                 </p>
               </div>
@@ -99,7 +99,7 @@ export default async function PersonProfilePage({
               {person.email && (
                 <a
                   href={`mailto:${person.email}`}
-                  className="p-3 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-red-500 transition-colors"
+                  className="p-3 rounded-xl bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-red-600 dark:hover:text-white hover:border-red-500 transition-colors"
                   title="Send Email"
                 >
                   <Mail className="w-5 h-5" />
@@ -110,7 +110,7 @@ export default async function PersonProfilePage({
                   href={person.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-3 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-red-500 transition-colors"
+                  className="p-3 rounded-xl bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-red-600 dark:hover:text-white hover:border-red-500 transition-colors"
                   title="LinkedIn Profile"
                 >
                   <Globe className="w-5 h-5" />
@@ -121,7 +121,7 @@ export default async function PersonProfilePage({
                   href={person.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-3 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-red-500 transition-colors"
+                  className="p-3 rounded-xl bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-red-600 dark:hover:text-white hover:border-red-500 transition-colors"
                   title="GitHub Profile"
                 >
                   <ExternalLink className="w-5 h-5" />
@@ -138,26 +138,26 @@ export default async function PersonProfilePage({
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
             {/* Bio & Expertise */}
             <div className="lg:col-span-8 space-y-10">
-              <div className="p-8 rounded-2xl bg-slate-900 border border-slate-800 space-y-4">
-                <h2 className="text-2xl font-bold text-white">Biography</h2>
-                <p className="text-slate-300 text-base leading-relaxed">
+              <div className="p-8 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-4 shadow-sm">
+                <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Biography</h2>
+                <p className="text-slate-600 dark:text-slate-300 text-base leading-relaxed">
                   {person.bio}
                 </p>
               </div>
 
               {/* Specialization & Expertise */}
-              <div className="p-8 rounded-2xl bg-slate-900 border border-slate-800 space-y-4">
-                <h2 className="text-2xl font-bold text-white flex items-center gap-2">
-                  <Award className="w-5 h-5 text-red-500" />
+              <div className="p-8 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-4 shadow-sm">
+                <h2 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                  <Award className="w-5 h-5 text-red-600 dark:text-red-500" />
                   <span>Key Specializations & Technical Expertise</span>
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
                   {person.expertise.map((exp) => (
                     <div
                       key={exp}
-                      className="p-3.5 rounded-xl bg-slate-950 border border-slate-800 flex items-center gap-3 text-sm font-semibold text-white"
+                      className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 flex items-center gap-3 text-sm font-semibold text-slate-900 dark:text-white"
                     >
-                      <CheckCircle2 className="w-4 h-4 text-red-500 shrink-0" />
+                      <CheckCircle2 className="w-4 h-4 text-red-600 dark:text-red-500 shrink-0" />
                       <span>{exp}</span>
                     </div>
                   ))}
@@ -166,13 +166,13 @@ export default async function PersonProfilePage({
 
               {/* Projects Worked On */}
               <div className="space-y-6">
-                <h2 className="text-2xl font-bold text-white flex items-center gap-2">
-                  <Layers className="w-5 h-5 text-red-500" />
+                <h2 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                  <Layers className="w-5 h-5 text-red-600 dark:text-red-500" />
                   <span>Projects & Contributions ({personProjects.length})</span>
                 </h2>
 
                 {personProjects.length === 0 ? (
-                  <p className="text-sm text-slate-400">
+                  <p className="text-sm text-slate-500 dark:text-slate-400">
                     No public portfolio projects currently associated with this profile.
                   </p>
                 ) : (
@@ -180,16 +180,16 @@ export default async function PersonProfilePage({
                     {personProjects.map((project) => (
                       <div
                         key={project.id}
-                        className="p-6 rounded-2xl bg-slate-900 border border-slate-800 hover:border-red-500/50 transition-all flex flex-col md:flex-row items-start md:items-center justify-between gap-6"
+                        className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-red-500/50 transition-all flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-sm"
                       >
                         <div className="space-y-2">
                           <div className="flex items-center gap-2 text-xs font-mono">
-                            <span className="text-red-400 font-bold">{project.category}</span>
-                            <span className="text-slate-600">•</span>
-                            <span className="text-slate-400">{project.year}</span>
+                            <span className="text-red-600 dark:text-red-400 font-bold">{project.category}</span>
+                            <span className="text-slate-400">•</span>
+                            <span className="text-slate-500 dark:text-slate-400">{project.year}</span>
                           </div>
-                          <h3 className="text-xl font-bold text-white">{project.title}</h3>
-                          <p className="text-xs text-slate-300 line-clamp-2 max-w-xl">
+                          <h3 className="text-xl font-bold text-slate-900 dark:text-white">{project.title}</h3>
+                          <p className="text-xs text-slate-600 dark:text-slate-300 line-clamp-2 max-w-xl">
                             {project.description}
                           </p>
                         </div>
@@ -210,32 +210,32 @@ export default async function PersonProfilePage({
 
             {/* Sidebar Summary */}
             <div className="lg:col-span-4 space-y-6">
-              <div className="p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-4">
-                <span className="text-xs font-mono font-bold text-slate-400 uppercase tracking-widest block border-b border-slate-800 pb-2">
+              <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-4 shadow-sm">
+                <span className="text-xs font-mono font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest block border-b border-slate-200 dark:border-slate-800 pb-2">
                   Departmental Role
                 </span>
 
-                <div className="space-y-3 text-xs text-slate-300">
+                <div className="space-y-3 text-xs text-slate-600 dark:text-slate-300">
                   <div>
-                    <span className="block font-mono text-slate-500">Full Name</span>
-                    <span className="font-bold text-white">{person.name}</span>
+                    <span className="block font-mono text-slate-400 dark:text-slate-500">Full Name</span>
+                    <span className="font-bold text-slate-900 dark:text-white">{person.name}</span>
                   </div>
                   <div>
-                    <span className="block font-mono text-slate-500">Title</span>
-                    <span className="font-semibold text-red-400">{person.role}</span>
+                    <span className="block font-mono text-slate-400 dark:text-slate-500">Title</span>
+                    <span className="font-semibold text-red-600 dark:text-red-400">{person.role}</span>
                   </div>
                   <div>
-                    <span className="block font-mono text-slate-500">Unit / Department</span>
-                    <span className="font-semibold text-white">{person.department}</span>
+                    <span className="block font-mono text-slate-400 dark:text-slate-500">Unit / Department</span>
+                    <span className="font-semibold text-slate-900 dark:text-white">{person.department}</span>
                   </div>
                   <div>
-                    <span className="block font-mono text-slate-500">Engagement</span>
-                    <span className="font-semibold text-white">{person.isVolunteer ? "Volunteer" : "Team member"}</span>
+                    <span className="block font-mono text-slate-400 dark:text-slate-500">Engagement</span>
+                    <span className="font-semibold text-slate-900 dark:text-white">{person.isVolunteer ? "Volunteer" : "Team member"}</span>
                   </div>
                   {person.email && (
                     <div>
-                      <span className="block font-mono text-slate-500">Official Email</span>
-                      <a href={`mailto:${person.email}`} className="text-red-400 hover:underline">
+                      <span className="block font-mono text-slate-400 dark:text-slate-500">Official Email</span>
+                      <a href={`mailto:${person.email}`} className="text-red-600 dark:text-red-400 hover:underline">
                         {person.email}
                       </a>
                     </div>

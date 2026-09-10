@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ConditionalLayout } from "@/components/layout/ConditionalLayout";
+import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import { siteConfig } from "@/data/site";
 import "./globals.css";
 
@@ -49,10 +50,13 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased dark`}
+      suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col bg-background text-foreground font-sans">
-        <ConditionalLayout>{children}</ConditionalLayout>
+      <body className="min-h-full flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white font-sans transition-colors duration-300">
+        <ThemeProvider>
+          <ConditionalLayout>{children}</ConditionalLayout>
+        </ThemeProvider>
       </body>
     </html>
   );
