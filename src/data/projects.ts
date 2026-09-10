@@ -82,7 +82,7 @@ export const projects: Project[] = [
     teamIds: ["p3", "p4", "p8"],
     partnerIds: ["un-ocha", "google-org"],
     featured: true,
-    image: "/assets/images/dt_updates/person_standing.jpg",
+    image: "/assets/images/dt_updates/person_standingl.jpg",
     gallery: [
       "/assets/images/portfolio/redpulse-heatmaps.webp",
       "/assets/images/portfolio/redpulse-analytics.webp",
