@@ -53,7 +53,7 @@ export const projects: Project[] = [
     teamIds: ["p2", "p5", "p6", "p7"],
     partnerIds: ["ifrc", "icrc", "safaricom-foundation"],
     featured: true,
-    image: "/assets/images/portfolio/BomaCare.jpg",
+    image: "/assets/images/updates/Digital Transformation - Images/55272349953_3e6fcc6f19_q.jpg",
     gallery: [
       "/assets/images/portfolio/bomacare-app.webp",
       "/assets/images/portfolio/bomacare-disbursement.webp",
@@ -82,7 +82,7 @@ export const projects: Project[] = [
     teamIds: ["p3", "p4", "p8"],
     partnerIds: ["un-ocha", "google-org"],
     featured: true,
-    image: "/assets/images/portfolio/RedPulse.jpg",
+    image: "/assets/images/updates/Digital Transformation - Images/55258420668_97c334c73d_o.jpg",
     gallery: [
       "/assets/images/portfolio/redpulse-heatmaps.webp",
       "/assets/images/portfolio/redpulse-analytics.webp",
@@ -111,7 +111,7 @@ export const projects: Project[] = [
     teamIds: ["p4", "p3", "p7"],
     partnerIds: ["world-bank", "esa", "un-ocha"],
     featured: false,
-    image: "/assets/images/portfolio/ResilienceMap.jpg",
+    image: "/assets/images/updates/Digital Transformation - Images/55314460256_967320e178_o.jpg",
     gallery: [
       "/assets/images/portfolio/resiliencemap-atlas.webp",
       "/assets/images/portfolio/resiliencemap-layers.webp",
@@ -140,7 +140,7 @@ export const projects: Project[] = [
     teamIds: ["p2", "p5", "p8"],
     partnerIds: ["ifrc", "safaricom-foundation"],
     featured: false,
-    image: "/assets/images/portfolio/MamaAfya.jpg",
+    image: "/assets/images/updates/Digital Transformation - Images/55426584054_93cdc6b343_o.jpg",
     gallery: [
       "/assets/images/portfolio/mamaafya-screens.webp",
     ],
@@ -167,7 +167,7 @@ export const projects: Project[] = [
     teamIds: ["p3", "p1", "p7"],
     partnerIds: ["google-org", "safaricom-foundation"],
     featured: true,
-    image: "/assets/images/portfolio/rafikiAI.jpg",
+    image: "/assets/images/updates/Digital Transformation - Images/55399016631_1c1424ce22_q.jpg",
     gallery: [
       "/assets/images/portfolio/rafiki-chat.webp",
     ],
