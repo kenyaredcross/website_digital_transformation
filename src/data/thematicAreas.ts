@@ -36,7 +36,7 @@ export const thematicAreas: ThematicArea[] = [
       { label: "System Uptime", value: "99.9% Field Reliability" },
     ],
     iconName: "Smartphone",
-    featuredImageUrl: "/assets/images/what-we-do/digital_products.jpg",
+    featuredImageUrl: "/assets/images/dt_updates/whites.jpg",
   },
   {
     id: "data-services",
@@ -73,7 +73,7 @@ export const thematicAreas: ThematicArea[] = [
       { label: "Records Processed", value: "50M+ Data Points" },
     ],
     iconName: "BarChart3",
-    featuredImageUrl: "/assets/images/what-we-do/data_analytics.jpg",
+    featuredImageUrl: "/assets/images/dt_updates/meeting.jpg",
   },
   {
     id: "gis-spatial",
@@ -110,7 +110,7 @@ export const thematicAreas: ThematicArea[] = [
       { label: "Drone Flights", value: "350+ Surveys" },
     ],
     iconName: "MapPin",
-    featuredImageUrl: "/assets/images/what-we-do/GIS_spatial.jpg",
+    featuredImageUrl: "/assets/images/dt_updates/teaching.jpg",
   },
   {
     id: "innovation-ai",
@@ -147,6 +147,6 @@ export const thematicAreas: ThematicArea[] = [
       { label: "Innovations Scaled", value: "8 Pilot-to-Prod Systems" },
     ],
     iconName: "Cpu",
-    featuredImageUrl: "/assets/images/what-we-do/digtal_innovation.jpg",
+    featuredImageUrl: "/assets/images/dt_updates/app.jpg",
   },
 ];
