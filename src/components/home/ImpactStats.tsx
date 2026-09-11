@@ -50,16 +50,16 @@ function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
 
 export function ImpactStats() {
   return (
-    <section className="py-20 bg-slate-900 text-white relative border-y border-slate-800">
+    <section className="py-20 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white relative border-y border-slate-200 dark:border-slate-800 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
-          <h2 className="text-xs font-bold uppercase tracking-widest text-red-500 font-mono">
+          <h2 className="text-xs font-bold uppercase tracking-widest text-red-600 dark:text-red-500 font-mono">
             Transformation At A Glance
           </h2>
-          <p className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+          <p className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
             Humanitarian scale powered by digital precision.
           </p>
-          <p className="text-slate-400 text-base">
+          <p className="text-slate-600 dark:text-slate-400 text-base">
             Measurable impact across products, data pipelines, field deployments, and partner ecosystems.
           </p>
         </div>
@@ -74,23 +74,23 @@ export function ImpactStats() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.1 }}
-                className="group relative p-8 rounded-2xl bg-slate-950/80 border border-slate-800/90 hover:border-red-500/50 transition-all duration-300 hover:shadow-xl hover:shadow-red-950/20"
+                className="group relative p-8 rounded-2xl bg-white dark:bg-slate-950/80 border border-slate-200/80 dark:border-slate-800/90 hover:border-red-500/50 transition-all duration-300 hover:shadow-xl hover:shadow-red-500/5 dark:hover:shadow-red-950/20"
               >
                 <div className="flex items-center justify-between mb-6">
-                  <div className="p-3 rounded-xl bg-red-600/10 border border-red-500/20 text-red-500 group-hover:scale-110 transition-transform">
+                  <div className="p-3 rounded-xl bg-red-100 dark:bg-red-600/10 border border-red-200 dark:border-red-500/20 text-red-600 dark:text-red-500 group-hover:scale-110 transition-transform">
                     <Icon className="w-6 h-6" />
                   </div>
              
                 </div>
 
-                <div className="text-4xl sm:text-5xl font-black text-white mb-2">
+                <div className="text-4xl sm:text-5xl font-black text-slate-900 dark:text-white mb-2">
                   <AnimatedCounter value={stat.numberValue} suffix={stat.suffix.replace(/[0-9M+]/g, "").trim() ? " " + stat.suffix.replace(/[0-9M+]/g, "").trim() : stat.suffix.includes("+") ? "+" : ""} />
                 </div>
 
-                <h3 className="text-lg font-bold text-slate-200 mb-2">
+                <h3 className="text-lg font-bold text-slate-800 dark:text-slate-200 mb-2">
                   {stat.label}
                 </h3>
-                <p className="text-sm text-slate-400 leading-relaxed">
+                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
                   {stat.description}
                 </p>
               </motion.div>

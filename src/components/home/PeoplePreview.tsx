@@ -25,7 +25,7 @@ export function PeoplePreview() {
   const featuredPeople = people.filter((p) => p.featured).slice(0, 4);
 
   return (
-    <section className="py-24 bg-white dark:bg-slate-900 text-slate-900 dark:text-white">
+    <section className="py-24 bg-white dark:bg-slate-900 text-slate-900 dark:text-white transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6 pb-8 border-b border-slate-200 dark:border-slate-800">
@@ -107,7 +107,7 @@ export function PeoplePreview() {
         <div className="mt-14 text-center">
           <Link
             href="/people"
-            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm text-white bg-slate-900 hover:bg-slate-800 dark:bg-red-600 dark:hover:bg-red-700 shadow-md transition-all"
+            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm text-white bg-red-600 hover:bg-red-700 shadow-md transition-all"
           >
             <span>Meet the Full Team & Contributors</span>
             <ArrowRight className="w-4 h-4" />

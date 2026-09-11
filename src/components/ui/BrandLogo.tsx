@@ -41,29 +41,7 @@ export function BrandLogo({ variant = "dark", size = "md" }: BrandLogoProps) {
         />
       </div>
 
-      {/* Brand Typography */}
-      <div className="flex flex-col">
-        <div className="flex items-center gap-1.5 leading-none">
-          <span
-            className={`font-black tracking-tight uppercase ${
-              size === "sm"
-                ? "text-sm"
-                : size === "lg"
-                ? "text-xl"
-                : "text-base"
-            } ${textPrimary}`}
-          >
-            Kenya Red Cross
-          </span>
-        </div>
-        <div className="flex items-center gap-1.5 mt-0.5 leading-none">
-          <span
-            className={`font-semibold tracking-wider text-[10px] md:text-[11px] uppercase ${textSecondary}`}
-          >
-            Digital Transformation
-          </span>
-        </div>
-      </div>
+     
     </Link>
   );
 }
