@@ -7,6 +7,10 @@ import { projects } from "@/data/projects";
 import { ArrowRight, Layers, Sparkles, ExternalLink } from "lucide-react";
 
 const featuredProjectImages: Record<string, string> = {
+  vmms: "/assets/images/dt_updates/learning.jpg",
+  "donations-platform": "/assets/images/dt_updates/app.jpg",
+  cbs: "/assets/images/dt_updates/person_standingl.jpg",
+  "africa-localization-hub": "/assets/images/dt_updates/reliefs.jpg",
   hazina: "/assets/images/dt_updates/app.jpg",
   bomacare: "/assets/images/dt_updates/app_phone.jpg",
   redpulse: "/assets/images/dt_updates/person_standingl.jpg",
@@ -61,7 +65,7 @@ export function FeaturedProjects() {
                 >
                   <div className="relative group aspect-[4/3] rounded-2xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 hover:border-red-500/50 transition-all duration-300 shadow-2xl overflow-hidden">
                     <Image
-                      src={featuredProjectImages[project.id]}
+                      src={featuredProjectImages[project.id] || project.image || "/assets/images/dt_updates/app.jpg"}
                       alt={`${project.title} project preview`}
                       fill
                       sizes="(max-width: 1024px) 100vw, 58vw"

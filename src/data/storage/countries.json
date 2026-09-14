@@ -156,5 +156,41 @@
       "lat": -4.0383,
       "lng": 21.7587
     }
+  },
+  {
+    "id": "gambia",
+    "code": "GM",
+    "name": "Gambia",
+    "region": "West Africa",
+    "isActive": true,
+    "shortDescription": "Operational deployment of the Volunteer and Membership Management System (VMMS).",
+    "activeInitiativesCount": 2,
+    "digitalProductsCount": 2,
+    "dataServicesCount": 1,
+    "keyInitiatives": [
+      "Volunteer & Membership Management System (VMMS)"
+    ],
+    "coordinates": {
+      "lat": 13.4432,
+      "lng": -15.3101
+    }
+  },
+  {
+    "id": "south-africa",
+    "code": "ZA",
+    "name": "South Africa",
+    "region": "Southern Africa",
+    "isActive": true,
+    "shortDescription": "Consortium partner hub for the Africa Localisation Hub platform.",
+    "activeInitiativesCount": 3,
+    "digitalProductsCount": 2,
+    "dataServicesCount": 1,
+    "keyInitiatives": [
+      "Africa Localisation Hub"
+    ],
+    "coordinates": {
+      "lat": -30.5595,
+      "lng": 22.9375
+    }
   }
 ]
