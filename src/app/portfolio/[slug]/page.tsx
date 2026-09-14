@@ -119,7 +119,7 @@ export default async function ProjectDetailPage({
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-5 py-3 rounded-xl font-bold text-sm text-white bg-red-600 hover:bg-red-700 transition-colors shadow-lg"
               >
-                <span>Access Live Platform / Demo</span>
+                <span>Access Live Platform</span>
                 <ExternalLink className="w-4 h-4" />
               </a>
             </div>
