@@ -9,7 +9,7 @@ export const people: Person[] = [
     department: "Leadership",
     bio: "Kelvin Njenga is a digital transformation specialist with over seven years of experience in technology, product management, and digital innovation within the humanitarian sector.\n\nAt Kenya Red Cross Society, he supports the implementation of the organization’s digital transformation strategy and leads the development of digital solutions that improve operational efficiency and respond to organizational needs.\n\nHis work focuses on strengthening organizational capability, improving service delivery, enhancing information management, and promoting strong data and digital governance practices.",
     shortBio: "Digital transformation specialist leading the implementation of digital solutions and data governance at KRCS.",
-    avatar: "/assets/images/people/p1.jpeg",
+    avatar: "/assets/images/people/njenga.png",
     expertise: [
       "Digital Transformation Strategy",
       "Digital Product Management",
@@ -28,7 +28,7 @@ export const people: Person[] = [
     department: "Product",
     bio: "Mitchell Njeri leads the full product lifecycle of KRCS digital platforms, from initial concept and stakeholder engagement to development, deployment, and continuous improvement. Her approach is grounded in listening: understanding the day-to-day needs of users, refining requirements, and translating them into systems that are practical, sustainable, and well-documented.\n\nAcross the platforms she has managed at KRCS, she has consistently balanced what is technically possible with what people genuinely need, ensuring that KRCS’s digital tools are not just functional, but truly useful in supporting humanitarian work.",
     shortBio: "Product Manager leading full product lifecycle and user-centered digital solutions at KRCS.",
-    avatar: "/assets/images/people/p2.jpeg",
+    avatar: "/assets/images/people/mitchell.png",
     expertise: [
       "Product Management & Product Lifecycle Development",
       "Stakeholder Engagement & Requirements Engineering"
@@ -62,7 +62,7 @@ export const people: Person[] = [
     department: "Technology",
     bio: "Lennox Mwita is a full-stack software developer with hands-on experience across payments, data engineering, and DevOps. He builds production systems end to end in Golang, Python, TypeScript, and JavaScript, and has shipped backend services and integrations for organizations including Kenya Red Cross Society, spanning M-Pesa Daraja and PesaLink payment integrations, USSD and SMS platforms, and ERPNext/Frappe applications.\n\nExperienced working across the stack with React, Next.js, Flutter for mobile, and Django, he applies Git, Docker, and cloud platforms such as AWS and Azure to deliver consistent, well-tested deployments. He brings the same attention to detail to resolving technical issues as he does to ensuring reliable system integrations.",
     shortBio: "Full-stack developer experienced in fintech payments, data engineering, ERPNext, and cloud deployments.",
-    avatar: "/assets/images/people/p4.jpeg",
+    avatar: "/assets/images/people/lennox.jpeg",
     expertise: [
       "Full-Stack Development (Golang, Python, TypeScript, React, Django, Flutter)",
       "Payments & Fintech Integrations (M-Pesa Daraja, PesaLink)",
@@ -82,7 +82,7 @@ export const people: Person[] = [
     isVolunteer: true,
     bio: "Yasmina provides frontline digital support across KRCS systems, helping users resolve issues efficiently and ensuring that reported challenges are properly understood and addressed. She diagnoses user issues, resolves non-technical challenges directly, and coordinates the escalation of technical matters to developers and relevant leadership with clear context and practical insight.\n\nHer experience in User Acceptance Testing (UAT) enables her to assess systems from the user’s perspective, identify gaps and inconsistencies, and contribute to improving the reliability and usability of digital platforms.\n\nShe also brings experience in data visualization, including the development of Power BI dashboards that translate data into clear and meaningful insights. By combining user support, quality assurance, and data visualization, she contributes to ensuring that KRCS digital solutions are not only functional and responsive to user needs, but also support informed decision-making across the organization.",
     shortBio: "Digital transformation volunteer facilitating frontline user support, UAT quality assurance, and Power BI visualization.",
-    avatar: "/assets/images/people/p5.jpeg",
+    avatar: "/assets/images/people/yasmina.jpeg",
     expertise: [
       "Account Management",
       "Quality Assurance",
@@ -117,7 +117,7 @@ export const people: Person[] = [
     isVolunteer: true,
     bio: "Software Developer with experience in designing, developing, and deploying web and mobile applications that support digital transformation and operational efficiency. Skilled in building user-focused solutions, integrating databases and APIs, and developing scalable digital systems. Experienced across frontend and backend development, with a strong interest in using technology to solve real-world organizational and community challenges.",
     shortBio: "Software developer volunteer focused on scalable web/mobile applications and API integrations.",
-    avatar: "/assets/images/people/p7.jpeg",
+    avatar: "/assets/images/people/edison.jpeg",
     expertise: [
       "Web Application Development",
       "Mobile Application Development",
@@ -136,7 +136,7 @@ export const people: Person[] = [
     department: "Contributors",
     bio: "Mohamed Bahero leads and supports the design, testing, and implementation of digital and community-led innovations that respond to humanitarian and development challenges. His work at ICHA has included initiatives focused on community inclusion currencies, dignified digital identity, STEAM education, youth and women’s economic empowerment, and urban resilience.\n\nHe works with communities and partners to apply approaches including human-centred design, systems thinking, and prototyping to develop practical, locally relevant solutions. His experience also spans community engagement and accountability, facilitation, project management, and partnership coordination, with a strong focus on using innovation to strengthen community resilience.",
     shortBio: "Digital Innovation Officer designing community-led humanitarian tech, human-centered design, and data protection.",
-    avatar: "/assets/images/people/p8.jpeg",
+    avatar: "/assets/images/people/bahero.png",
     expertise: [
       "Digital Innovation",
       "Human-Centred Design",
