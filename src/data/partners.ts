@@ -2,6 +2,16 @@ import { Partner } from "@/types";
 
 export const partners: Partner[] = [
   {
+    id: "krcs",
+    name: "Kenya Red Cross Society (KRCS)",
+    category: "Strategic",
+    logo: "/assets/images/partners/KRCS.png",
+    description: "The principal humanitarian organisation in Kenya, driving community resilience, emergency response, and digital innovation to deliver life-saving services across all 47 counties.",
+    website: "https://www.redcross.or.ke",
+    collaborationFocus: "Humanitarian Innovation, Digital Transformation & Community Resilience",
+    featured: true,
+  },
+  {
     id: "ifrc",
     name: "International Federation of Red Cross (IFRC)",
     category: "Strategic",

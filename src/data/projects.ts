@@ -26,7 +26,7 @@ export const projects: Project[] = [
     thematicAreaSlug: "digital-products",
     countries: ["TZ", "GM"],
     teamIds: ["p1", "p2", "p3", "p5"],
-    partnerIds: ["ifrc", "safaricom-foundation"],
+    partnerIds: ["krcs", "ifrc", "safaricom-foundation"],
     featured: true,
     image: "/assets/images/portfolio/society.png",
     gallery: [
@@ -60,7 +60,7 @@ export const projects: Project[] = [
     thematicAreaSlug: "digital-products",
     countries: ["KE"],
     teamIds: ["p3", "p4", "p6", "p7"],
-    partnerIds: ["safaricom-foundation", "ifrc"],
+    partnerIds: ["krcs", "safaricom-foundation", "ifrc"],
     featured: true,
     image: "/assets/images/portfolio/donate.png",
     gallery: [
@@ -94,7 +94,7 @@ export const projects: Project[] = [
     thematicAreaSlug: "data-services",
     countries: ["KE"],
     teamIds: ["p1", "p4", "p5", "p8"],
-    partnerIds: ["un-ocha", "icrc", "google-org"],
+    partnerIds: ["krcs", "un-ocha", "icrc", "google-org"],
     featured: true,
     image: "/assets/images/portfolio/cbsx.png",
     gallery: [
@@ -127,7 +127,7 @@ export const projects: Project[] = [
     thematicAreaSlug: "digital-products",
     countries: ["KE", "ZA"],
     teamIds: ["p2", "p3", "p7", "p8"],
-    partnerIds: ["ifrc", "google-org", "world-bank"],
+    partnerIds: ["krcs", "ifrc", "google-org", "world-bank"],
     featured: false,
     image: "/assets/images/dt_updates/reliefs.jpg",
     gallery: [
@@ -160,7 +160,7 @@ export const projects: Project[] = [
     thematicAreaSlug: "digital-products",
     countries: ["KE"],
     teamIds: ["p2", "p3", "p4", "p5"],
-    partnerIds: ["ifrc", "safaricom-foundation"],
+    partnerIds: ["krcs", "ifrc", "safaricom-foundation"],
     featured: true,
     image: "/assets/images/portfolio/supplier.png",
     gallery: [
@@ -194,7 +194,7 @@ export const projects: Project[] = [
     thematicAreaSlug: "data-services",
     countries: ["KE"],
     teamIds: ["p1", "p2", "p3", "p7"],
-    partnerIds: ["un-ocha", "ifrc"],
+    partnerIds: ["krcs", "un-ocha", "ifrc"],
     featured: false,
     image: "/assets/images/distro/lake2.jpg",
     gallery: [
