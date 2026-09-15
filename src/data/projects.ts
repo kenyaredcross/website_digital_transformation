@@ -128,7 +128,7 @@ export const projects: Project[] = [
     countries: ["KE", "ZA"],
     teamIds: ["p2", "p3", "p7", "p8"],
     partnerIds: ["ifrc", "google-org", "world-bank"],
-    featured: true,
+    featured: false,
     image: "/assets/images/dt_updates/reliefs.jpg",
     gallery: [
       "/assets/images/dt_updates/reliefs.jpg",
@@ -195,7 +195,7 @@ export const projects: Project[] = [
     countries: ["KE"],
     teamIds: ["p1", "p2", "p3", "p7"],
     partnerIds: ["un-ocha", "ifrc"],
-    featured: true,
+    featured: false,
     image: "/assets/images/distro/lake2.jpg",
     gallery: [
       "/assets/images/distro/lake2.jpg",

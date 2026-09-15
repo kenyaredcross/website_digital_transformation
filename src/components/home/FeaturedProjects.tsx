@@ -1,26 +1,28 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { projects } from "@/data/projects";
+import { projects as initialProjects } from "@/data/projects";
+import { Project } from "@/types";
 import { ArrowRight, Layers, Sparkles, ExternalLink } from "lucide-react";
 
-const featuredProjectImages: Record<string, string> = {
-  vmms: "/assets/images/dt_updates/learning.jpg",
-  "donations-platform": "/assets/images/dt_updates/app.jpg",
-  cbs: "/assets/images/dt_updates/person_standingl.jpg",
-  "africa-localization-hub": "/assets/images/dt_updates/reliefs.jpg",
-  "prequalification-platform": "/assets/images/distro/presentation2.jpg",
-  "anticipatory-action": "/assets/images/distro/lake2.jpg",
-  hazina: "/assets/images/dt_updates/app.jpg",
-  bomacare: "/assets/images/dt_updates/app_phone.jpg",
-  redpulse: "/assets/images/dt_updates/person_standingl.jpg",
-  "rafiki-ai": "/assets/images/dt_updates/learning.jpg",
-};
-
 export function FeaturedProjects() {
-  const featured = projects.filter((p) => p.featured);
+  const [projectsList, setProjectsList] = useState<Project[]>(initialProjects);
+
+  useEffect(() => {
+    fetch("/api/data/projects")
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          setProjectsList(data);
+        }
+      })
+      .catch((err) => console.error("Failed to load live projects:", err));
+  }, []);
+
+  const featured = projectsList.filter((p) => Boolean(p.featured));
 
   return (
     <section className="py-24 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white relative overflow-hidden transition-colors duration-300 border-b border-slate-200 dark:border-slate-800">
@@ -67,7 +69,7 @@ export function FeaturedProjects() {
                 >
                   <div className="relative group aspect-[4/3] rounded-2xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 hover:border-red-500/50 transition-all duration-300 shadow-2xl overflow-hidden">
                     <Image
-                      src={featuredProjectImages[project.id] || project.image || "/assets/images/dt_updates/app.jpg"}
+                      src={project.image || "/assets/images/dt_updates/app.jpg"}
                       alt={`${project.title} project preview`}
                       fill
                       sizes="(max-width: 1024px) 100vw, 58vw"
