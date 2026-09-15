@@ -44,7 +44,7 @@ export const people: Person[] = [
     department: "Technology",
     bio: "Nigel Nasser is a software developer with experience in Python, JavaScript, and Java. At Kenya Red Cross Society, he has contributed to the Prequalification Platform, donations systems, and anticipatory action tools, supporting the organization’s operational and humanitarian work.\n\nHis work focuses on translating requirements into software, resolving technical challenges, and maintaining clear, well-structured code. He considers how systems will be used, maintained, and extended as requirements change. His interest in programming comes from working through problems and building software that serves a practical purpose.",
     shortBio: "Software developer focused on backend systems, Frappe/ERPNext, and cloud services for humanitarian platforms.",
-    avatar: "/assets/images/people/p3.jpeg",
+    avatar: "/assets/images/people/nigel.jpeg",
     expertise: [
       "Backend Development (Python, JavaScript, Java)",
       "Frappe & ERPNext Development",
