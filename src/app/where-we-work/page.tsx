@@ -18,7 +18,7 @@ export default function WhereWeWorkPage() {
         {/* Background Image hands1.jpg with lowered opacity */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/assets/images/distro/hands1.jpg"
+            src="/assets/images/dt_updates/meeting.jpg"
             alt="Humanitarian Technology & Field Operations"
             fill
             priority

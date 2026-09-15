@@ -17,7 +17,7 @@ export default function PortfolioPage() {
         {/* Background Image hands1.jpg with lowered opacity */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/assets/images/distro/hands1.jpg"
+            src="/assets/images/distro/presentation5.jpg"
             alt="Humanitarian Technology & Field Operations"
             fill
             priority

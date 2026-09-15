@@ -59,8 +59,19 @@ export function BlogCard({ post }: { post: BlogPost }) {
       <div className="p-6 pt-0 space-y-4">
         <div className="pt-4 border-t border-slate-200 dark:border-slate-800/80 flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <div className="w-7 h-7 rounded-full bg-red-100 dark:bg-red-950 text-red-600 dark:text-red-400 border border-red-200 dark:border-red-800 font-mono font-bold text-[10px] flex items-center justify-center">
-              {post.author.name.split(" ").map((n) => n[0]).join("")}
+            <div className="relative w-7 h-7 rounded-full overflow-hidden border border-red-200 dark:border-red-800 shrink-0 bg-red-100 dark:bg-red-950">
+              {post.author.avatar ? (
+                <Image
+                  src={post.author.avatar}
+                  alt={post.author.name}
+                  fill
+                  className="object-cover"
+                />
+              ) : (
+                <span className="font-mono font-bold text-red-600 dark:text-red-400 text-[10px] flex items-center justify-center h-full w-full">
+                  {post.author.name.split(" ").map((n) => n[0]).join("")}
+                </span>
+              )}
             </div>
             <span className="text-xs font-mono text-slate-700 dark:text-slate-300 font-medium truncate max-w-[140px]">
               {post.author.name}

@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { getBlogs, getBlogBySlug } from "@/lib/get-data";
+import { getBlogs, getBlogBySlug, getPeople } from "@/lib/get-data";
 import { ArrowLeft, ArrowRight, Calendar, Clock, Video, ExternalLink, Tag } from "lucide-react";
 import type { Metadata } from "next";
 
@@ -44,6 +44,10 @@ export default async function BlogPostPage({
 
   const allBlogs = getBlogs();
   const relatedPosts = allBlogs.filter((b) => b.id !== post.id).slice(0, 3);
+  const people = getPeople();
+  const authorPerson = people.find(
+    (p) => p.name.toLowerCase() === post.author.name.toLowerCase()
+  );
 
   return (
     <div className="pt-28 pb-20 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white min-h-screen transition-colors duration-300">
@@ -75,13 +79,39 @@ export default async function BlogPostPage({
 
           {/* Author Header */}
           <div className="pt-4 flex items-center gap-4 border-t border-slate-200 dark:border-slate-800/80">
-            <div className="w-12 h-12 rounded-full bg-red-100 dark:bg-red-950 text-red-600 dark:text-red-400 border border-red-200 dark:border-red-800 font-mono font-bold text-base flex items-center justify-center">
-              {post.author.name.split(" ").map((n) => n[0]).join("")}
-            </div>
-            <div>
-              <span className="block text-sm font-bold text-slate-900 dark:text-white">{post.author.name}</span>
-              <span className="text-xs font-mono text-slate-500 dark:text-slate-400">{post.author.role}</span>
-            </div>
+            {authorPerson ? (
+              <Link href={`/people/${authorPerson.slug}`} className="flex items-center gap-4 group">
+                <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-red-200 dark:border-red-800 shrink-0 bg-red-100 dark:bg-red-950 group-hover:border-red-500 transition-colors">
+                  <Image
+                    src={authorPerson.avatar || post.author.avatar}
+                    alt={post.author.name}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div>
+                  <span className="block text-sm font-bold text-slate-900 dark:text-white group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors">
+                    {post.author.name}
+                  </span>
+                  <span className="text-xs font-mono text-slate-500 dark:text-slate-400">{post.author.role}</span>
+                </div>
+              </Link>
+            ) : (
+              <div className="flex items-center gap-4">
+                <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-red-200 dark:border-red-800 shrink-0 bg-red-100 dark:bg-red-950">
+                  <Image
+                    src={post.author.avatar}
+                    alt={post.author.name}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div>
+                  <span className="block text-sm font-bold text-slate-900 dark:text-white">{post.author.name}</span>
+                  <span className="text-xs font-mono text-slate-500 dark:text-slate-400">{post.author.role}</span>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </section>
