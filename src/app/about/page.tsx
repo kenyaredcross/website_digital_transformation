@@ -28,7 +28,7 @@ export default function AboutPage() {
         {/* Background Image hands1.jpg with lowered opacity */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/assets/images/distro/hands1.jpg"
+            src="/assets/images/distro/lake4.jpg"
             alt="Humanitarian Technology & Field Operations"
             fill
             priority
