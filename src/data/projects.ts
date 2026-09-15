@@ -28,7 +28,7 @@ export const projects: Project[] = [
     teamIds: ["p1", "p2", "p3", "p5"],
     partnerIds: ["ifrc", "safaricom-foundation"],
     featured: true,
-    image: "/assets/images/dt_updates/learning.jpg",
+    image: "/assets/images/portfolio/society.png",
     gallery: [
       "/assets/images/dt_updates/learning.jpg",
       "/assets/images/dt_updates/app.jpg",
@@ -62,7 +62,7 @@ export const projects: Project[] = [
     teamIds: ["p3", "p4", "p6", "p7"],
     partnerIds: ["safaricom-foundation", "ifrc"],
     featured: true,
-    image: "/assets/images/dt_updates/app.jpg",
+    image: "/assets/images/portfolio/donate.png",
     gallery: [
       "/assets/images/dt_updates/app.jpg",
       "/assets/images/dt_updates/app_phone.jpg",
@@ -96,7 +96,7 @@ export const projects: Project[] = [
     teamIds: ["p1", "p4", "p5", "p8"],
     partnerIds: ["un-ocha", "icrc", "google-org"],
     featured: true,
-    image: "/assets/images/dt_updates/person_standingl.jpg",
+    image: "/assets/images/portfolio/cbsx.png",
     gallery: [
       "/assets/images/dt_updates/person_standingl.jpg",
     ],
@@ -162,7 +162,7 @@ export const projects: Project[] = [
     teamIds: ["p2", "p3", "p4", "p5"],
     partnerIds: ["ifrc", "safaricom-foundation"],
     featured: true,
-    image: "/assets/images/distro/presentation2.jpg",
+    image: "/assets/images/portfolio/supplier.png",
     gallery: [
       "/assets/images/distro/presentation2.jpg",
       "/assets/images/distro/presentation3.jpg",
