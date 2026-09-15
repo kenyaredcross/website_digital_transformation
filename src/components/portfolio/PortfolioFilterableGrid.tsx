@@ -215,7 +215,7 @@ export function PortfolioFilterableGrid() {
             >
               <Link
                 href={`/portfolio/${project.slug}`}
-                className="relative block aspect-[16/9] overflow-hidden bg-slate-100 dark:bg-slate-950"
+                className="relative block aspect-[16/9] overflow-hidden bg-slate-100 dark:bg-slate-800"
                 aria-label={`View ${project.title} case study`}
               >
                 <Image
@@ -223,9 +223,9 @@ export function PortfolioFilterableGrid() {
                   alt={`${project.title} project preview`}
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="object-fill transition-transform duration-500 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/30 via-transparent to-transparent pointer-events-none" />
               </Link>
               <div className="p-6 space-y-4">
                 <div className="flex items-center justify-between">
@@ -287,7 +287,7 @@ export function PortfolioFilterableGrid() {
             >
               <Link
                 href={`/portfolio/${project.slug}`}
-                className="relative block w-full md:w-48 aspect-[16/9] shrink-0 overflow-hidden rounded-xl bg-slate-100 dark:bg-slate-950"
+                className="relative block w-full md:w-48 aspect-[16/9] shrink-0 overflow-hidden rounded-xl bg-slate-100 dark:bg-slate-800"
                 aria-label={`View ${project.title} case study`}
               >
                 <Image
@@ -295,7 +295,7 @@ export function PortfolioFilterableGrid() {
                   alt={`${project.title} project preview`}
                   fill
                   sizes="(max-width: 768px) 100vw, 192px"
-                  className="object-cover transition-transform duration-500 hover:scale-105"
+                  className="object-fill transition-transform duration-500 hover:scale-105"
                 />
               </Link>
               <div className="space-y-2 flex-1">
