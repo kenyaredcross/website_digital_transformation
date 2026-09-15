@@ -216,5 +216,112 @@
       "/assets/images/dt_updates/reliefs.jpg"
     ],
     "demoUrl": "https://africalocalizationhub.org/ans-hub"
+  },
+  {
+    "id": "prequalification-platform",
+    "slug": "prequalification-platform",
+    "title": "Prequalification Platform",
+    "category": "Platforms",
+    "year": 2024,
+    "description": "The Prequalification Platform is a digital system that supports the Kenya Red Cross Society in managing the supplier and service-provider prequalification process. It provides a structured way for suppliers to submit their information and documentation, while enabling procurement teams and evaluation committees to review, assess and approve applications.",
+    "shortDescription": "Digital system supporting the Kenya Red Cross Society in managing supplier and service-provider prequalification.",
+    "challenge": "Before the platform, prequalification processes relied heavily on manual submissions, documents and email-based coordination, making it difficult to organise applications, track supporting documents, coordinate evaluations and maintain a clear record of supplier assessments.",
+    "solution": "The platform digitises the end-to-end prequalification process, allowing suppliers to submit applications and required documents online. Procurement teams can manage applications, assign evaluators, capture scores and track the progress of evaluations through a centralised system.",
+    "impact": "The platform has made the prequalification process more organised, transparent and accessible, reducing manual paperwork and improving coordination between suppliers, procurement teams and evaluation committees. It also provides better visibility and records of supplier evaluations, supporting more efficient procurement processes.",
+    "impactMetrics": [
+      {
+        "label": "Process Digitization",
+        "value": "End-to-End Online"
+      },
+      {
+        "label": "Procurement Efficiency",
+        "value": "Centralized Review"
+      },
+      {
+        "label": "Transparency",
+        "value": "Auditable Records"
+      }
+    ],
+    "technologies": [
+      "React",
+      "Python",
+      "REST APIs",
+      "PostgreSQL"
+    ],
+    "thematicAreaSlug": "digital-products",
+    "countries": [
+      "KE"
+    ],
+    "teamIds": [
+      "p2",
+      "p3",
+      "p4",
+      "p5"
+    ],
+    "partnerIds": [
+      "ifrc",
+      "safaricom-foundation"
+    ],
+    "featured": true,
+    "image": "/assets/images/distro/presentation2.jpg",
+    "gallery": [
+      "/assets/images/distro/presentation2.jpg",
+      "/assets/images/distro/presentation3.jpg"
+    ],
+    "demoUrl": "https://one.redcross.or.ke/prequalification/"
+  },
+  {
+    "id": "anticipatory-action",
+    "slug": "anticipatory-action",
+    "title": "Anticipatory Action",
+    "category": "Platforms",
+    "year": 2024,
+    "description": "The Anticipatory Action Platform supports Kenya's approach to taking action before a disaster occurs, using forecasts, predefined triggers and pre-agreed interventions. It brings together information on hazards, action protocols, activations, people reached and results, while providing dashboards and resources for government, humanitarian partners and county teams.",
+    "shortDescription": "Centralized digital system for planning, reporting, and monitoring anticipatory disaster action using forecast triggers.",
+    "challenge": "Traditional disaster response often means waiting for a crisis to occur before resources and assistance are mobilised. This can delay support to vulnerable communities and result in higher response costs and greater losses, particularly in areas affected by recurring droughts, floods and other hazards.",
+    "solution": "The platform provides a centralised digital system for planning, reporting and monitoring anticipatory action. It brings together forecast triggers, pre-agreed action protocols, interventions, partner coordination, monitoring data and results dashboards, enabling teams to prepare and act before a hazard reaches destructive levels.",
+    "impact": "The platform supports earlier, faster and more targeted assistance to vulnerable communities. It gives teams visibility of activations and results across counties, helping them make informed decisions and deliver interventions such as cash, livestock support and health services before a crisis escalates.",
+    "impactMetrics": [
+      {
+        "label": "Disaster Preparedness",
+        "value": "Forecast Triggers"
+      },
+      {
+        "label": "Response Speed",
+        "value": "Early Interventions"
+      },
+      {
+        "label": "Field Visibility",
+        "value": "County-Wide Action"
+      }
+    ],
+    "technologies": [
+      "Vue.js",
+      "Python",
+      "REST APIs",
+      "PostgreSQL",
+      "GIS Mapping"
+    ],
+    "thematicAreaSlug": "data-services",
+    "countries": [
+      "KE"
+    ],
+    "teamIds": [
+      "p1",
+      "p2",
+      "p3",
+      "p7"
+    ],
+    "partnerIds": [
+      "un-ocha",
+      "ifrc"
+    ],
+    "featured": true,
+    "image": "/assets/images/distro/lake2.jpg",
+    "gallery": [
+      "/assets/images/distro/lake2.jpg",
+      "/assets/images/distro/lake3.jpg"
+    ],
+    "demoUrl": "https://redhive.redcross.or.ke/aa"
   }
 ]

@@ -11,6 +11,8 @@ const featuredProjectImages: Record<string, string> = {
   "donations-platform": "/assets/images/dt_updates/app.jpg",
   cbs: "/assets/images/dt_updates/person_standingl.jpg",
   "africa-localization-hub": "/assets/images/dt_updates/reliefs.jpg",
+  "prequalification-platform": "/assets/images/distro/presentation2.jpg",
+  "anticipatory-action": "/assets/images/distro/lake2.jpg",
   hazina: "/assets/images/dt_updates/app.jpg",
   bomacare: "/assets/images/dt_updates/app_phone.jpg",
   redpulse: "/assets/images/dt_updates/person_standingl.jpg",
