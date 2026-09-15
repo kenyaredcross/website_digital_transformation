@@ -129,7 +129,7 @@ export const projects: Project[] = [
     teamIds: ["p2", "p3", "p7", "p8"],
     partnerIds: ["krcs", "ifrc", "google-org", "world-bank"],
     featured: false,
-    image: "/assets/images/dt_updates/reliefs.jpg",
+    image: "/assets/images/portfolio/loca.jpeg",
     gallery: [
       "/assets/images/dt_updates/reliefs.jpg",
     ],
