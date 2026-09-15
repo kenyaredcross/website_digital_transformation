@@ -37,7 +37,7 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <BrandLogo variant={isScrolled ? "dark" : "light"} size="md" />
+          <BrandLogo variant="dark" size="md" />
 
           {/* Desktop Nav Links */}
           <nav className="hidden md:flex items-center space-x-1 lg:space-x-2">

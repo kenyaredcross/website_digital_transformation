@@ -1,47 +1,48 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { useTheme } from "@/components/theme/ThemeProvider";
 
 interface BrandLogoProps {
-  variant?: "light" | "dark";
+  variant?: "light" | "dark"; // kept for API compatibility, not used for logo selection
   size?: "sm" | "md" | "lg";
 }
 
-export function BrandLogo({ variant = "dark", size = "md" }: BrandLogoProps) {
+export function BrandLogo({ size = "md" }: BrandLogoProps) {
+  const { theme } = useTheme();
+
   const imgSizes = {
-    sm: { w: 32, h: 32, cls: "w-8 h-8" },
-    md: { w: 44, h: 44, cls: "w-11 h-11" },
-    lg: { w: 56, h: 56, cls: "w-14 h-14" },
+    sm: { w: 100, h: 36, cls: "h-9 w-auto" },
+    md: { w: 160, h: 52, cls: "h-12 w-auto" },
+    lg: { w: 200, h: 64, cls: "h-16 w-auto" },
   };
 
-  const textPrimary =
-    variant === "light" ? "text-white" : "text-slate-900 dark:text-white";
-  const textSecondary =
-    variant === "light"
-      ? "text-red-200"
-      : "text-red-600 dark:text-red-400";
-
   const { w, h, cls } = imgSizes[size];
+
+  // logoB.png — white/light version for dark mode
+  // KRCS_logo.png — full-colour version for light mode
+  const logoSrc =
+    theme === "dark"
+      ? "/images/logo/logoB.png"
+      : "/images/logo/KRCS_logo.png";
 
   return (
     <Link
       href="/"
-      className="group flex items-center gap-3 transition-opacity hover:opacity-95"
+      className="group flex items-center transition-opacity hover:opacity-90"
+      aria-label="Kenya Red Cross Society – Home"
     >
-      {/* KRCS Logo */}
-      <div
-        className={`relative ${cls} shrink-0 rounded-full overflow-hidden bg-white shadow-sm ring-1 ring-slate-200/60`}
-      >
+      <div className={`relative ${cls} shrink-0`}>
         <Image
-          src="/assets/images/logo/KRCS_logo.jpeg"
+          src={logoSrc}
           alt="Kenya Red Cross Society logo"
           width={w}
           height={h}
-          className="object-contain w-full h-full"
+          className="object-contain w-full h-full transition-all duration-300"
           priority
         />
       </div>
-
-     
     </Link>
   );
 }

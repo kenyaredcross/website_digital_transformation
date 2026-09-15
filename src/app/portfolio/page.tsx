@@ -22,7 +22,7 @@ export default function PortfolioPage() {
             fill
             priority
             sizes="100vw"
-            className="object-cover object-center opacity-100 dark:opacity-100"
+            className="object-cover object-center opacity-0 dark:opacity-100"
           />
           {/* Light mode: white washes; Dark mode: slate-950 overlays */}
           <div className="absolute inset-0 bg-gradient-to-r from-white via-white/70 to-white/10 dark:from-slate-950 dark:via-slate-950/60 dark:to-slate-950/20 transition-colors duration-300" />
