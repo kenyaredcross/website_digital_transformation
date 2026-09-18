@@ -10,9 +10,9 @@ export const metadata: Metadata = {
 
 export default function BlogPage() {
   return (
-    <div className="min-h-screen bg-slate-50 pb-24 pt-28 text-slate-900 dark:bg-slate-950 dark:text-white">
+    <div className="min-h-screen bg-slate-50 pb-24 pt-25 text-slate-900 dark:bg-slate-950 dark:text-white">
       {/* ── Hero ───────────────────────────────────────────── */}
-      <section className="relative overflow-hidden border-b border-slate-200 bg-white py-20 dark:border-slate-800 dark:bg-slate-950 md:py-28">
+      <section className="relative overflow-hidden border-b border-slate-200 bg-white py-20 dark:border-slate-800 dark:bg-slate-950 md:py-15">
         {/* Dark mode: full-bleed field photograph behind the headline */}
         <div className="absolute inset-0 z-0 hidden dark:block">
           <Image

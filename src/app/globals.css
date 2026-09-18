@@ -124,3 +124,128 @@
 html {
   scroll-behavior: smooth;
 }
+
+/* ── Portfolio Hero animations ───────────────────────────────────────── */
+@keyframes hero-in {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes hero-frame-in {
+  from { opacity: 0; transform: translateY(24px) scale(.97); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes hero-underline {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+.hero-step {
+  animation: hero-in .7s cubic-bezier(.22,1,.36,1) both;
+}
+.hero-step-1 { animation-delay:  60ms; }
+.hero-step-2 { animation-delay: 160ms; }
+.hero-step-3 { animation-delay: 260ms; }
+
+.hero-frame {
+  animation: hero-frame-in .8s cubic-bezier(.22,1,.36,1) both;
+  animation-delay: 220ms;
+}
+
+.hero-underline {
+  transform-origin: left center;
+  animation: hero-underline .6s cubic-bezier(.22,1,.36,1) both;
+  animation-delay: 520ms;
+}
+
+/* ── Portfolio Filterable Grid animations & utilities ────────────────── */
+@keyframes pf-rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes pf-deal {
+  from { opacity: 0; transform: translateY(26px) scale(.965) rotate(-1.4deg); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes pf-deal-back {
+  from { opacity: 0; transform: translateY(-26px) scale(.965) rotate(1.4deg); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes pf-sheen {
+  from { transform: translateX(-130%) skewX(-14deg); }
+  to   { transform: translateX(240%) skewX(-14deg); }
+}
+
+.pf-reveal-idle { opacity: 0; }
+.pf-reveal-in   { animation: pf-rise .62s cubic-bezier(.22,1,.36,1) both; }
+
+/* Card: spotlight + micro-tilt driven by CSS custom props */
+.pf-card {
+  position: relative;
+  transform:
+    perspective(1100px)
+    rotateX(var(--pf-rx, 0deg))
+    rotateY(var(--pf-ry, 0deg))
+    translateY(var(--pf-lift, 0px));
+  transform-style: preserve-3d;
+  transition: transform .4s cubic-bezier(.22,1,.36,1), box-shadow .4s ease;
+  will-change: transform;
+}
+.pf-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 0;
+  opacity: var(--pf-glow, 0);
+  transition: opacity .35s ease;
+  background: radial-gradient(
+    420px circle at var(--pf-mx, 50%) var(--pf-my, 50%),
+    rgba(238, 36, 53, .16),
+    transparent 62%
+  );
+}
+.pf-card > * { position: relative; z-index: 1; }
+
+/* Light sweep across the thumbnail on hover / keyboard focus */
+.pf-sheen {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 42%;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(
+    100deg,
+    transparent,
+    rgba(255,255,255,.45),
+    transparent
+  );
+  transform: translateX(-130%) skewX(-14deg);
+}
+.group:hover .pf-sheen,
+.group:focus-within .pf-sheen { animation: pf-sheen .85s ease forwards; }
+
+/* Deck view */
+.pf-deck-card { animation: pf-deal .45s cubic-bezier(.22,1,.36,1) both; }
+.pf-deck-card[data-dir="back"] { animation-name: pf-deal-back; }
+.pf-deck-ghost {
+  transition: transform .45s cubic-bezier(.22,1,.36,1), opacity .45s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-step,
+  .hero-frame,
+  .hero-underline {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .pf-reveal-idle,
+  .pf-reveal-in,
+  .pf-deck-card { animation: none !important; opacity: 1 !important; transform: none !important; }
+  .pf-card { transform: none !important; transition: none; }
+  .pf-sheen { display: none; }
+  .pf-deck-ghost { transition: none; }
+}

@@ -14,9 +14,9 @@ export default function PeoplePage() {
   const initialPeople = getPeople();
 
   return (
-    <div className="pt-28 pb-20 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white min-h-screen transition-colors duration-300">
+    <div className="pt-25 pb-20 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white min-h-screen transition-colors duration-300">
       {/* ── Hero Section ──────────────────────────────────── */}
-      <section className="relative py-24 md:py-32 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 overflow-hidden transition-colors duration-300">
+      <section className="relative py-15 md:py-15 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 overflow-hidden transition-colors duration-300">
 
         {/* Dark mode only: full-bleed background image + gradient overlays */}
         <div className="absolute inset-0 z-0 hidden dark:block">

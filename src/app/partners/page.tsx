@@ -19,10 +19,10 @@ const stats = [
 
 export default function PartnersPage() {
   return (
-    <div className="pt-28 pb-20 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white min-h-screen transition-colors duration-300">
+    <div className="pt-25 pb-20 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white min-h-screen transition-colors duration-300">
 
       {/* ── Hero Section ──────────────────────────────────── */}
-      <section className="relative py-24 md:py-32 overflow-hidden bg-white dark:bg-slate-950 transition-colors duration-300">
+      <section className="relative py-15 md:py-15 overflow-hidden bg-white dark:bg-slate-950 transition-colors duration-300">
 
         {/* Dark mode only: full-bleed background image + gradient overlays */}
         <div className="absolute inset-0 z-0 hidden dark:block">
