@@ -1,21 +1,19 @@
 import Image from "next/image";
 import { BlogFilterableGrid } from "@/components/blog/BlogFilterableGrid";
-import { BookOpen } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Blog & Field Case Studies | Kenya Red Cross Digital",
+  title: "Insights & Field Stories | Kenya Red Cross Digital",
   description:
-    "Explore in-depth articles, early warning tech deployments, mobile cash transfer case studies, and spatial intelligence stories from Kenya Red Cross.",
+    "Field case studies, technical breakdowns and lessons learned from deploying early warning systems, mobile cash transfer and spatial intelligence across Kenya and East Africa.",
 };
 
 export default function BlogPage() {
   return (
-    <div className="pt-28 pb-20 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white min-h-screen transition-colors duration-300">
-      {/* ── Hero Section ──────────────────────────────────── */}
-      <section className="relative py-24 md:py-32 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 overflow-hidden transition-colors duration-300">
-
-        {/* Dark mode only: full-bleed background image + gradient overlays */}
+    <div className="min-h-screen bg-slate-50 pb-24 pt-28 text-slate-900 dark:bg-slate-950 dark:text-white">
+      {/* ── Hero ───────────────────────────────────────────── */}
+      <section className="relative overflow-hidden border-b border-slate-200 bg-white py-20 dark:border-slate-800 dark:bg-slate-950 md:py-28">
+        {/* Dark mode: full-bleed field photograph behind the headline */}
         <div className="absolute inset-0 z-0 hidden dark:block">
           <Image
             src="/assets/images/distro/lake3.jpg"
@@ -25,57 +23,33 @@ export default function BlogPage() {
             sizes="100vw"
             className="object-cover object-center"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/60 to-slate-950/20" />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-slate-950/70" />
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/75 to-slate-950/25" />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-slate-950/60" />
         </div>
 
-        {/* Light mode only: decorative radial blobs */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute right-0 top-0 w-[600px] h-[600px] dark:hidden translate-x-1/3 -translate-y-1/4"
-          style={{ background: "radial-gradient(circle, rgba(238,36,53,0.12) 0%, transparent 70%)" }}
-        />
-        <div
-          aria-hidden
-          className="pointer-events-none absolute left-0 bottom-0 w-[400px] h-[400px] dark:hidden -translate-x-1/3 translate-y-1/4"
-          style={{ background: "radial-gradient(circle, rgba(59,130,246,0.1) 0%, transparent 70%)" }}
-        />
-
-        {/* Two-column layout: text left, image right (light) / text only (dark) */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row lg:items-center gap-12 lg:gap-16">
-
-            {/* ── Left: Text content ── */}
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col gap-12 lg:flex-row lg:items-center lg:gap-20">
             <div className="flex-1 space-y-7">
-              {/* Label */}
-              <span className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-widest text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/80 px-3.5 py-1.5 rounded-full border border-red-200 dark:border-red-800/70 shadow-sm backdrop-blur-md w-fit">
-                <BookOpen className="w-4 h-4" /> Insights & Field Stories
-              </span>
-
-              {/* Headline */}
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-slate-900 dark:text-white tracking-tight leading-[1.05]">
-                Humanitarian tech{" "}
-                <span className="relative inline-block">
-                  <span className="relative z-10 text-red-600 dark:text-red-500">insights.</span>
-                  <span
-                    aria-hidden
-                    className="absolute -bottom-1 left-0 right-0 h-3 rounded-full opacity-20 bg-red-400 dark:bg-red-600 blur-sm"
-                  />
-                </span>
+              <h1 className="max-w-[16ch] text-5xl font-bold leading-[1.05] tracking-tight text-slate-900 dark:text-white sm:text-6xl lg:text-7xl">
+                What we learn in the field
               </h1>
 
-              {/* Sub-copy */}
-              <p className="text-xl text-slate-600 dark:text-slate-300 leading-relaxed">
-                Stories, field case studies, technical breakdowns, and lessons learned from deploying digital tools across Kenya and East Africa.
+              <p className="max-w-[58ch] text-lg leading-relaxed text-slate-600 dark:text-slate-300 sm:text-xl">
+                Case studies, technical breakdowns and honest post-mortems from
+                building digital tools for humanitarian response across Kenya and
+                East Africa.
               </p>
+
+              {/* A single red rule, carrying the brand without a badge or pill */}
+              <div aria-hidden className="h-1 w-24 rounded-full bg-red-600" />
             </div>
 
-            {/* ── Right: Image square — light mode only, zero gradient overlay ── */}
-            <div className="block dark:hidden lg:flex-shrink-0 lg:w-[420px] xl:w-[480px] w-full">
-              <div className="relative w-full aspect-square rounded-3xl overflow-hidden shadow-2xl ring-1 ring-slate-200">
+            {/* Light mode: the same photograph, held in a frame */}
+            <div className="w-full dark:hidden lg:w-[420px] lg:shrink-0 xl:w-[480px]">
+              <div className="relative aspect-square w-full overflow-hidden rounded-3xl shadow-xl ring-1 ring-slate-200">
                 <Image
                   src="/assets/images/distro/lake3.jpg"
-                  alt="Humanitarian Technology & Field Operations"
+                  alt="A Kenya Red Cross field team working beside a flooded riverbank"
                   fill
                   priority
                   sizes="(max-width: 1024px) 100vw, 480px"
@@ -83,14 +57,13 @@ export default function BlogPage() {
                 />
               </div>
             </div>
-
           </div>
         </div>
       </section>
 
-      {/* Main Filterable Stories Section */}
-      <section className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* ── Stories ────────────────────────────────────────── */}
+      <section className="py-16 md:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <BlogFilterableGrid />
         </div>
       </section>
