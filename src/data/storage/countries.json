@@ -5,7 +5,12 @@
     "name": "Kenya",
     "region": "East Africa",
     "isActive": true,
+    "partner": "Kenya Red Cross Society",
+    "since": 2016,
+    "image": "/assets/images/countries/kenya.jpg",
+    "imageAlt": "Kenya Red Cross responders reviewing field data on a tablet",
     "shortDescription": "Primary operational headquarters across all 47 counties, managing full-suite digital products, GIS mapping, and early warning systems.",
+    "fieldNote": "Every county has a branch feeding the same data layer, so a flood alert in Tana River and a cash payout in Turkana run on one system.",
     "activeInitiativesCount": 18,
     "digitalProductsCount": 12,
     "dataServicesCount": 8,
@@ -22,12 +27,42 @@
     }
   },
   {
+    "id": "somalia",
+    "code": "SO",
+    "name": "Somalia",
+    "region": "Horn of Africa",
+    "isActive": true,
+    "partner": "Somali Red Crescent Society",
+    "since": 2019,
+    "image": "/assets/images/countries/somalia.jpg",
+    "imageAlt": "Drought-affected settlement receiving mobile cash assistance",
+    "shortDescription": "Cross-border drought tracking, displaced population cash assistance platform deployment, and satellite damage assessment.",
+    "fieldNote": "Payments reach displaced households by phone, and satellite imagery scores shelter damage before a team can reach the site.",
+    "activeInitiativesCount": 7,
+    "digitalProductsCount": 4,
+    "dataServicesCount": 4,
+    "keyInitiatives": [
+      "Horn of Africa Drought Index",
+      "Mobile Cash Disbursement Gateway",
+      "Satellite Shelter Damage Classifier"
+    ],
+    "coordinates": {
+      "lat": 5.1521,
+      "lng": 46.1996
+    }
+  },
+  {
     "id": "uganda",
     "code": "UG",
     "name": "Uganda",
     "region": "East Africa",
     "isActive": true,
+    "partner": "Uganda Red Cross Society",
+    "since": 2018,
+    "image": "/assets/images/countries/uganda.jpg",
+    "imageAlt": "Community health volunteers logging cases at a border post",
     "shortDescription": "Regional cross-border epidemic surveillance and flood early action collaboration with Uganda Red Cross Society.",
+    "fieldNote": "Case reports cross the border faster than the outbreak does, and Karamoja drought signals trigger action before harvests fail.",
     "activeInitiativesCount": 6,
     "digitalProductsCount": 4,
     "dataServicesCount": 3,
@@ -47,7 +82,12 @@
     "name": "Tanzania",
     "region": "East Africa",
     "isActive": true,
+    "partner": "Tanzania Red Cross National Society",
+    "since": 2020,
+    "image": "/assets/images/countries/tanzania.jpg",
+    "imageAlt": "Coastal community mapping session with local volunteers",
     "shortDescription": "Joint coastal flood mapping, cholera surveillance dashboard, and community mHealth training programs.",
+    "fieldNote": "Storm surge models run against coastal settlement maps, and health questions get answered in Swahili on any phone.",
     "activeInitiativesCount": 5,
     "digitalProductsCount": 3,
     "dataServicesCount": 2,
@@ -62,32 +102,17 @@
     }
   },
   {
-    "id": "somalia",
-    "code": "SO",
-    "name": "Somalia",
-    "region": "Horn of Africa",
-    "isActive": true,
-    "shortDescription": "Cross-border drought tracking, displaced population cash assistance platform deployment, and satellite damage assessment.",
-    "activeInitiativesCount": 7,
-    "digitalProductsCount": 4,
-    "dataServicesCount": 4,
-    "keyInitiatives": [
-      "Horn of Africa Drought Index",
-      "Mobile Cash Disbursement Gateway",
-      "Satellite Shelter Damage Classifier"
-    ],
-    "coordinates": {
-      "lat": 5.1521,
-      "lng": 46.1996
-    }
-  },
-  {
     "id": "ethiopia",
     "code": "ET",
     "name": "Ethiopia",
     "region": "Horn of Africa",
     "isActive": true,
+    "partner": "Ethiopian Red Cross Society",
+    "since": 2021,
+    "image": "/assets/images/countries/ethiopia.jpg",
+    "imageAlt": "River gauge inspection along a highland basin",
     "shortDescription": "Shared hydrological data pipelines along Omo and Dawa river basins for anticipatory flood warnings.",
+    "fieldNote": "River gauges upstream give downstream communities a head start measured in days rather than hours.",
     "activeInitiativesCount": 4,
     "digitalProductsCount": 2,
     "dataServicesCount": 3,
@@ -106,7 +131,12 @@
     "name": "South Sudan",
     "region": "East & Central Africa",
     "isActive": true,
+    "partner": "South Sudan Red Cross",
+    "since": 2021,
+    "image": "/assets/images/countries/south-sudan.jpg",
+    "imageAlt": "Health survey being recorded on an offline mobile device",
     "shortDescription": "Sudd wetland flood inundation mapping and offline mobile health survey tool deployment.",
+    "fieldNote": "Survey tools work with no signal at all and sync the moment a team is back within range.",
     "activeInitiativesCount": 4,
     "digitalProductsCount": 3,
     "dataServicesCount": 2,
@@ -125,7 +155,12 @@
     "name": "Rwanda",
     "region": "East Africa",
     "isActive": true,
+    "partner": "Rwanda Red Cross",
+    "since": 2022,
+    "image": "/assets/images/countries/rwanda.jpg",
+    "imageAlt": "Drone pilot preparing a mapping flight over terraced hills",
     "shortDescription": "Technical knowledge exchange on drone imagery processing and emergency dispatch automation.",
+    "fieldNote": "Drone imagery turns into landslide risk maps within hours of a flight, and dispatch picks the nearest team automatically.",
     "activeInitiativesCount": 3,
     "digitalProductsCount": 2,
     "dataServicesCount": 2,
@@ -144,7 +179,12 @@
     "name": "Democratic Republic of Congo",
     "region": "Central Africa",
     "isActive": true,
+    "partner": "Croix-Rouge de la RDC",
+    "since": 2022,
+    "image": "/assets/images/countries/drc.jpg",
+    "imageAlt": "Epidemic response team at a community screening point",
     "shortDescription": "Ebola & Marburg epidemic surveillance data integration with regional Red Cross outbreak dashboards.",
+    "fieldNote": "Community reports and lab results land in the same dashboard, so response teams stop working from two versions of the truth.",
     "activeInitiativesCount": 3,
     "digitalProductsCount": 2,
     "dataServicesCount": 2,
@@ -158,30 +198,17 @@
     }
   },
   {
-    "id": "gambia",
-    "code": "GM",
-    "name": "Gambia",
-    "region": "West Africa",
-    "isActive": true,
-    "shortDescription": "Operational deployment of the Volunteer and Membership Management System (VMMS).",
-    "activeInitiativesCount": 2,
-    "digitalProductsCount": 2,
-    "dataServicesCount": 1,
-    "keyInitiatives": [
-      "Volunteer & Membership Management System (VMMS)"
-    ],
-    "coordinates": {
-      "lat": 13.4432,
-      "lng": -15.3101
-    }
-  },
-  {
     "id": "south-africa",
     "code": "ZA",
     "name": "South Africa",
     "region": "Southern Africa",
     "isActive": true,
+    "partner": "South African Red Cross Society",
+    "since": 2023,
+    "image": "/assets/images/countries/south-africa.jpg",
+    "imageAlt": "Partner workshop for the Africa Localisation Hub",
     "shortDescription": "Consortium partner hub for the Africa Localisation Hub platform.",
+    "fieldNote": "A shared build so national societies adapt tools locally instead of commissioning the same system ten times over.",
     "activeInitiativesCount": 3,
     "digitalProductsCount": 2,
     "dataServicesCount": 1,
@@ -191,6 +218,29 @@
     "coordinates": {
       "lat": -30.5595,
       "lng": 22.9375
+    }
+  },
+  {
+    "id": "gambia",
+    "code": "GM",
+    "name": "Gambia",
+    "region": "West Africa",
+    "isActive": true,
+    "partner": "Gambia Red Cross Society",
+    "since": 2024,
+    "image": "/assets/images/countries/gambia.jpg",
+    "imageAlt": "Volunteers registering on the membership management system",
+    "shortDescription": "Operational deployment of the Volunteer and Membership Management System (VMMS).",
+    "fieldNote": "Volunteer records, training history and deployment status live in one register instead of a dozen spreadsheets.",
+    "activeInitiativesCount": 2,
+    "digitalProductsCount": 2,
+    "dataServicesCount": 1,
+    "keyInitiatives": [
+      "Volunteer & Membership Management System (VMMS)"
+    ],
+    "coordinates": {
+      "lat": 13.4432,
+      "lng": -15.3101
     }
   }
 ]

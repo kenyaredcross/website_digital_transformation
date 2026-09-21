@@ -53,7 +53,7 @@ export interface Partner {
 
 export interface Country {
   id: string;
-  code: string; // ISO 2 letter code e.g. KE, UG, TZ
+  code: string;
   name: string;
   region: string;
   isActive: boolean;
@@ -63,8 +63,20 @@ export interface Country {
   dataServicesCount: number;
   keyInitiatives: string[];
   coordinates: { lat: number; lng: number };
+ 
+  // ── new ──────────────────────────────────────────────
+  /** National society KRCS works with in-country. */
+  partner: string;
+  /** Year the partnership started — sorts and labels the roster. */
+  since: number;
+  /** /public path to the country photo. */
+  image: string;
+  /** Alt text describing the photo, not the country. */
+  imageAlt: string;
+  /** One sentence in plain language about what the tooling changes on the ground. */
+  fieldNote: string;
 }
-
+ 
 export interface ThematicArea {
   id: string;
   slug: string;

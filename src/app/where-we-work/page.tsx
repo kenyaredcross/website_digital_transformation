@@ -1,7 +1,8 @@
 import Image from "next/image";
 import { AfricaMap } from "@/components/geography/AfricaMap";
+import { CountryCard } from "@/components/geography/CountryCard";
 import { countries } from "@/data/countries";
-import { MapPin, Globe2, CheckCircle2 } from "lucide-react";
+import { Globe2 } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -115,75 +116,7 @@ export default function WhereWeWorkPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {countries.map((country) => (
-              <div
-                key={country.id}
-                className="p-8 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-red-500/50 transition-all duration-300 flex flex-col justify-between shadow-sm"
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center gap-2">
-                      <MapPin className="w-5 h-5 text-red-600 dark:text-red-500" />
-                      <h3 className="text-2xl font-bold text-slate-900 dark:text-white">
-                        {country.name}
-                      </h3>
-                    </div>
-                    <span className="px-2.5 py-1 rounded text-xs font-mono font-bold bg-slate-100 dark:bg-slate-800 text-red-600 dark:text-red-400 border border-slate-200 dark:border-slate-700">
-                      {country.code}
-                    </span>
-                  </div>
-
-                  <span className="text-xs font-mono text-slate-500 dark:text-slate-400 block mb-4">
-                    Region: {country.region}
-                  </span>
-
-                  <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
-                    {country.shortDescription}
-                  </p>
-
-                  {/* Quantitative Stats Grid */}
-                  <div className="grid grid-cols-3 gap-2 text-center mb-6">
-                    <div className="p-2.5 rounded-lg bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800">
-                      <span className="block text-base font-black font-mono text-slate-900 dark:text-white">
-                        {country.activeInitiativesCount}
-                      </span>
-                      <span className="text-[9px] text-slate-500 dark:text-slate-400 block font-medium">
-                        Initiatives
-                      </span>
-                    </div>
-                    <div className="p-2.5 rounded-lg bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800">
-                      <span className="block text-base font-black font-mono text-red-600 dark:text-red-400">
-                        {country.digitalProductsCount}
-                      </span>
-                      <span className="text-[9px] text-slate-500 dark:text-slate-400 block font-medium">
-                        Products
-                      </span>
-                    </div>
-                    <div className="p-2.5 rounded-lg bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800">
-                      <span className="block text-base font-black font-mono text-blue-600 dark:text-blue-400">
-                        {country.dataServicesCount}
-                      </span>
-                      <span className="text-[9px] text-slate-500 dark:text-slate-400 block font-medium">
-                        Data Feeds
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Key Initiatives */}
-                <div className="pt-4 border-t border-slate-200 dark:border-slate-800 space-y-2">
-                  <span className="text-[10px] font-mono font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
-                    Key Deployed Initiatives
-                  </span>
-                  <ul className="space-y-1 text-xs text-slate-600 dark:text-slate-300">
-                    {country.keyInitiatives.slice(0, 3).map((init) => (
-                      <li key={init} className="flex items-center gap-1.5 font-medium">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-red-600 dark:text-red-500 shrink-0" />
-                        <span className="truncate">{init}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
+              <CountryCard key={country.id} country={country} />
             ))}
           </div>
         </div>
