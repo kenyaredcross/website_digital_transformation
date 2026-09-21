@@ -72,6 +72,7 @@ export function CountryCard({ country }: { country: Country }) {
               src={currentFlagSrc}
               alt={`${country.name} flag backdrop`}
               fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               unoptimized={currentFlagSrc.startsWith("http")}
               onError={handleImageError}
               className="object-cover object-center opacity-90 filter brightness-95 contrast-105 scale-105 group-hover:scale-110 transition-transform duration-700 ease-out"

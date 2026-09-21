@@ -388,6 +388,9 @@ export function AfricaMap({ isCompact = false }: { isCompact?: boolean }) {
                       src={currentFlagSrc}
                       alt={`${selectedCountry.name} Flag`}
                       fill
+                      priority
+                      loading="eager"
+                      sizes="(max-width: 1024px) 100vw, 480px"
                       unoptimized={currentFlagSrc.startsWith("http")}
                       onError={handleImageError}
                       className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
@@ -460,6 +463,7 @@ export function AfricaMap({ isCompact = false }: { isCompact?: boolean }) {
                           src={currentFlagSrc}
                           alt={`${selectedCountry.name} flag icon`}
                           fill
+                          sizes="28px"
                           unoptimized={currentFlagSrc.startsWith("http")}
                           onError={handleImageError}
                           className="object-cover"

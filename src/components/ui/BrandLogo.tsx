@@ -39,6 +39,7 @@ export function BrandLogo({ size = "md" }: BrandLogoProps) {
           alt="Kenya Red Cross Society logo"
           width={w}
           height={h}
+          //style={{ height: "auto" }}
           className="object-contain w-full h-full transition-all duration-300"
           priority
         />
