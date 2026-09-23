@@ -9,10 +9,10 @@ export const siteConfig: SiteConfig = {
   url: "https://digital.redcross.or.ke",
   officialRedCrossUrl: "https://www.redcross.or.ke",
   contact: {
-    email: "digital@redcross.or.ke",
-    phone: "+254 700 000 000",
+    email: "data.digital@redcross.or.ke",
+    phone: "(+254) 703 037 000",
     emergencyLine: "1199",
-    location: "Kenya Red Cross Headquarters, Red Cross Road, South C",
+    location: "South C (Bellevue), Red Cross Road, off Popo Road",
     address: "P.O. Box 40712",
     postalCode: "00100",
     city: "Nairobi",

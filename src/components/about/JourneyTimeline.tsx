@@ -1,44 +1,15 @@
 "use client";
 
 import { useRef } from "react";
+import Link from "next/link";
 import Image from "next/image";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { Flag, CheckCircle2, ArrowRight } from "lucide-react";
 import { aboutData } from "@/data/about";
 
-interface MilestoneMedia {
-  src: string;
-  tag: string;
-  caption: string;
-}
-
-const milestoneImages: Record<string, MilestoneMedia> = {
-  "2019": {
-    src: "/assets/images/distro/presentation2.jpg",
-    tag: "Unit Inception",
-    caption: "Centralizing technology, product engineering, and innovation teams across KRCS.",
-  },
-  "2021": {
-    src: "/assets/images/distro/hands2.jpg",
-    tag: "Field Digitization",
-    caption: "Direct community mobile cash distributions replacing paper vouchers.",
-  },
-  "2023": {
-    src: "/assets/images/distro/lake2.jpg",
-    tag: "GIS & Spatial Intelligence",
-    caption: "Mapping 2.5M building footprints and flood vulnerabilities across 47 counties.",
-  },
-  "2024": {
-    src: "/assets/images/distro/presentation4.jpg",
-    tag: "Predictive AI & Telemetry",
-    caption: "Hazina platform alerting 45,000 households 72h before El Niño flood crests.",
-  },
-};
-
 export function JourneyTimeline() {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Scroll animation for the center line progress fill
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start 70%", "end 80%"],
@@ -73,7 +44,7 @@ export function JourneyTimeline() {
             transition={{ delay: 0.1 }}
             className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white tracking-tight"
           >
-            Our Evolution & Key Milestones
+            Our Evolution &amp; Key Milestones
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -82,7 +53,7 @@ export function JourneyTimeline() {
             transition={{ delay: 0.2 }}
             className="text-slate-600 dark:text-slate-300 text-base sm:text-lg leading-relaxed"
           >
-            Scroll to explore how we grew from a newly established tech unit into a field-proven humanitarian technology powerhouse.
+            From a newly established tech unit to a portfolio of digital platforms serving communities across Kenya and Africa.
           </motion.p>
         </div>
 
@@ -100,12 +71,59 @@ export function JourneyTimeline() {
           {/* Timeline Items */}
           <div className="space-y-16 sm:space-y-24 relative z-20">
             {aboutData.milestones.map((m, index) => {
-              const media = milestoneImages[m.year];
               const isEven = index % 2 === 0;
+              const hasImage = !!m.image;
+
+              const CardContent = (
+                <div className="p-6 sm:p-8 rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800/90 hover:border-red-500/50 transition-all duration-300 shadow-lg space-y-3 group hover:bg-slate-50 dark:hover:bg-slate-900 h-full">
+                  <div
+                    className={`flex items-center gap-2 ${
+                      isEven ? "md:justify-end" : "justify-start"
+                    }`}
+                  >
+                    <span className="text-xs font-mono font-bold uppercase text-red-600 dark:text-red-400 bg-red-100 dark:bg-red-950/80 border border-red-200 dark:border-red-800/40 px-2.5 py-0.5 rounded">
+                      {m.year}
+                    </span>
+                    {m.imageTag && (
+                      <span className="text-xs font-mono text-slate-600 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded">
+                        {m.imageTag}
+                      </span>
+                    )}
+                  </div>
+
+                  <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors">
+                    {m.title}
+                  </h3>
+
+                  <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                    {m.description}
+                  </p>
+
+                  <div
+                    className={`pt-2 flex items-center gap-2 text-xs font-mono text-slate-500 dark:text-slate-400 ${
+                      isEven ? "md:justify-end" : "justify-start"
+                    }`}
+                  >
+                    <CheckCircle2 className="w-4 h-4 text-red-600 dark:text-red-500 shrink-0" />
+                    <span>Completed Project Milestone</span>
+                  </div>
+
+                  {m.projectSlug && (
+                    <div
+                      className={`pt-1 flex items-center gap-1.5 text-xs font-semibold text-red-600 dark:text-red-400 ${
+                        isEven ? "md:justify-end" : "justify-start"
+                      }`}
+                    >
+                      <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                      <span>View Project</span>
+                    </div>
+                  )}
+                </div>
+              );
 
               return (
                 <motion.div
-                  key={m.year}
+                  key={`${m.year}-${index}`}
                   initial={{ opacity: 0, y: 50 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: false, margin: "-100px" }}
@@ -128,55 +146,29 @@ export function JourneyTimeline() {
                       isEven ? "md:pr-12 md:text-right" : "md:pl-12 md:order-2"
                     }`}
                   >
-                    <div className="p-6 sm:p-8 rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800/90 hover:border-red-500/50 transition-all duration-300 shadow-lg space-y-3 group hover:bg-slate-50 dark:hover:bg-slate-900">
-                      <div
-                        className={`flex items-center gap-2 ${
-                          isEven ? "md:justify-end" : "justify-start"
-                        }`}
-                      >
-                        <span className="text-xs font-mono font-bold uppercase text-red-600 dark:text-red-400 bg-red-100 dark:bg-red-950/80 border border-red-200 dark:border-red-800/40 px-2.5 py-0.5 rounded">
-                          {m.year}
-                        </span>
-                        {media && (
-                          <span className="text-xs font-mono text-slate-600 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded">
-                            {media.tag}
-                          </span>
-                        )}
-                      </div>
-
-                      <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors">
-                        {m.title}
-                      </h3>
-
-                      <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                        {m.description}
-                      </p>
-
-                      <div
-                        className={`pt-2 flex items-center gap-2 text-xs font-mono text-slate-500 dark:text-slate-400 ${
-                          isEven ? "md:justify-end" : "justify-start"
-                        }`}
-                      >
-                        <CheckCircle2 className="w-4 h-4 text-red-600 dark:text-red-500" />
-                        <span>Verified Impact Milestone</span>
-                      </div>
-                    </div>
+                    {m.projectSlug ? (
+                      <Link href={`/projects/${m.projectSlug}`} className="block h-full">
+                        {CardContent}
+                      </Link>
+                    ) : (
+                      CardContent
+                    )}
                   </div>
 
-                  {/* Right Column (Image on even, Card on odd) */}
-                  {media && (
-                    <div
-                      className={`pl-16 md:pl-0 md:w-1/2 ${
-                        isEven ? "md:pl-12" : "md:pr-12 md:order-1"
-                      }`}
-                    >
+                  {/* Right Column (Image on even, spacer on odd if no image) */}
+                  <div
+                    className={`pl-16 md:pl-0 md:w-1/2 ${
+                      isEven ? "md:pl-12" : "md:pr-12 md:order-1"
+                    }`}
+                  >
+                    {hasImage ? (
                       <motion.div
                         whileHover={{ scale: 1.03 }}
                         transition={{ duration: 0.4 }}
                         className="relative h-64 sm:h-72 rounded-2xl overflow-hidden bg-slate-900 border border-slate-800 shadow-2xl group cursor-pointer"
                       >
                         <Image
-                          src={media.src}
+                          src={m.image!}
                           alt={m.title}
                           fill
                           sizes="(max-width: 768px) 100vw, 50vw"
@@ -189,16 +181,18 @@ export function JourneyTimeline() {
                         {/* Image Caption overlay */}
                         <div className="absolute bottom-0 inset-x-0 p-5 space-y-1 z-10">
                           <div className="flex items-center justify-between text-xs font-mono text-red-400 font-bold uppercase">
-                            <span>Field Deployment</span>
+                            <span>{m.imageTag ?? "Field Deployment"}</span>
                             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                           </div>
                           <p className="text-xs text-slate-200 line-clamp-2 leading-relaxed">
-                            {media.caption}
+                            {m.imageCaption}
                           </p>
                         </div>
                       </motion.div>
-                    </div>
-                  )}
+                    ) : (
+                      <div className="hidden md:block" />
+                    )}
+                  </div>
                 </motion.div>
               );
             })}

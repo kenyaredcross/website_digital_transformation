@@ -126,7 +126,12 @@ export interface Milestone {
   year: string;
   title: string;
   description: string;
+  projectSlug?: string | null;
+  image?: string;
+  imageCaption?: string;
+  imageTag?: string;
 }
+
 
 export interface AboutData {
   heroHeading: string;
@@ -135,6 +140,8 @@ export interface AboutData {
   whoWeAreParagraphs: string[];
   mission: string;
   vision: string;
+  visionSubtitle?: string;
+  visionParagraphs?: string[];
   values: ValueItem[];
   approach: ApproachStep[];
   milestones: Milestone[];
@@ -197,6 +204,16 @@ export interface Testimonial {
   organization: string;
   location: string;
   avatar: string;
-  category: "Field Volunteer" | "County Leadership" | "Community Beneficiary" | "International Partner";
+  category:
+    | "Field Volunteer"
+    | "County Leadership"
+    | "Community Beneficiary"
+    | "International Partner"
+    | "Field Operations"
+    | "Procurement & Logistics"
+    | "Regional Partner"
+    | "Volunteer Management"
+    | "Health & Surveillance"
+    | "Strategic Partnerships";
   featured?: boolean;
 }

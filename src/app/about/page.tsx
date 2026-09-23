@@ -2,22 +2,22 @@ import Image from "next/image";
 import { aboutData } from "@/data/about";
 import { AboutGallery } from "@/components/about/AboutGallery";
 import { JourneyTimeline } from "@/components/about/JourneyTimeline";
-import { Search, PenTool, Code, Rocket, BarChart2, RefreshCw, Flag } from "lucide-react";
+import { Search, PenTool, FlaskConical, BookOpen, RefreshCw, Rocket, Target, Compass, Sparkles, Eye } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "About Us | Kenya Red Cross Digital Transformation",
   description:
-    "Learn about our mission, vision, values, 6-step humanitarian innovation process, and digital transformation journey.",
+    "Learn about our mission, vision, values, 6-step digital transformation approach, and journey.",
 };
 
 const iconMap = {
   Search,
   PenTool,
-  Code,
-  Rocket,
-  BarChart2,
+  FlaskConical,
+  BookOpen,
   RefreshCw,
+  Rocket,
 };
 
 export default function AboutPage() {
@@ -92,40 +92,71 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Who We Are & Mission / Vision Section */}
+      {/* ── 2-Column Mission & Vision Section ──────────────────────────────────── */}
       <section className="py-20 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            {/* Left: Who We Are */}
-            <div className="lg:col-span-7 space-y-6">
-              <h2 className="text-3xl font-bold text-slate-900 dark:text-white tracking-tight">
-                {aboutData.whoWeAreTitle}
-              </h2>
-              <div className="space-y-4 text-slate-600 dark:text-slate-300 leading-relaxed text-base">
-                {aboutData.whoWeAreParagraphs.map((p, idx) => (
-                  <p key={idx}>{p}</p>
-                ))}
-              </div>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 items-stretch">
+            {/* Left Column: Our Mission */}
+            <div className="p-8 sm:p-10 rounded-3xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 border-t-4 border-t-red-600 dark:border-t-red-500 shadow-lg flex flex-col justify-between space-y-6">
+              <div className="space-y-4">
+                <div className="flex items-center gap-2">
+                  <span className="p-2 rounded-xl bg-red-100 dark:bg-red-950/80 text-red-600 dark:text-red-400">
+                    <Target className="w-5 h-5" />
+                  </span>
+                  <span className="text-xs font-mono font-bold uppercase tracking-widest text-red-600 dark:text-red-400">
+                    Our Mission
+                  </span>
+                </div>
 
-            {/* Right: Mission & Vision Cards */}
-            <div className="lg:col-span-5 space-y-6">
-              <div className="p-8 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 border-l-4 border-l-red-500 shadow-md space-y-3">
-                <span className="text-xs font-mono font-bold uppercase text-red-600 dark:text-red-400">
-                  Our Mission
-                </span>
-                <p className="text-lg font-semibold text-slate-900 dark:text-white leading-relaxed">
+                <h2 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
+                  Technology with purpose for life-saving impact.
+                </h2>
+
+                <p className="text-base sm:text-lg text-slate-700 dark:text-slate-300 leading-relaxed pt-4 border-t border-slate-200/80 dark:border-slate-800/80">
                   &quot;{aboutData.mission}&quot;
                 </p>
               </div>
 
-              <div className="p-8 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 border-l-4 border-l-blue-600 dark:border-l-blue-500 shadow-md space-y-3">
-                <span className="text-xs font-mono font-bold uppercase text-blue-600 dark:text-blue-400">
-                  Our Vision
-                </span>
-                <p className="text-lg font-semibold text-slate-900 dark:text-white leading-relaxed">
-                  &quot;{aboutData.vision}&quot;
-                </p>
+              <div className="pt-4 flex items-center gap-2 text-xs font-mono text-slate-400 dark:text-slate-500">
+                <Sparkles className="w-4 h-4 text-red-500" />
+                <span>Empowering field response & community resilience</span>
+              </div>
+            </div>
+
+            {/* Right Column: Our Vision */}
+            <div className="p-8 sm:p-10 rounded-3xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 border-t-4 border-t-blue-600 dark:border-t-blue-500 shadow-lg flex flex-col justify-between space-y-6">
+              <div className="space-y-4">
+                <div className="flex items-center gap-2">
+                  <span className="p-2 rounded-xl bg-blue-100 dark:bg-blue-950/80 text-blue-600 dark:text-blue-400">
+                    <Compass className="w-5 h-5" />
+                  </span>
+                  <span className="text-xs font-mono font-bold uppercase tracking-widest text-blue-600 dark:text-blue-400">
+                    Our Vision
+                  </span>
+                </div>
+
+                <h2 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
+                  {aboutData.visionSubtitle || "A humanitarian organisation empowered by data and digital solutions"}
+                </h2>
+
+                {aboutData.visionParagraphs ? (
+                  <div className="space-y-4 pt-4 border-t border-slate-200/80 dark:border-slate-800/80">
+                    {aboutData.visionParagraphs.map((p, idx) => (
+                      <p key={idx} className="text-base sm:text-lg text-slate-700 dark:text-slate-300 leading-relaxed">
+                        {p}
+                      </p>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-base sm:text-lg text-slate-700 dark:text-slate-300 leading-relaxed pt-4 border-t border-slate-200/80 dark:border-slate-800/80">
+                    {aboutData.vision}
+                  </p>
+                )}
+              </div>
+
+              <div className="pt-4 flex items-center gap-2 text-xs font-mono text-slate-400 dark:text-slate-500">
+                <Eye className="w-4 h-4 text-blue-500" />
+                <span>Transforming operations, decisions & community action</span>
               </div>
             </div>
           </div>
@@ -174,13 +205,13 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
             <span className="text-xs font-bold uppercase tracking-widest text-red-600 dark:text-red-500 font-mono">
-              Humanitarian Innovation Process
+              Our Methodology
             </span>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-              Our 6-Step Approach
+              Our Digital Transformation Approach
             </h2>
-            <p className="text-slate-600 dark:text-slate-400 text-base">
-              From field immersion to continuous telemetry monitoring, how we build technology for extreme environments.
+            <p className="text-slate-600 dark:text-slate-400 text-base sm:text-lg">
+              We follow a people-centred approach to digital transformation.
             </p>
           </div>
 

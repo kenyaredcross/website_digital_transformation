@@ -13,7 +13,7 @@ export const mainNav: NavItem[] = [
   {
     title: "What We Do",
     href: "/what-we-do",
-    description: "Explore our four core thematic areas driving humanitarian technology.",
+    description: "Explore our seven core thematic areas driving humanitarian technology.",
   },
   {
     title: "Where We Work",

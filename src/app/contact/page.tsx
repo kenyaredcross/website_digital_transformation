@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { siteConfig } from "@/data/site";
-import { Mail, Phone, MapPin, Clock, Send, ShieldCheck, CheckCircle2 } from "lucide-react";
+import { Mail, Phone, MapPin, Clock, Send, ShieldCheck, CheckCircle2, Navigation, ExternalLink, Sparkles } from "lucide-react";
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
@@ -18,6 +18,12 @@ export default function ContactPage() {
     e.preventDefault();
     setSubmitted(true);
   };
+
+  const mapEmbedUrl =
+    "https://maps.google.com/maps?q=Kenya+Red+Cross+Society+Headquarters,+South+C+(Bellevue),+Red+Cross+Road,+off+Popo+Road,+Nairobi,+Kenya&t=&z=16&ie=UTF8&iwloc=&output=embed";
+
+  const googleMapsDirectionsUrl =
+    "https://www.google.com/maps/search/?api=1&query=Kenya+Red+Cross+Society+Headquarters+South+C+Nairobi";
 
   return (
     <div className="pt-25 pb-20 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white min-h-screen transition-colors duration-300">
@@ -37,7 +43,7 @@ export default function ContactPage() {
       </section>
 
       {/* Main Form & Contact Card Section */}
-      <section className="py-20">
+      <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
             {/* Left Column - Contact Form */}
@@ -152,48 +158,66 @@ export default function ContactPage() {
             {/* Right Column - Official Contact Info */}
             <div className="lg:col-span-5 space-y-6">
               <div className="p-8 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-6 shadow-xl dark:shadow-2xl transition-colors duration-300">
-                <span className="text-xs font-mono font-bold text-red-600 dark:text-red-400 uppercase tracking-widest block border-b border-slate-200 dark:border-slate-800 pb-3">
-                  Official Headquarters Information
-                </span>
+                {/* Note Banner */}
+                <div className="p-4 rounded-xl bg-red-50 dark:bg-red-950/50 border border-red-200/80 dark:border-red-800/60">
+                  <p className="text-xs sm:text-sm text-red-900 dark:text-red-200 font-medium leading-relaxed flex items-start gap-2">
+                    <Sparkles className="w-4 h-4 text-red-600 dark:text-red-400 shrink-0 mt-0.5" />
+                    <span>
+                      For enquiries about data, digital systems, innovation, partnerships and digital transformation initiatives:
+                    </span>
+                  </p>
+                </div>
 
                 <div className="space-y-4 text-sm text-slate-700 dark:text-slate-300">
+                  {/* Organization & Address */}
                   <div className="flex items-start gap-3">
                     <MapPin className="w-5 h-5 text-red-600 dark:text-red-500 shrink-0 mt-0.5" />
                     <div>
-                      <span className="block font-bold text-slate-900 dark:text-white">Headquarters Address</span>
-                      <span className="text-xs text-slate-500 dark:text-slate-400">{siteConfig.contact.location}</span>
-                      <span className="block text-xs text-slate-500 dark:text-slate-400">
-                        {siteConfig.contact.address}, {siteConfig.contact.city}, {siteConfig.contact.country}
+                      <span className="block font-bold text-slate-900 dark:text-white text-base">
+                        Kenya Red Cross Society
+                      </span>
+                      <span className="text-xs text-slate-600 dark:text-slate-300 font-medium block mt-0.5">
+                        South C (Bellevue), Red Cross Road, off Popo Road, Nairobi, Kenya.
                       </span>
                     </div>
                   </div>
 
-                  <div className="flex items-start gap-3">
+                  {/* Email */}
+                  <div className="flex items-start gap-3 pt-1">
                     <Mail className="w-5 h-5 text-red-600 dark:text-red-500 shrink-0 mt-0.5" />
                     <div>
-                      <span className="block font-bold text-slate-900 dark:text-white">Department Email</span>
-                      <a href={`mailto:${siteConfig.contact.email}`} className="text-xs text-red-600 dark:text-red-400 hover:underline">
-                        {siteConfig.contact.email}
+                      <span className="block font-bold text-slate-900 dark:text-white">Email</span>
+                      <a
+                        href="mailto:data.digital@redcross.or.ke"
+                        className="text-xs font-semibold text-red-600 dark:text-red-400 hover:underline"
+                      >
+                        data.digital@redcross.or.ke
                       </a>
                     </div>
                   </div>
 
-                  <div className="flex items-start gap-3">
+                  {/* Phone & Toll Free */}
+                  <div className="flex items-start gap-3 pt-1">
                     <Phone className="w-5 h-5 text-red-600 dark:text-red-500 shrink-0 mt-0.5" />
                     <div>
-                      <span className="block font-bold text-slate-900 dark:text-white">Emergency Hotline</span>
-                      <span className="text-xs text-slate-500 dark:text-slate-400">
-                        National Toll-Free: <strong className="text-red-600 dark:text-red-400 font-mono">{siteConfig.contact.emergencyLine}</strong>
+                      <span className="block font-bold text-slate-900 dark:text-white">Telephone & Hotline</span>
+                      <span className="block text-xs text-slate-700 dark:text-slate-300 font-medium">
+                        Phone: <strong className="font-mono text-slate-900 dark:text-white">(+254) 703 037 000</strong>
                       </span>
-                      <span className="block text-xs text-slate-500 dark:text-slate-400">{siteConfig.contact.phone}</span>
+                      <span className="block text-xs text-slate-700 dark:text-slate-300 font-medium mt-0.5">
+                        Toll Free: <strong className="font-mono text-red-600 dark:text-red-400">1199</strong>
+                      </span>
                     </div>
                   </div>
 
-                  <div className="flex items-start gap-3">
+                  {/* Working Hours */}
+                  <div className="flex items-start gap-3 pt-1">
                     <Clock className="w-5 h-5 text-red-600 dark:text-red-500 shrink-0 mt-0.5" />
                     <div>
                       <span className="block font-bold text-slate-900 dark:text-white">Working Hours</span>
-                      <span className="text-xs text-slate-500 dark:text-slate-400">{siteConfig.contact.workingHours}</span>
+                      <span className="text-xs text-slate-500 dark:text-slate-400">
+                        {siteConfig.contact.workingHours}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -207,6 +231,48 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
+
+      {/* Google Maps Map Location Section */}
+      <section className="py-12 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 transition-colors duration-300">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="space-y-1">
+              <span className="text-xs font-mono font-bold uppercase tracking-widest text-red-600 dark:text-red-500 flex items-center gap-2">
+                <Navigation className="w-4 h-4" /> Geographical Location
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                Our Location on Google Maps
+              </h2>
+            </div>
+
+            <a
+              href={googleMapsDirectionsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold text-white bg-red-600 hover:bg-red-700 transition-colors shadow-md w-fit"
+            >
+              <span>Get Directions on Google Maps</span>
+              <ExternalLink className="w-3.5 h-3.5" />
+            </a>
+          </div>
+
+          {/* Embedded Google Maps Container */}
+          <div className="relative w-full h-[420px] rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-xl dark:shadow-2xl">
+            <iframe
+              title="Kenya Red Cross Society Headquarters Google Maps Location"
+              src={mapEmbedUrl}
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen={false}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="w-full h-full filter contrast-[1.02]"
+            />
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
+

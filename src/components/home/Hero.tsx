@@ -25,9 +25,7 @@ export function Hero() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           {/* Left Column - Text Content */}
-          <div className="lg:col-span-12 space-y-6 text-center">
-           
-
+          <div className="lg:col-span-12 space-y-6 pt-15 text-center">
             {/* Headline */}
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
@@ -56,10 +54,10 @@ export function Hero() {
               className="flex flex-wrap items-center justify-center gap-4 pt-4"
             >
               <Link
-                href="/portfolio"
+                href="/contact"
                 className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl font-bold text-sm text-white bg-red-600 hover:bg-red-700 active:bg-red-800 shadow-lg shadow-red-600/25 transition-all hover:shadow-red-600/40 hover:-translate-y-0.5"
               >
-                <span>Explore Our Work</span>
+                <span>Let&apos;s work together</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <Link
@@ -76,25 +74,53 @@ export function Hero() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="pt-8 border-t border-slate-200 dark:border-slate-900 grid grid-cols-3 gap-4 max-w-lg mx-auto text-center"
+              className="pt-8 border-t border-slate-200 dark:border-slate-800 grid grid-cols-2 sm:grid-cols-5 gap-4 max-w-4xl mx-auto text-center"
             >
               <div>
-                <span className="block text-2xl font-black text-slate-900 dark:text-white font-mono">20+</span>
-                <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">Digital Products</span>
+                <span className="block text-xl sm:text-2xl font-black text-slate-900 dark:text-white font-mono">
+                  300+
+                </span>
+                <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">
+                  projects completed
+                </span>
               </div>
               <div>
-                <span className="block text-2xl font-black text-slate-900 dark:text-white font-mono">15+</span>
-                <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">Data Services</span>
+                <span className="block text-xl sm:text-2xl font-black text-slate-900 dark:text-white font-mono">
+                  16+
+                </span>
+                <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">
+                  awards received
+                </span>
               </div>
               <div>
-                <span className="block text-2xl font-black text-red-600 dark:text-red-400 font-mono">47</span>
-                <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">Kenyan Counties</span>
+                <span className="block text-xl sm:text-2xl font-black text-slate-900 dark:text-white font-mono">
+                  12+
+                </span>
+                <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">
+                  years of experience
+                </span>
+              </div>
+              <div>
+                <span className="block text-xl sm:text-2xl font-black text-slate-900 dark:text-white font-mono">
+                  34+
+                </span>
+                <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">
+                  team members
+                </span>
+              </div>
+              <div>
+                <span className="block text-xl sm:text-2xl font-black text-red-600 dark:text-red-400 font-mono">
+                  100k+
+                </span>
+                <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">
+                  lives impacted
+                </span>
               </div>
             </motion.div>
           </div>
-
         </div>
       </div>
     </section>
   );
 }
+

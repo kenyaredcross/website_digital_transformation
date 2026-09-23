@@ -1,13 +1,26 @@
 import Link from "next/link";
 import Image from "next/image";
 import { thematicAreas } from "@/data/thematicAreas";
-import { Smartphone, BarChart3, MapPin, Cpu, ArrowUpRight, CheckCircle2 } from "lucide-react";
+import {
+  Smartphone,
+  BarChart3,
+  MapPin,
+  Cpu,
+  Layers,
+  Sparkles,
+  GraduationCap,
+  Users,
+  Handshake,
+  BookOpen,
+  ArrowUpRight,
+  CheckCircle2,
+} from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "What We Do | Thematic Areas",
   description:
-    "Explore Kenya Red Cross Digital Transformation's four thematic pillars: Digital Products, Data Services, GIS Spatial Intelligence, and AI for Humanitarian Action.",
+    "Explore Kenya Red Cross Digital Transformation's 7 thematic pillars: Digital Systems, Data & Analytics, Innovation, Digital Skills, Community Digital Transformation, Partnerships, and Resources & Knowledge.",
 };
 
 const iconMap = {
@@ -15,6 +28,12 @@ const iconMap = {
   BarChart3,
   MapPin,
   Cpu,
+  Layers,
+  Sparkles,
+  GraduationCap,
+  Users,
+  Handshake,
+  BookOpen,
 };
 
 export default function WhatWeDoPage() {

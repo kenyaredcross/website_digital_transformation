@@ -31,7 +31,7 @@
       "REST APIs",
       "PostgreSQL"
     ],
-    "thematicAreaSlug": "digital-products",
+    "thematicAreaSlug": "digital-systems",
     "countries": [
       "TZ",
       "GM"
@@ -86,7 +86,7 @@
       "PostgreSQL",
       "Tailwind CSS"
     ],
-    "thematicAreaSlug": "digital-products",
+    "thematicAreaSlug": "digital-systems",
     "countries": [
       "KE"
     ],
@@ -140,7 +140,7 @@
       "Mapbox GL",
       "PostgreSQL"
     ],
-    "thematicAreaSlug": "data-services",
+    "thematicAreaSlug": "data-analytics",
     "countries": [
       "KE"
     ],
@@ -194,7 +194,7 @@
       "PostgreSQL",
       "Tailwind CSS"
     ],
-    "thematicAreaSlug": "digital-products",
+    "thematicAreaSlug": "resources-knowledge",
     "countries": [
       "KE",
       "ZA"
@@ -248,7 +248,7 @@
       "REST APIs",
       "PostgreSQL"
     ],
-    "thematicAreaSlug": "digital-products",
+    "thematicAreaSlug": "digital-systems",
     "countries": [
       "KE"
     ],
@@ -302,7 +302,7 @@
       "PostgreSQL",
       "GIS Mapping"
     ],
-    "thematicAreaSlug": "data-services",
+    "thematicAreaSlug": "data-analytics",
     "countries": [
       "KE"
     ],
