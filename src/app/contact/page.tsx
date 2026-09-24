@@ -279,9 +279,9 @@ export default function ContactPage() {
                   </h2>
                   <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mt-1">
                     {tabMode === "feedback"
-                      ? "Creates a doc record in MariaDB (DocType: Feedback)"
+                      ? "Give your feedback to the Digital Team"
                       : tabMode === "partner"
-                      ? "Creates a doc record in MariaDB (DocType: Partner Inquiry)"
+                      ? "Put Across Your Inquiry"
                       : "Direct message to Data & Digital Transformation team"}
                   </p>
                 </div>
