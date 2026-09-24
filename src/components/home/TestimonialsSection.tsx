@@ -81,10 +81,10 @@ export function TestimonialsSection() {
           }
         }
         .animate-marquee {
-          animation: marquee 40s linear infinite;
+          animation: marquee 80s linear infinite;
         }
         .animate-marquee-reverse {
-          animation: marquee-reverse 40s linear infinite;
+          animation: marquee-reverse 80s linear infinite;
         }
       `}</style>
     </section>
