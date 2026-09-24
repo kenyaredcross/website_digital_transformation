@@ -4,14 +4,20 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { partners } from "@/data/partners";
-import { projects } from "@/data/projects";
+import { partners as staticPartners } from "@/data/partners";
+import type { Partner, Project } from "@/types";
 import { Network, Sparkles, ExternalLink, ArrowRight, ShieldCheck, Zap, Globe, Coins } from "lucide-react";
 
-export function PartnerEcosystemGraph() {
+interface PartnerEcosystemGraphProps {
+  partners?: Partner[];
+  projects?: Project[];
+}
+
+export function PartnerEcosystemGraph({ partners = [], projects = [] }: PartnerEcosystemGraphProps) {
+  const partnerList = partners.length > 0 ? partners : staticPartners;
   const [activePartnerId, setActivePartnerId] = useState<string>("safaricom-foundation");
 
-  const activePartner = partners.find((p) => p.id === activePartnerId) || partners[0];
+  const activePartner = partnerList.find((p) => p.id === activePartnerId) || partnerList[0];
   const relatedProjects = projects.filter((p) => p.partnerIds?.includes(activePartner.id));
 
   const getCategoryBadge = (category: string) => {
@@ -57,7 +63,7 @@ export function PartnerEcosystemGraph() {
           </h3>
 
           <div className="space-y-3 max-h-[460px] overflow-y-auto pr-2 custom-scrollbar">
-            {partners.map((partner) => {
+            {partnerList.map((partner) => {
               const isSelected = partner.id === activePartnerId;
 
               return (

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { PeopleDirectory } from "@/components/people/PeopleDirectory";
-import { getPeople } from "@/lib/get-data";
+import { getPeople } from "@/lib/frappe/people";
 import { Users } from "lucide-react";
 import type { Metadata } from "next";
 
@@ -10,8 +10,8 @@ export const metadata: Metadata = {
     "Meet the software engineers, data scientists, GIS specialists, and field innovation officers behind Kenya Red Cross digital solutions.",
 };
 
-export default function PeoplePage() {
-  const initialPeople = getPeople();
+export default async function PeoplePage() {
+  const people = await getPeople();
 
   return (
     <div className="pt-25 pb-20 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white min-h-screen transition-colors duration-300">
@@ -94,7 +94,7 @@ export default function PeoplePage() {
       {/* Directory Section */}
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <PeopleDirectory initialPeople={initialPeople} />
+          <PeopleDirectory people={people} />
         </div>
       </section>
     </div>

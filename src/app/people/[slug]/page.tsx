@@ -1,15 +1,16 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { getPeople, getProjects } from "@/lib/get-data";
+import { getPeople, getPerson } from "@/lib/frappe/people";
+import { getProjects } from "@/lib/frappe/projects";
 import { ArrowLeft, ArrowRight, Mail, Globe, ExternalLink, Layers, Award, CheckCircle2 } from "lucide-react";
 import type { Metadata } from "next";
 
 // Allow slugs not pre-rendered at build time to be SSR'd on demand
 export const dynamicParams = true;
 
-export function generateStaticParams() {
-  const people = getPeople();
+export async function generateStaticParams() {
+  const people = await getPeople();
   return people.map((p) => ({
     slug: p.slug,
   }));
@@ -21,8 +22,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const resolvedParams = await params;
-  const people = getPeople();
-  const person = people.find((p) => p.slug === resolvedParams.slug);
+  const person = await getPerson(resolvedParams.slug);
 
   if (!person) {
     return { title: "Team Profile Not Found" };
@@ -40,9 +40,8 @@ export default async function PersonProfilePage({
   params: Promise<{ slug: string }>;
 }) {
   const resolvedParams = await params;
-  const people = getPeople();
-  const projects = getProjects();
-  const person = people.find((p) => p.slug === resolvedParams.slug);
+  const person = await getPerson(resolvedParams.slug);
+  const projects = await getProjects();
 
   if (!person) {
     notFound();

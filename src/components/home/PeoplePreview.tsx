@@ -4,25 +4,15 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowRight, Users } from "lucide-react";
-import { useState, useEffect } from "react";
 import type { Person } from "@/types";
-import { people as defaultPeople } from "@/data/people";
 
-export function PeoplePreview() {
-  const [people, setPeople] = useState<Person[]>(defaultPeople);
+interface PeoplePreviewProps {
+  people?: Person[];
+}
 
-  useEffect(() => {
-    fetch("/api/data/people")
-      .then((r) => r.json())
-      .then((data) => {
-        if (Array.isArray(data) && data.length > 0) {
-          setPeople(data);
-        }
-      })
-      .catch(console.error);
-  }, []);
-
-  const featuredPeople = people.filter((p) => p.featured).slice(0, 4);
+export function PeoplePreview({ people = [] }: PeoplePreviewProps) {
+  const featured = people.filter((p) => p.featured);
+  const featuredPeople = (featured.length > 0 ? featured : people).slice(0, 4);
 
   return (
     <section className="py-24 bg-white dark:bg-slate-900 text-slate-900 dark:text-white transition-colors duration-300">

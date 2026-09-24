@@ -1,9 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import { partners } from "@/data/partners";
+import type { Partner } from "@/types";
 
-export function PartnerMarquee() {
+interface PartnerMarqueeProps {
+  partners?: Partner[];
+}
+
+export function PartnerMarquee({ partners = [] }: PartnerMarqueeProps) {
   // Duplicate for seamless loop
   const doubled = [...partners, ...partners];
 

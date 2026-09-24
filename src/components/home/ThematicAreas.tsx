@@ -1,15 +1,22 @@
 "use client";
 
 import { useState } from "react";
-import { thematicAreas } from "@/data/thematicAreas";
+import { thematicAreas as staticThematicAreas } from "@/data/thematicAreas";
 import { ThematicCard } from "./ThematicCard";
+import type { ThematicArea } from "@/types";
 
-export function ThematicAreas() {
+interface ThematicAreasProps {
+  thematicAreas?: ThematicArea[];
+}
+
+export function ThematicAreas({ thematicAreas = [] }: ThematicAreasProps) {
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
+  const activeAreas = thematicAreas.length > 0 ? thematicAreas : staticThematicAreas;
+
   // 3 cards in first row, 4 remaining cards in second row
-  const firstRowAreas = thematicAreas.slice(0, 3);
-  const secondRowAreas = thematicAreas.slice(3);
+  const firstRowAreas = activeAreas.slice(0, 3);
+  const secondRowAreas = activeAreas.slice(3);
 
   return (
     <section className="py-24 bg-white dark:bg-slate-950 text-slate-900 dark:text-white relative transition-colors duration-300">

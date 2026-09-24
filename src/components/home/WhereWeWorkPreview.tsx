@@ -4,7 +4,13 @@ import Link from "next/link";
 import { AfricaMap } from "@/components/geography/AfricaMap";
 import { ArrowRight, MapPin } from "lucide-react";
 
-export function WhereWeWorkPreview() {
+import type { Country } from "@/types";
+
+interface WhereWeWorkPreviewProps {
+  countries?: Country[];
+}
+
+export function WhereWeWorkPreview({ countries = [] }: WhereWeWorkPreviewProps) {
   return (
     <section className="py-24 bg-white dark:bg-slate-950 text-slate-900 dark:text-white relative transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -24,7 +30,7 @@ export function WhereWeWorkPreview() {
         </div>
 
         {/* Africa Map Widget */}
-        <AfricaMap />
+        <AfricaMap countries={countries} />
 
         {/* Footer Link */}
         <div className="mt-10 text-center">

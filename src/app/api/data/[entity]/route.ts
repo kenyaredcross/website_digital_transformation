@@ -15,6 +15,8 @@ async function getAuthUser() {
   return decodeSessionToken(token);
 }
 
+import { getBlogs } from "@/lib/get-data";
+
 // GET /api/data/[entity]
 export async function GET(
   request: Request,
@@ -22,6 +24,10 @@ export async function GET(
 ) {
   const { entity } = await params;
   try {
+    if (entity === "blogs") {
+      const data = await getBlogs();
+      return NextResponse.json(data);
+    }
     const data = getEntityData(entity);
     return NextResponse.json(data);
   } catch (error: unknown) {

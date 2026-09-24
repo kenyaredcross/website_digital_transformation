@@ -1,41 +1,28 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Search, Filter, ArrowRight } from "lucide-react";
 import type { Person } from "@/types";
-import { people as staticPeople } from "@/data/people";
 
 interface PeopleDirectoryProps {
+  people?: Person[];
   initialPeople?: Person[];
 }
 
-export function PeopleDirectory({ initialPeople }: PeopleDirectoryProps = {}) {
-  const [people, setPeople] = useState<Person[]>(
-    initialPeople && initialPeople.length > 0 ? initialPeople : staticPeople
-  );
+export function PeopleDirectory({ people, initialPeople }: PeopleDirectoryProps = {}) {
+  const peopleList = people && people.length > 0 ? people : (initialPeople || []);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedDepartment, setSelectedDepartment] = useState<string>("All");
 
-  useEffect(() => {
-    fetch("/api/data/people")
-      .then((r) => r.json())
-      .then((data) => {
-        if (Array.isArray(data) && data.length > 0) {
-          setPeople(data);
-        }
-      })
-      .catch(console.error);
-  }, []);
-
   const departments = [
     "All",
-    ...Array.from(new Set(people.map((p) => p.department))),
+    ...Array.from(new Set(peopleList.map((p) => p.department))),
   ];
 
   const filteredPeople = useMemo(() => {
-    return people.filter((person) => {
+    return peopleList.filter((person) => {
       if (selectedDepartment !== "All" && person.department !== selectedDepartment) {
         return false;
       }
@@ -44,7 +31,7 @@ export function PeopleDirectory({ initialPeople }: PeopleDirectoryProps = {}) {
         const q = searchQuery.toLowerCase();
         const matchName = person.name.toLowerCase().includes(q);
         const matchRole = person.role.toLowerCase().includes(q);
-        const matchExpertise = person.expertise.some((e) => e.toLowerCase().includes(q));
+        const matchExpertise = (person.expertise || []).some((e) => e.toLowerCase().includes(q));
 
         if (!matchName && !matchRole && !matchExpertise) {
           return false;
@@ -53,7 +40,7 @@ export function PeopleDirectory({ initialPeople }: PeopleDirectoryProps = {}) {
 
       return true;
     });
-  }, [searchQuery, selectedDepartment]);
+  }, [peopleList, searchQuery, selectedDepartment]);
 
   return (
     <div className="space-y-10">

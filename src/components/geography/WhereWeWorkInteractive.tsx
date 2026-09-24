@@ -98,7 +98,8 @@ export function WhereWeWorkInteractive({ countries }: WhereWeWorkInteractiveProp
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <AnimatePresence mode="popLayout">
           {filteredCountries.map((country, idx) => {
-            const imgUrl = countryImageMap[country.code] || "/assets/images/distro/hands1.jpg";
+            const hasValidImage = country.image && !country.image.includes("/assets/images/countries/");
+            const imgUrl = hasValidImage ? country.image : (countryImageMap[country.code] || "/assets/images/distro/hands1.jpg");
 
             return (
               <motion.div

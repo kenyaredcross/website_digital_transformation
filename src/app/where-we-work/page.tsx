@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { AfricaMap } from "@/components/geography/AfricaMap";
 import { CountryCard } from "@/components/geography/CountryCard";
-import { countries } from "@/data/countries";
+import { getCountries } from "@/lib/frappe/countries";
 import { Globe2 } from "lucide-react";
 import type { Metadata } from "next";
 
@@ -11,7 +11,9 @@ export const metadata: Metadata = {
     "Interactive map and country breakdown of Kenya Red Cross Digital Transformation operations across 47 Kenyan counties and East Africa.",
 };
 
-export default function WhereWeWorkPage() {
+export default async function WhereWeWorkPage() {
+  const countries = await getCountries();
+
   return (
     <div className="pt-25 pb-20 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white min-h-screen transition-colors duration-300">
       {/* ── Hero Section ──────────────────────────────────── */}
@@ -93,7 +95,7 @@ export default function WhereWeWorkPage() {
       {/* Interactive Map Showcase */}
       <section className="py-16 border-b border-slate-200 dark:border-slate-800 bg-slate-100/50 dark:bg-slate-900/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AfricaMap isCompact={true} />
+          <AfricaMap countries={countries} isCompact={true} />
         </div>
       </section>
 

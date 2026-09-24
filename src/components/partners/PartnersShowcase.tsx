@@ -4,8 +4,7 @@ import { useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { partners } from "@/data/partners";
-import { projects } from "@/data/projects";
+import type { Partner, Project } from "@/types";
 import {
   ExternalLink,
   ArrowRight,
@@ -61,9 +60,11 @@ const TABS: Category[] = ["All", "Strategic", "Technology", "Funding", "Implemen
 function PartnerCard({
   partner,
   index,
+  projects = [],
 }: {
-  partner: (typeof partners)[number];
+  partner: Partner;
   index: number;
+  projects?: Project[];
 }) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -282,7 +283,12 @@ function PartnerCard({
 }
 
 // --- Main Section ---
-export function PartnersShowcase() {
+interface PartnersShowcaseProps {
+  partners: Partner[];
+  projects?: Project[];
+}
+
+export function PartnersShowcase({ partners = [], projects = [] }: PartnersShowcaseProps) {
   const [activeTab, setActiveTab] = useState<Category>("All");
 
   const filtered =
@@ -344,7 +350,7 @@ export function PartnersShowcase() {
             className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"
           >
             {filtered.map((partner, i) => (
-              <PartnerCard key={partner.id} partner={partner} index={i} />
+              <PartnerCard key={partner.id} partner={partner} index={i} projects={projects} />
             ))}
           </motion.div>
         </AnimatePresence>

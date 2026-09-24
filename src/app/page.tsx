@@ -6,6 +6,12 @@ import { WhereWeWorkPreview } from "@/components/home/WhereWeWorkPreview";
 import { PeoplePreview } from "@/components/home/PeoplePreview";
 import { TestimonialsSection } from "@/components/home/TestimonialsSection";
 import { PartnersPreview } from "@/components/home/PartnersPreview";
+import { getPeople } from "@/lib/frappe/people";
+import { getProjects } from "@/lib/frappe/projects";
+import { getTestimonials } from "@/lib/frappe/testimonials";
+import { getCountries } from "@/lib/frappe/countries";
+import { getThematicAreas } from "@/lib/frappe/thematic-areas";
+import { getPartners } from "@/lib/frappe/partners";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Users, Sparkles } from "lucide-react";
@@ -17,7 +23,14 @@ export const metadata: Metadata = {
     "Digital innovation for a more resilient Kenya. Explore the people, products, data and partnerships transforming humanitarian action across Kenya and East Africa.",
 };
 
-export default function HomePage() {
+export default async function HomePage() {
+  const people = await getPeople();
+  const projects = await getProjects();
+  const testimonials = await getTestimonials();
+  const countries = await getCountries();
+  const thematicAreas = await getThematicAreas();
+  const partners = await getPartners();
+
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
@@ -26,22 +39,22 @@ export default function HomePage() {
      
 
       {/* Thematic Areas */}
-      <ThematicAreas />
+      <ThematicAreas thematicAreas={thematicAreas} />
 
       {/* Featured Projects Showcase */}
-      <FeaturedProjects />
+      <FeaturedProjects projects={projects} />
 
       {/* Where We Work Geographic Reach Preview */}
-      <WhereWeWorkPreview />
+      <WhereWeWorkPreview countries={countries} />
 
       {/* People Preview */}
-      <PeoplePreview />
+      <PeoplePreview people={people} />
 
       {/* Testimonials Showcase */}
-      <TestimonialsSection />
+      <TestimonialsSection testimonials={testimonials} />
 
       {/* Partners Preview */}
-      <PartnersPreview />
+      <PartnersPreview partners={partners} />
       
     </div>
   );

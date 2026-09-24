@@ -1,24 +1,16 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Image from "next/image";
 import { testimonials as initialTestimonials } from "@/data/testimonials";
 import { Testimonial } from "@/types";
-import { HeartHandshake, Quote, MapPin } from "lucide-react";
+import { HeartHandshake, Quote } from "lucide-react";
 
-export function TestimonialsSection() {
-  const [testimonialsList, setTestimonialsList] = useState<Testimonial[]>(initialTestimonials);
+interface TestimonialsSectionProps {
+  testimonials?: Testimonial[];
+}
 
-  useEffect(() => {
-    fetch("/api/data/testimonials")
-      .then((res) => res.json())
-      .then((data) => {
-        if (Array.isArray(data) && data.length > 0) {
-          setTestimonialsList(data);
-        }
-      })
-      .catch((err) => console.error("Failed to load live testimonials:", err));
-  }, []);
+export function TestimonialsSection({ testimonials = [] }: TestimonialsSectionProps) {
+  const testimonialsList = testimonials.length > 0 ? testimonials : initialTestimonials;
 
   const row1 = testimonialsList.slice(0, Math.ceil(testimonialsList.length / 2));
   const row2 = testimonialsList.slice(Math.ceil(testimonialsList.length / 2));

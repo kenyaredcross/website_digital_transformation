@@ -2,6 +2,7 @@ export interface NavItem {
   title: string;
   href: string;
   description?: string;
+  children?: NavItem[];
 }
 
 export const mainNav: NavItem[] = [
@@ -14,6 +15,18 @@ export const mainNav: NavItem[] = [
     title: "What We Do",
     href: "/what-we-do",
     description: "Explore our seven core thematic areas driving humanitarian technology.",
+    children: [
+      {
+        title: "Knowledge Hub",
+        href: "/knowledge-hub",
+        description: "Resources, case studies and lessons learned from digital transformation.",
+      },
+      {
+        title: "Innovation & Research",
+        href: "/innovation-research",
+        description: "Exploring new possibilities through structured experimentation and documentation.",
+      },
+    ],
   },
   {
     title: "Where We Work",
@@ -24,11 +37,6 @@ export const mainNav: NavItem[] = [
     title: "Portfolio",
     href: "/portfolio",
     description: "Digital products, data services, and platforms built for field impact.",
-  },
-  {
-    title: "Knowledge Hub",
-    href: "/knowledge-hub",
-    description: "Innovation research, resources, case studies and lessons learned from digital transformation.",
   },
   {
     title: "People",

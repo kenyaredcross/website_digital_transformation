@@ -1,7 +1,8 @@
 "use client";
 
 import { Search, Filter, Grid, List, GalleryHorizontalEnd } from "lucide-react";
-import { thematicAreas } from "@/data/thematicAreas";
+import { thematicAreas as staticThematicAreas } from "@/data/thematicAreas";
+import type { ThematicArea } from "@/types";
 
 type ViewMode = "grid" | "list" | "deck";
 
@@ -18,6 +19,7 @@ interface FilterControlsProps {
   onViewModeChange: (mode: ViewMode) => void;
   categories: string[];
   years: string[];
+  thematicAreas?: ThematicArea[];
 }
 
 function ViewButton({
@@ -67,7 +69,10 @@ export function FilterControls({
   onViewModeChange,
   categories,
   years,
+  thematicAreas = [],
 }: FilterControlsProps) {
+  const activeThematicAreas = thematicAreas.length > 0 ? thematicAreas : staticThematicAreas;
+
   return (
     <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-6 shadow-sm">
       {/* Top row: Search, Thematic Area, Year + View Mode */}
@@ -101,7 +106,7 @@ export function FilterControls({
             aria-label="Filter by thematic area"
           >
             <option value="All">All Thematic Areas</option>
-            {thematicAreas.map((area) => (
+            {activeThematicAreas.map((area) => (
               <option key={area.slug} value={area.slug}>
                 {area.shortTitle}
               </option>

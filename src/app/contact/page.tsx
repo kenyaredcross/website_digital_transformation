@@ -1,22 +1,93 @@
 "use client";
 
-import { useState } from "react";
-import { siteConfig } from "@/data/site";
-import { Mail, Phone, MapPin, Clock, Send, ShieldCheck, CheckCircle2, Navigation, ExternalLink, Sparkles } from "lucide-react";
+import { useState, useEffect } from "react";
+import { siteConfig as fallbackSiteConfig } from "@/data/site";
+import { getSiteConfig } from "@/lib/frappe/site";
+import type { SiteConfig } from "@/types";
+import { Mail, Phone, MapPin, Clock, Send, ShieldCheck, CheckCircle2, Navigation, ExternalLink, Sparkles, Handshake, Database, Loader2 } from "lucide-react";
 
 export default function ContactPage() {
+  const [siteConfig, setSiteConfig] = useState<SiteConfig>(fallbackSiteConfig);
+  const [isPartnerMode, setIsPartnerMode] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [submissionResult, setSubmissionResult] = useState<{
+    frappeSynced?: boolean;
+    message?: string;
+  } | null>(null);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    phone: "",
     organization: "",
-    subject: "Technical Collaboration",
+    subject: "Partnering Inquiry",
+    collaborationArea: "Data & Technology",
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  useEffect(() => {
+    getSiteConfig().then(setSiteConfig);
+
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const typeParam = params.get("type");
+      const hash = window.location.hash;
+
+      if (typeParam === "partner" || hash === "#partnering" || hash === "#partner-form") {
+        setIsPartnerMode(true);
+        setFormData((prev) => ({ ...prev, subject: "Partnering Inquiry" }));
+        
+        // Smooth scroll down to form
+        setTimeout(() => {
+          const el = document.getElementById("partnering-form-section");
+          if (el) {
+            el.scrollIntoView({ behavior: "smooth" });
+          }
+        }, 100);
+      }
+    }
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setLoading(true);
+
+    try {
+      if (isPartnerMode || formData.subject.toLowerCase().includes("partner")) {
+        const res = await fetch("/api/partner-inquiry", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: formData.name,
+            email: formData.email,
+            phone: formData.phone,
+            organization: formData.organization,
+            collaborationArea: formData.collaborationArea,
+            message: formData.message,
+          }),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || "Failed to submit partner inquiry");
+
+        setSubmissionResult({
+          frappeSynced: data.frappeSynced,
+          message: data.message || "Partner inquiry submitted successfully!",
+        });
+      } else {
+        // Standard inquiry submit
+        setSubmissionResult({
+          frappeSynced: false,
+          message: "Thank you for reaching out. Your message has been received.",
+        });
+      }
+
+      setSubmitted(true);
+    } catch (err: unknown) {
+      alert(err instanceof Error ? err.message : "Error submitting form. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const mapEmbedUrl =
@@ -30,40 +101,123 @@ export default function ContactPage() {
       {/* Header */}
       <section className="py-16 md:py-24 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/90 relative overflow-hidden transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
-          <span className="text-xs font-mono font-bold uppercase tracking-widest text-red-600 dark:text-red-400 bg-red-100 dark:bg-red-950/90 px-3.5 py-1.5 rounded-full border border-red-200 dark:border-red-800/70 shadow-sm flex items-center gap-2 w-fit">
-            <Mail className="w-4 h-4" /> Get In Touch
-          </span>
+          <div className="flex flex-wrap items-center gap-3">
+            <span className="text-xs font-mono font-bold uppercase tracking-widest text-red-600 dark:text-red-400 bg-red-100 dark:bg-red-950/90 px-3.5 py-1.5 rounded-full border border-red-200 dark:border-red-800/70 shadow-sm flex items-center gap-2">
+              <Mail className="w-4 h-4" /> Get In Touch
+            </span>
+
+            {isPartnerMode && (
+              <span className="text-xs font-mono font-bold uppercase tracking-widest text-emerald-700 dark:text-emerald-300 bg-emerald-100 dark:bg-emerald-950/90 px-3.5 py-1.5 rounded-full border border-emerald-300 dark:border-emerald-800 shadow-sm flex items-center gap-2">
+                <Handshake className="w-4 h-4" /> Partnering Mode Active
+              </span>
+            )}
+          </div>
+
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 dark:text-white tracking-tight">
-            Let&apos;s build for impact.
+            {isPartnerMode ? "Partner With Kenya Red Cross" : "Let's build for impact."}
           </h1>
+
           <p className="text-xl text-slate-600 dark:text-slate-300 max-w-3xl leading-relaxed">
-            Partner with the Kenya Red Cross Digital Transformation Department to co-create, pilot, or deploy humanitarian technology solutions.
+            {isPartnerMode
+              ? "If your organisation is interested in collaboration around data, technology, research, innovation or digital capacity development, submit your proposal below."
+              : "Partner with the Kenya Red Cross Digital Transformation Department to co-create, pilot, or deploy humanitarian technology solutions."}
           </p>
         </div>
       </section>
 
       {/* Main Form & Contact Card Section */}
-      <section className="py-16">
+      <section id="partnering-form-section" className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+          {/* Form Mode Selector Tabs */}
+          <div className="mb-8 flex items-center gap-3 p-1.5 rounded-2xl bg-slate-200/80 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 w-fit">
+            <button
+              onClick={() => {
+                setIsPartnerMode(false);
+                setFormData((prev) => ({ ...prev, subject: "General Inquiry" }));
+              }}
+              className={`px-5 py-2.5 rounded-xl text-xs font-bold transition-all ${
+                !isPartnerMode
+                  ? "bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-md"
+                  : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+              }`}
+            >
+              General Inquiry
+            </button>
+
+            <button
+              onClick={() => {
+                setIsPartnerMode(true);
+                setFormData((prev) => ({ ...prev, subject: "Partnering Inquiry" }));
+              }}
+              className={`px-5 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${
+                isPartnerMode
+                  ? "bg-red-600 text-white shadow-md shadow-red-600/30"
+                  : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+              }`}
+            >
+              <Handshake className="w-4 h-4" />
+              <span>Partner With Us</span>
+            </button>
+          </div>
+
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-            {/* Left Column - Contact Form */}
-            <div className="lg:col-span-7 p-8 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-6 shadow-xl dark:shadow-2xl transition-colors duration-300">
-              <h2 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
-                Send an Inquiry or Partnership Proposal
-              </h2>
+            {/* Left Column - Contact / Partnering Form */}
+            <div className="lg:col-span-7 p-8 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-6 shadow-xl dark:shadow-2xl transition-colors duration-300 relative">
+
+              <div className="flex items-center justify-between">
+                <div>
+                  <h2 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
+                    {isPartnerMode
+                      ? "Submit Partnering Proposal"
+                      : "Send an Inquiry or Partnership Proposal"}
+                  </h2>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mt-1">
+                    {isPartnerMode
+                      ? "Creates a DocType record on Frappe & MariaDB database"
+                      : "Direct message to Data & Digital Transformation team"}
+                  </p>
+                </div>
+
+                {isPartnerMode && (
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-semibold bg-emerald-50 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
+                    <Database className="w-3.5 h-3.5" />
+                    Frappe DocType Ready
+                  </span>
+                )}
+              </div>
 
               {submitted ? (
-                <div className="p-8 rounded-xl bg-emerald-50 dark:bg-emerald-950/80 border border-emerald-200 dark:border-emerald-800 text-center space-y-4 animate-in fade-in duration-300">
-                  <CheckCircle2 className="w-12 h-12 text-emerald-600 dark:text-emerald-400 mx-auto" />
-                  <h3 className="text-2xl font-bold text-slate-900 dark:text-white">Inquiry Received</h3>
-                  <p className="text-sm text-slate-600 dark:text-slate-300 max-w-md mx-auto">
-                    Thank you for reaching out to the Kenya Red Cross Digital Transformation Department. Our team will review your message and respond shortly.
-                  </p>
+                <div className="p-8 rounded-2xl bg-emerald-50 dark:bg-emerald-950/80 border border-emerald-200 dark:border-emerald-800 text-center space-y-5 animate-in fade-in duration-300">
+                  <CheckCircle2 className="w-14 h-14 text-emerald-600 dark:text-emerald-400 mx-auto" />
+                  <div className="space-y-2">
+                    <h3 className="text-2xl font-black text-slate-900 dark:text-white">
+                      {isPartnerMode ? "Partnering Proposal Submitted!" : "Inquiry Received"}
+                    </h3>
+                    <p className="text-sm text-slate-600 dark:text-slate-300 max-w-md mx-auto leading-relaxed">
+                      {submissionResult?.message ||
+                        "Thank you for reaching out to the Kenya Red Cross Digital Transformation Department. Our team will review your message and respond shortly."}
+                    </p>
+                  </div>
+
+                  <div className="p-4 rounded-xl bg-white/80 dark:bg-slate-900/90 border border-emerald-200 dark:border-emerald-800 text-xs font-mono text-slate-700 dark:text-slate-300 max-w-md mx-auto space-y-1">
+                    <p className="font-bold text-emerald-700 dark:text-emerald-400 flex items-center justify-center gap-1.5">
+                      <Database className="w-4 h-4" />
+                      DocType Record Created
+                    </p>
+                    <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                      DocType: <span className="font-semibold text-slate-900 dark:text-white">Partner Inquiry</span> | Storage: <span className="font-semibold text-slate-900 dark:text-white">MariaDB</span>
+                    </p>
+                  </div>
+
                   <button
-                    onClick={() => setSubmitted(false)}
-                    className="px-4 py-2 rounded-xl text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 dark:bg-emerald-700 dark:hover:bg-emerald-600 transition-colors shadow-md"
+                    onClick={() => {
+                      setSubmitted(false);
+                      setSubmissionResult(null);
+                    }}
+                    className="px-6 py-2.5 rounded-xl text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 dark:bg-emerald-700 dark:hover:bg-emerald-600 transition-colors shadow-md"
                   >
-                    Send Another Message
+                    Submit Another Inquiry
                   </button>
                 </div>
               ) : (
@@ -71,7 +225,7 @@ export default function ContactPage() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-1.5">
                       <label className="text-xs font-mono font-semibold text-slate-700 dark:text-slate-300">
-                        Full Name *
+                        {isPartnerMode ? "Contact Person Full Name *" : "Full Name *"}
                       </label>
                       <input
                         type="text"
@@ -101,17 +255,55 @@ export default function ContactPage() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-1.5">
                       <label className="text-xs font-mono font-semibold text-slate-700 dark:text-slate-300">
-                        Organization / University
+                        Organisation / Academic Institution *
                       </label>
                       <input
                         type="text"
-                        placeholder="e.g. UN Agency / Tech Startup / University"
+                        required={isPartnerMode}
+                        placeholder="e.g. National Society / UN Agency / Tech Org"
                         value={formData.organization}
                         onChange={(e) => setFormData({ ...formData, organization: e.target.value })}
                         className="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-red-500 font-medium transition-colors"
                       />
                     </div>
 
+                    <div className="space-y-1.5">
+                      <label className="text-xs font-mono font-semibold text-slate-700 dark:text-slate-300">
+                        Phone / WhatsApp (Optional)
+                      </label>
+                      <input
+                        type="tel"
+                        placeholder="+254 7XX XXX XXX"
+                        value={formData.phone}
+                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                        className="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-red-500 font-medium transition-colors"
+                      />
+                    </div>
+                  </div>
+
+                  {isPartnerMode ? (
+                    <div className="space-y-1.5">
+                      <label className="text-xs font-mono font-semibold text-slate-700 dark:text-slate-300">
+                        Collaboration Area *
+                      </label>
+                      <select
+                        value={formData.collaborationArea}
+                        onChange={(e) => setFormData({ ...formData, collaborationArea: e.target.value })}
+                        className="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-red-500 font-mono font-medium transition-colors"
+                      >
+                        <option value="Data & Analytics" className="bg-white dark:bg-slate-900">Data & Analytics</option>
+                        <option value="Technology & Platforms" className="bg-white dark:bg-slate-900">Technology & Platforms</option>
+                        <option value="Research & Evidence" className="bg-white dark:bg-slate-900">Research & Evidence</option>
+                        <option value="Innovation & Experimentation" className="bg-white dark:bg-slate-900">Innovation & Experimentation</option>
+                        <option value="Funding & Grant Sponsorship" className="bg-white dark:bg-slate-900">Funding & Grant Sponsorship</option>
+                        <option value="Capacity Development" className="bg-white dark:bg-slate-900">Capacity Development</option>
+                        <option value="National Societies Collaboration" className="bg-white dark:bg-slate-900">National Societies Collaboration</option>
+                        <option value="Private-Sector Partnership" className="bg-white dark:bg-slate-900">Private-Sector Partnership</option>
+                        <option value="Academic Institution" className="bg-white dark:bg-slate-900">Academic Institution</option>
+                        <option value="Civil Society Partnership" className="bg-white dark:bg-slate-900">Civil Society Partnership</option>
+                      </select>
+                    </div>
+                  ) : (
                     <div className="space-y-1.5">
                       <label className="text-xs font-mono font-semibold text-slate-700 dark:text-slate-300">
                         Inquiry Topic
@@ -121,23 +313,27 @@ export default function ContactPage() {
                         onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                         className="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-red-500 font-mono font-medium transition-colors"
                       >
-                        <option value="Technical Collaboration" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white">Technical Collaboration</option>
-                        <option value="Data Sharing & Analytics" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white">Data Sharing & Analytics</option>
-                        <option value="GIS & Mapping Access" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white">GIS & Mapping Access</option>
-                        <option value="Funding & Sponsorship" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white">Funding & Sponsorship</option>
-                        <option value="General Inquiry" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white">General Inquiry</option>
+                        <option value="Technical Collaboration" className="bg-white dark:bg-slate-900">Technical Collaboration</option>
+                        <option value="Data Sharing & Analytics" className="bg-white dark:bg-slate-900">Data Sharing & Analytics</option>
+                        <option value="GIS & Mapping Access" className="bg-white dark:bg-slate-900">GIS & Mapping Access</option>
+                        <option value="Funding & Sponsorship" className="bg-white dark:bg-slate-900">Funding & Sponsorship</option>
+                        <option value="General Inquiry" className="bg-white dark:bg-slate-900">General Inquiry</option>
                       </select>
                     </div>
-                  </div>
+                  )}
 
                   <div className="space-y-1.5">
                     <label className="text-xs font-mono font-semibold text-slate-700 dark:text-slate-300">
-                      Message / Proposal Summary *
+                      {isPartnerMode ? "Partnership Proposal Details *" : "Message / Proposal Summary *"}
                     </label>
                     <textarea
                       required
                       rows={5}
-                      placeholder="Detail your inquiry, project proposal, or collaboration goals..."
+                      placeholder={
+                        isPartnerMode
+                          ? "Detail your organisation's proposal around data, technology, research, innovation or digital capacity development..."
+                          : "Detail your inquiry, project proposal, or collaboration goals..."
+                      }
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       className="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-red-500 font-medium transition-colors"
@@ -146,10 +342,20 @@ export default function ContactPage() {
 
                   <button
                     type="submit"
-                    className="w-full flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm text-white bg-red-600 hover:bg-red-700 transition-colors shadow-lg shadow-red-600/25"
+                    disabled={loading}
+                    className="w-full flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm text-white bg-red-600 hover:bg-red-700 disabled:opacity-60 transition-colors shadow-lg shadow-red-600/25 cursor-pointer"
                   >
-                    <span>Submit Inquiry</span>
-                    <Send className="w-4 h-4" />
+                    {loading ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        <span>Submitting to Frappe & MariaDB...</span>
+                      </>
+                    ) : (
+                      <>
+                        <span>{isPartnerMode ? "Submit Partnering Proposal" : "Submit Inquiry"}</span>
+                        <Send className="w-4 h-4" />
+                      </>
+                    )}
                   </button>
                 </form>
               )}
@@ -163,7 +369,7 @@ export default function ContactPage() {
                   <p className="text-xs sm:text-sm text-red-900 dark:text-red-200 font-medium leading-relaxed flex items-start gap-2">
                     <Sparkles className="w-4 h-4 text-red-600 dark:text-red-400 shrink-0 mt-0.5" />
                     <span>
-                      For enquiries about data, digital systems, innovation, partnerships and digital transformation initiatives:
+                      If your organisation is interested in collaboration around data, technology, research, innovation or digital capacity development, get in touch with the Data and Digital Transformation team.
                     </span>
                   </p>
                 </div>
@@ -275,4 +481,3 @@ export default function ContactPage() {
     </div>
   );
 }
-

@@ -1,12 +1,13 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { getBlogs, getBlogBySlug, getPeople } from "@/lib/get-data";
+import { getBlogs, getBlogBySlug } from "@/lib/get-data";
+import { getPeople } from "@/lib/frappe/people";
 import { ArrowLeft, ArrowRight, Calendar, Clock, Video, ExternalLink, Tag } from "lucide-react";
 import type { Metadata } from "next";
 
-export function generateStaticParams() {
-  const blogs = getBlogs();
+export async function generateStaticParams() {
+  const blogs = await getBlogs();
   return blogs.map((b) => ({
     slug: b.slug,
   }));
@@ -18,7 +19,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const resolvedParams = await params;
-  const post = getBlogBySlug(resolvedParams.slug);
+  const post = await getBlogBySlug(resolvedParams.slug);
 
   if (!post) {
     return { title: "Article Not Found" };
@@ -36,15 +37,15 @@ export default async function BlogPostPage({
   params: Promise<{ slug: string }>;
 }) {
   const resolvedParams = await params;
-  const post = getBlogBySlug(resolvedParams.slug);
+  const post = await getBlogBySlug(resolvedParams.slug);
 
   if (!post) {
     notFound();
   }
 
-  const allBlogs = getBlogs();
+  const allBlogs = await getBlogs();
   const relatedPosts = allBlogs.filter((b) => b.id !== post.id).slice(0, 3);
-  const people = getPeople();
+  const people = await getPeople();
   const authorPerson = people.find(
     (p) => p.name.toLowerCase() === post.author.name.toLowerCase()
   );
@@ -125,7 +126,6 @@ export default async function BlogPostPage({
               alt={post.title}
               fill
               className="object-cover"
-              unoptimized
             />
           </div>
 
@@ -189,7 +189,6 @@ export default async function BlogPostPage({
                       alt={`Gallery Photo ${idx + 1}`}
                       fill
                       className="object-cover"
-                      unoptimized
                     />
                   </div>
                 ))}

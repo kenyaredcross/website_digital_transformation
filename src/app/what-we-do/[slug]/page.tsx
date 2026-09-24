@@ -1,14 +1,15 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { getThematicAreas, getProjects } from "@/lib/get-data";
+import { getThematicAreas } from "@/lib/get-data";
+import { getProjects } from "@/lib/frappe/projects";
 import { CheckCircle2, ArrowLeft, ArrowRight, Layers, Sparkles } from "lucide-react";
 import type { Metadata } from "next";
 
 // Allow slugs not pre-rendered at build time to be SSR'd on demand
 export const dynamicParams = true;
 
-export function generateStaticParams() {
-  const thematicAreas = getThematicAreas();
+export async function generateStaticParams() {
+  const thematicAreas = await getThematicAreas();
   return thematicAreas.map((area) => ({
     slug: area.slug,
   }));
@@ -20,7 +21,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const resolvedParams = await params;
-  const thematicAreas = getThematicAreas();
+  const thematicAreas = await getThematicAreas();
   const area = thematicAreas.find((a) => a.slug === resolvedParams.slug);
 
   if (!area) {
@@ -39,8 +40,8 @@ export default async function ThematicAreaDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const resolvedParams = await params;
-  const thematicAreas = getThematicAreas();
-  const projects = getProjects();
+  const thematicAreas = await getThematicAreas();
+  const projects = await getProjects();
   const area = thematicAreas.find((a) => a.slug === resolvedParams.slug);
 
   if (!area) {

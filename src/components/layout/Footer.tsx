@@ -1,10 +1,21 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { BrandLogo } from "@/components/ui/BrandLogo";
-import { siteConfig } from "@/data/site";
+import { siteConfig as fallbackSiteConfig } from "@/data/site";
+import { getSiteConfig } from "@/lib/frappe/site";
+import type { SiteConfig } from "@/types";
 import { mainNav } from "@/data/navigation";
 import { ExternalLink, Mail, Phone, MapPin, Heart, ShieldCheck } from "lucide-react";
 
 export function Footer() {
+  const [siteConfig, setSiteConfig] = useState<SiteConfig>(fallbackSiteConfig);
+
+  useEffect(() => {
+    getSiteConfig().then(setSiteConfig);
+  }, []);
+
   return (
     <footer className="bg-slate-100 dark:bg-slate-950 text-slate-700 dark:text-slate-300 border-t border-slate-200 dark:border-slate-800 transition-colors duration-300">
       {/* Top Banner */}

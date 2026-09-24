@@ -1,32 +1,18 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { projects as initialProjects } from "@/data/projects";
-import { Project } from "@/types";
+import type { Project } from "@/types";
 import { ArrowRight, Sparkles, Layers } from "lucide-react";
 
-export function FeaturedProjects() {
-  const [projectsList, setProjectsList] = useState<Project[]>(initialProjects);
+interface FeaturedProjectsProps {
+  projects?: Project[];
+}
 
-  useEffect(() => {
-    fetch("/api/data/projects")
-      .then((res) => res.json())
-      .then((data) => {
-        if (Array.isArray(data) && data.length > 0) {
-          setProjectsList(data);
-        }
-      })
-      .catch((err) => console.error("Failed to load live projects:", err));
-  }, []);
-
-  const featured = (
-    projectsList.filter((p) => Boolean(p.featured)).length > 0
-      ? projectsList.filter((p) => Boolean(p.featured))
-      : projectsList
-  ).slice(0, 3);
+export function FeaturedProjects({ projects = [] }: FeaturedProjectsProps) {
+  const featuredList = projects.filter((p) => Boolean(p.featured));
+  const featured = (featuredList.length > 0 ? featuredList : projects).slice(0, 3);
 
   return (
     <section className="py-20 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white relative overflow-hidden transition-colors duration-300 border-b border-slate-200 dark:border-slate-800">

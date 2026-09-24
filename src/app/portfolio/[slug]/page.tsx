@@ -1,6 +1,9 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { getProjects, getPeople, getPartners, getThematicAreas, getCountries } from "@/lib/get-data";
+import { getPartners } from "@/lib/frappe/partners";
+import { getThematicAreas, getCountries } from "@/lib/get-data";
+import { getPeople } from "@/lib/frappe/people";
+import { getProjects, getProject } from "@/lib/frappe/projects";
 import {
   ArrowLeft,
   ArrowRight,
@@ -13,8 +16,8 @@ import type { Metadata } from "next";
 // Allow slugs not pre-rendered at build time to be SSR'd on demand
 export const dynamicParams = true;
 
-export function generateStaticParams() {
-  const projects = getProjects();
+export async function generateStaticParams() {
+  const projects = await getProjects();
   return projects.map((p) => ({
     slug: p.slug,
   }));
@@ -26,8 +29,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const resolvedParams = await params;
-  const projects = getProjects();
-  const project = projects.find((p) => p.slug === resolvedParams.slug);
+  const project = await getProject(resolvedParams.slug);
 
   if (!project) {
     return { title: "Project Case Study Not Found" };
@@ -45,10 +47,10 @@ export default async function ProjectDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const resolvedParams = await params;
-  const projects = getProjects();
-  const people = getPeople();
-  const partners = getPartners();
-  const project = projects.find((p) => p.slug === resolvedParams.slug);
+  const projects = await getProjects();
+  const people = await getPeople();
+  const partners = await getPartners();
+  const project = projects.find((p) => p.slug === resolvedParams.slug || p.id === resolvedParams.slug);
 
   if (!project) {
     notFound();
@@ -60,8 +62,8 @@ export default async function ProjectDetailPage({
   // Resolve partners from partnerIds
   const projectPartners = partners.filter((pt) => project.partnerIds?.includes(pt.id));
 
-  const thematicAreas = getThematicAreas();
-  const countries = getCountries();
+  const thematicAreas = await getThematicAreas();
+  const countries = await getCountries();
 
   // Resolve thematic area
   const thematicArea = thematicAreas.find((t) => t.slug === project.thematicAreaSlug);

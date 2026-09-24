@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, useMemo } from "react";
-import { blogs as initialBlogs } from "@/data/blogs";
 import { BlogPost } from "@/types";
 import { BlogCard, BlogCardVariant } from "@/components/blog/BlogCard";
 import { Search, X } from "lucide-react";
@@ -61,7 +60,7 @@ function buildLayout(count: number): Slot[] {
 }
 
 export function BlogFilterableGrid() {
-  const [blogsList, setBlogsList] = useState<BlogPost[]>(initialBlogs);
+  const [blogsList, setBlogsList] = useState<BlogPost[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
 

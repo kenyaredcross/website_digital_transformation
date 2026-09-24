@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { africaGeoJSON } from "african-countries";
-import { countries } from "@/data/countries";
+import { countries as staticCountries } from "@/data/countries";
 import { Country } from "@/types";
 import {
   MapPin,
@@ -80,7 +80,14 @@ function getFlagCandidates(country: Country): string[] {
   ];
 }
 
-export function AfricaMap({ isCompact = false }: { isCompact?: boolean }) {
+interface AfricaMapProps {
+  countries?: Country[];
+  isCompact?: boolean;
+}
+
+export function AfricaMap({ countries = [], isCompact = false }: AfricaMapProps) {
+  const activeCountries = countries.length > 0 ? countries : staticCountries;
+
   const [selectedCountryCode, setSelectedCountryCode] = useState<string>("KE");
   const [hoveredCountry, setHoveredCountry] = useState<Country | null>(null);
   const [hoveredMapCountryCode, setHoveredMapCountryCode] = useState<string | null>(null);
@@ -98,12 +105,12 @@ export function AfricaMap({ isCompact = false }: { isCompact?: boolean }) {
 
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
-  const selectedCountry = countries.find((c) => c.code === selectedCountryCode) || countries[0];
+  const selectedCountry = activeCountries.find((c) => c.code === selectedCountryCode) || activeCountries[0];
   const flagCandidates = getFlagCandidates(selectedCountry);
   const currentFlagSrc = flagCandidates[flagPathIndex] || flagCandidates[0];
 
   const handleCountryMouseEnter = (countryCode: string) => {
-    const countryData = countries.find((c) => c.code === countryCode);
+    const countryData = activeCountries.find((c) => c.code === countryCode);
     setHoveredMapCountryCode(countryCode);
     setHoveredCountry(countryData || null);
   };
@@ -114,7 +121,7 @@ export function AfricaMap({ isCompact = false }: { isCompact?: boolean }) {
   };
 
   const selectCountry = (countryCode: string | null) => {
-    if (countryCode && countries.some((country) => country.code === countryCode)) {
+    if (countryCode && activeCountries.some((country) => country.code === countryCode)) {
       if (timerRef.current) clearTimeout(timerRef.current);
       setSelectedCountryCode(countryCode);
       setFlagPathIndex(0);
@@ -302,7 +309,7 @@ export function AfricaMap({ isCompact = false }: { isCompact?: boolean }) {
               aria-label="Interactive map of Africa"
             >
               {mapCountries.map((country) => {
-                const isOperationalCountry = countries.some((item) => item.code === country.code);
+                const isOperationalCountry = activeCountries.some((item) => item.code === country.code);
                 const isSelected = selectedCountryCode === country.code;
                 const isHovered = hoveredMapCountryCode === country.code;
 

@@ -2,20 +2,32 @@
 
 import { useMemo, useState } from "react";
 import Image from "next/image";
-import { countries, regions, FALLBACK_COUNTRY_IMAGE } from "@/data/countries";
+import { countries as staticCountries, FALLBACK_COUNTRY_IMAGE } from "@/data/countries";
 import { useReveal } from "@/hooks/useReveal";
 import { Country } from "@/types";
 
-export function CountryRoster() {
+interface CountryRosterProps {
+  countries?: Country[];
+}
+
+export function CountryRoster({ countries = [] }: CountryRosterProps) {
+  const activeCountries = countries.length > 0 ? countries : staticCountries;
   const [region, setRegion] = useState<string>("All");
+
+  const dynamicRegions = useMemo(
+    () => Array.from(new Set(activeCountries.map((c) => c.region))),
+    [activeCountries]
+  );
 
   const visible = useMemo(
     () =>
-      region === "All" ? countries : countries.filter((c) => c.region === region),
-    [region]
+      region === "All"
+        ? activeCountries
+        : activeCountries.filter((c) => c.region === region),
+    [region, activeCountries]
   );
 
-  const filters = ["All", ...regions];
+  const filters = ["All", ...dynamicRegions];
 
   return (
     <div className="space-y-10">

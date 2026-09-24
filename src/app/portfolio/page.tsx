@@ -1,5 +1,7 @@
 import Image from "next/image";
 import { PortfolioFilterableGrid } from "@/components/portfolio/PortfolioFilterableGrid";
+import { getProjects } from "@/lib/frappe/projects";
+import { getThematicAreas } from "@/lib/frappe/thematic-areas";
 import { Layers } from "lucide-react";
 import type { Metadata } from "next";
 
@@ -9,7 +11,10 @@ export const metadata: Metadata = {
     "Explore our full directory of digital products, platforms, early warning systems, and data services built for humanitarian action.",
 };
 
-export default function PortfolioPage() {
+export default async function PortfolioPage() {
+  const projects = await getProjects();
+  const thematicAreas = await getThematicAreas();
+
   return (
     <div className="pt-25 pb-20 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white min-h-screen transition-colors duration-300">
 
@@ -92,7 +97,7 @@ export default function PortfolioPage() {
       {/* Main Filterable Portfolio Section */}
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <PortfolioFilterableGrid />
+          <PortfolioFilterableGrid projects={projects} thematicAreas={thematicAreas} />
         </div>
       </section>
     </div>

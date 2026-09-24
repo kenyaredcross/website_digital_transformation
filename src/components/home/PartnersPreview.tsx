@@ -1,31 +1,21 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { partners as initialPartners } from "@/data/partners";
 import { Partner } from "@/types";
-import { ArrowRight, Handshake, ExternalLink, ArrowUpRight, Info } from "lucide-react";
+import { ArrowRight, Handshake, ExternalLink, ArrowUpRight } from "lucide-react";
 
-export function PartnersPreview() {
-  const [partnersList, setPartnersList] = useState<Partner[]>(initialPartners);
+interface PartnersPreviewProps {
+  partners?: Partner[];
+}
 
-  useEffect(() => {
-    fetch("/api/data/partners")
-      .then((res) => res.json())
-      .then((data) => {
-        if (Array.isArray(data) && data.length > 0) {
-          setPartnersList(data);
-        }
-      })
-      .catch((err) => console.error("Failed to load live partners:", err));
-  }, []);
-
+export function PartnersPreview({ partners = [] }: PartnersPreviewProps) {
   const featuredPartners = (
-    partnersList.filter((p) => Boolean(p.featured)).length > 0
-      ? partnersList.filter((p) => Boolean(p.featured))
-      : partnersList
+    partners.filter((p) => Boolean(p.featured)).length > 0
+      ? partners.filter((p) => Boolean(p.featured))
+      : partners
   ).slice(0, 4);
 
   return (
@@ -103,7 +93,6 @@ function PartnerCard({ partner }: { partner: Partner }) {
               <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 shadow-sm">
                 {partner.category}
               </span>
-             
             </div>
 
             {/* Logo Image */}
@@ -173,6 +162,3 @@ function PartnerCard({ partner }: { partner: Partner }) {
     </div>
   );
 }
-
-
-

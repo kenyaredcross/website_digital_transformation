@@ -1,56 +1,46 @@
 import { getEntityData } from "@/lib/data-store";
-import { BlogPost, Project, Person, Partner, Testimonial, Country, ThematicArea, SiteConfig, AboutData } from "@/types";
+import { BlogPost, Partner, Testimonial, Country, ThematicArea, SiteConfig, AboutData } from "@/types";
 
-export function getBlogs(): BlogPost[] {
-  return getEntityData<BlogPost[]>("blogs");
+import { getBlogs as getFrappeBlogs, getBlogBySlug as getFrappeBlogBySlug } from "@/lib/frappe/blogs";
+
+export async function getBlogs(): Promise<BlogPost[]> {
+  return getFrappeBlogs();
 }
 
-export function getBlogBySlug(slug: string): BlogPost | undefined {
-  const blogs = getBlogs();
-  return blogs.find((b) => b.slug === slug || b.id === slug);
+export async function getBlogBySlug(slug: string): Promise<BlogPost | undefined> {
+  return getFrappeBlogBySlug(slug);
 }
 
-export function getProjects(): Project[] {
-  return getEntityData<Project[]>("projects");
-}
+import { getPartners as getFrappePartners } from "@/lib/frappe/partners";
 
-export function getProjectBySlug(slug: string): Project | undefined {
-  const projects = getProjects();
-  return projects.find((p) => p.slug === slug || p.id === slug);
-}
-
-export function getPeople(): Person[] {
-  return getEntityData<Person[]>("people");
-}
-
-export function getPersonBySlug(slug: string): Person | undefined {
-  const people = getPeople();
-  return people.find((p) => p.slug === slug || p.id === slug);
-}
-
-export function getPartners(): Partner[] {
-  return getEntityData<Partner[]>("partners");
+export async function getPartners(): Promise<Partner[]> {
+  return getFrappePartners();
 }
 
 export function getTestimonials(): Testimonial[] {
   return getEntityData<Testimonial[]>("testimonials");
 }
 
-export function getCountries(): Country[] {
-  return getEntityData<Country[]>("countries");
+import { getCountries as getFrappeCountries } from "@/lib/frappe/countries";
+
+export async function getCountries(): Promise<Country[]> {
+  return getFrappeCountries();
 }
 
-export function getThematicAreas(): ThematicArea[] {
-  return getEntityData<ThematicArea[]>("thematicAreas");
+import { getThematicAreas as getFrappeThematicAreas, getThematicAreaBySlug as getFrappeThematicAreaBySlug } from "@/lib/frappe/thematic-areas";
+
+export async function getThematicAreas(): Promise<ThematicArea[]> {
+  return getFrappeThematicAreas();
 }
 
-export function getThematicAreaBySlug(slug: string): ThematicArea | undefined {
-  const areas = getThematicAreas();
-  return areas.find((a) => a.slug === slug || a.id === slug);
+export async function getThematicAreaBySlug(slug: string): Promise<ThematicArea | undefined> {
+  return getFrappeThematicAreaBySlug(slug);
 }
 
-export function getSiteConfig(): SiteConfig {
-  return getEntityData<SiteConfig>("site");
+import { getSiteConfig as getFrappeSiteConfig } from "@/lib/frappe/site";
+
+export async function getSiteConfig(): Promise<SiteConfig> {
+  return getFrappeSiteConfig();
 }
 
 export function getAboutData(): AboutData {

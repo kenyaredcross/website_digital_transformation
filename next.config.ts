@@ -2,7 +2,26 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
+    dangerouslyAllowLocalIP: true,
     remotePatterns: [
+      {
+        protocol: "http",
+        hostname: "redcross.local",
+        port: "8000",
+        pathname: "/**",
+      },
+      {
+        protocol: "http",
+        hostname: "localhost",
+        port: "8000",
+        pathname: "/**",
+      },
+      {
+        protocol: "http",
+        hostname: "127.0.0.1",
+        port: "8000",
+        pathname: "/**",
+      },
       {
         protocol: "https",
         hostname: "live.staticflickr.com",
@@ -24,6 +43,14 @@ const nextConfig: NextConfig = {
         pathname: "/**",
       },
     ],
+  },
+  async rewrites() {
+    return [
+      {
+        source: "/files/:path*",
+        destination: "http://redcross.local:8000/files/:path*",
+      },
+    ];
   },
 };
 

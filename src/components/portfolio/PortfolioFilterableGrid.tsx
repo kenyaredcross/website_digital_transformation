@@ -2,7 +2,7 @@
 
 import { useState, useMemo, useCallback, useEffect } from "react";
 import { Layers } from "lucide-react";
-import { projects } from "@/data/projects";
+import type { Project, ThematicArea } from "@/types";
 import { FilterControls } from "./FilterControls";
 import { GridView } from "./GridView";
 import { ListView } from "./ListView";
@@ -10,18 +10,15 @@ import { DeckView } from "./DeckView";
 
 type ViewMode = "grid" | "list" | "deck";
 
-/**
- * Orchestrates filter state, derived data, and view-mode switching for the
- * portfolio page. All rendering is delegated to focused sub-components:
- *
- * - `FilterControls`  — search + dropdowns + category pills
- * - `GridView`        — 3-column card grid
- * - `ListView`        — horizontal list rows
- * - `DeckView`        — single-card carousel / deck
- *
- * CSS animations live in `globals.css` (prefixed `pf-*` and `hero-*`).
- */
-export function PortfolioFilterableGrid() {
+interface PortfolioFilterableGridProps {
+  projects?: Project[];
+  thematicAreas?: ThematicArea[];
+}
+
+export function PortfolioFilterableGrid({
+  projects = [],
+  thematicAreas = [],
+}: PortfolioFilterableGridProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [selectedThematicArea, setSelectedThematicArea] = useState<string>("All");
@@ -34,11 +31,11 @@ export function PortfolioFilterableGrid() {
   // Stable derived lists for filter dropdowns
   const categories = useMemo(
     () => ["All", ...Array.from(new Set(projects.map((p) => p.category)))],
-    []
+    [projects]
   );
   const years = useMemo(
     () => ["All", ...Array.from(new Set(projects.map((p) => p.year.toString()))).sort().reverse()],
-    []
+    [projects]
   );
 
   // Apply all active filters
@@ -53,14 +50,14 @@ export function PortfolioFilterableGrid() {
         const hit =
           project.title.toLowerCase().includes(q) ||
           project.description.toLowerCase().includes(q) ||
-          project.technologies.some((t) => t.toLowerCase().includes(q)) ||
+          (project.technologies || []).some((t) => t.toLowerCase().includes(q)) ||
           project.challenge?.toLowerCase().includes(q);
         if (!hit) return false;
       }
 
       return true;
     });
-  }, [searchQuery, selectedCategory, selectedThematicArea, selectedYear]);
+  }, [projects, searchQuery, selectedCategory, selectedThematicArea, selectedYear]);
 
   const total = filteredProjects.length;
 
@@ -111,6 +108,7 @@ export function PortfolioFilterableGrid() {
         onViewModeChange={setViewMode}
         categories={categories}
         years={years}
+        thematicAreas={thematicAreas}
       />
 
       {/* Results count + reset */}

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { thematicAreas } from "@/data/thematicAreas";
+import { getThematicAreas } from "@/lib/frappe/thematic-areas";
 import {
   Smartphone,
   BarChart3,
@@ -36,7 +36,8 @@ const iconMap = {
   BookOpen,
 };
 
-export default function WhatWeDoPage() {
+export default async function WhatWeDoPage() {
+  const thematicAreas = await getThematicAreas();
   return (
     <div className="pt-25 pb-20 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white min-h-screen transition-colors duration-300">
       {/* ── Hero Section ──────────────────────────────────── */}
