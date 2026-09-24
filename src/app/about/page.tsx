@@ -2,6 +2,7 @@ import Image from "next/image";
 import { aboutData } from "@/data/about";
 import { AboutGallery } from "@/components/about/AboutGallery";
 import { JourneyTimeline } from "@/components/about/JourneyTimeline";
+import { StrategicPriorities } from "@/components/about/StrategicPriorities";
 import { Search, PenTool, FlaskConical, BookOpen, RefreshCw, Rocket, Target, Compass, Sparkles, Eye } from "lucide-react";
 import type { Metadata } from "next";
 
@@ -199,6 +200,8 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      <StrategicPriorities />
 
       {/* 6-Step Visual Approach */}
       <section className="py-24 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">

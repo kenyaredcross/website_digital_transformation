@@ -26,6 +26,11 @@ export const mainNav: NavItem[] = [
     description: "Digital products, data services, and platforms built for field impact.",
   },
   {
+    title: "Knowledge Hub",
+    href: "/knowledge-hub",
+    description: "Innovation research, resources, case studies and lessons learned from digital transformation.",
+  },
+  {
     title: "People",
     href: "/people",
     description: "Meet the engineers, data scientists, GIS experts, and field innovators.",

@@ -329,6 +329,35 @@ html {
   transform: none;
 }
 
+/* ── Knowledge Hub: entry animations ────────────────────────────────── */
+@keyframes kh-rise {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes kh-card-in {
+  from { opacity: 0; transform: translateY(24px) scale(.97); }
+  to   { opacity: 1; transform: none; }
+}
+
+.kh-step {
+  animation: kh-rise .65s cubic-bezier(.22,1,.36,1) both;
+}
+.kh-step-1 { animation-delay:  60ms; }
+.kh-step-2 { animation-delay: 160ms; }
+.kh-step-3 { animation-delay: 260ms; }
+
+.kh-card {
+  animation: kh-card-in .7s cubic-bezier(.22,1,.36,1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kh-step, .kh-card {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hero-step,
   .hero-frame,
