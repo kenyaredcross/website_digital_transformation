@@ -6,7 +6,7 @@ import { motion, AnimatePresence, type Variants } from "framer-motion";
 import {
   Search, LayoutGrid, List, Filter, X, Calendar, User, Tag,
   BookOpen, FileText, Download, ExternalLink, ChevronDown,
-  Shuffle, Users, Eye, Star,
+  Shuffle, Users, Eye,
 } from "lucide-react";
 import {
   KNOWLEDGE_RESOURCES,
@@ -69,55 +69,7 @@ const gridItem: Variants = {
   exit:   { opacity: 0, scale: 0.95 },
 };
 
-// ── Metadata row ──────────────────────────────────────────────────────────────
-
-function MetaRow({ resource }: { resource: KnowledgeResource }) {
-  return (
-    <dl className="grid grid-cols-2 gap-x-4 gap-y-1.5 text-xs">
-      <div>
-        <dt className="font-mono text-slate-400 dark:text-slate-500 uppercase tracking-wider text-[10px]">Type</dt>
-        <dd className={`mt-0.5 inline-block px-2 py-0.5 rounded-full font-semibold text-[11px] ${typeBadgeClass(resource.type)}`}>
-          {resource.type}
-        </dd>
-      </div>
-      <div>
-        <dt className="font-mono text-slate-400 dark:text-slate-500 uppercase tracking-wider text-[10px]">Date</dt>
-        <dd className="mt-0.5 text-slate-600 dark:text-slate-400 font-medium flex items-center gap-1">
-          <Calendar className="w-3 h-3" />
-          {formatDate(resource.date)}
-        </dd>
-      </div>
-      <div>
-        <dt className="font-mono text-slate-400 dark:text-slate-500 uppercase tracking-wider text-[10px]">Owner</dt>
-        <dd className="mt-0.5 text-slate-600 dark:text-slate-400 font-medium flex items-center gap-1 truncate">
-          <User className="w-3 h-3 shrink-0" />
-          <span className="truncate">{resource.owner}</span>
-        </dd>
-      </div>
-      <div>
-        <dt className="font-mono text-slate-400 dark:text-slate-500 uppercase tracking-wider text-[10px]">Version</dt>
-        <dd className="mt-0.5 text-slate-600 dark:text-slate-400 font-mono font-medium">{resource.version}</dd>
-      </div>
-      <div className="col-span-2">
-        <dt className="font-mono text-slate-400 dark:text-slate-500 uppercase tracking-wider text-[10px]">Department</dt>
-        <dd className="mt-0.5 text-slate-600 dark:text-slate-400 font-medium truncate">{resource.department}</dd>
-      </div>
-      <div className="col-span-2">
-        <dt className="font-mono text-slate-400 dark:text-slate-500 uppercase tracking-wider text-[10px]">Audience</dt>
-        <dd className="mt-0.5 flex flex-wrap gap-1">
-          {resource.audience.map((a) => (
-            <span key={a} className="inline-flex items-center gap-0.5 text-[10px] px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-medium">
-              <Users className="w-2.5 h-2.5" />
-              {a}
-            </span>
-          ))}
-        </dd>
-      </div>
-    </dl>
-  );
-}
-
-// ── Resource Card (Grid) ──────────────────────────────────────────────────────
+// ── Resource Card (Grid) — lean version ───────────────────────────────────────
 
 function ResourceCard({ resource, image, onSelect }: { resource: KnowledgeResource; image: string; onSelect: () => void }) {
   return (
@@ -132,7 +84,7 @@ function ResourceCard({ resource, image, onSelect }: { resource: KnowledgeResour
       aria-label={`Open ${resource.title}`}
     >
       {/* Image */}
-      <div className="relative h-40 overflow-hidden bg-slate-100 dark:bg-slate-800">
+      <div className="relative h-40 overflow-hidden bg-slate-100 dark:bg-slate-800 shrink-0">
         <Image
           src={image}
           alt=""
@@ -141,15 +93,7 @@ function ResourceCard({ resource, image, onSelect }: { resource: KnowledgeResour
           className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-slate-900/50 via-transparent to-transparent" />
-
-        {resource.featured && (
-          <div className="absolute top-3 left-3">
-            <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-amber-700 dark:text-amber-300 bg-amber-100/90 dark:bg-amber-900/80 backdrop-blur-sm px-2 py-0.5 rounded-full border border-amber-200 dark:border-amber-700">
-              <Star className="w-2.5 h-2.5 fill-current" /> Featured
-            </span>
-          </div>
-        )}
-
+        {/* Type badge pinned to image bottom-left */}
         <div className="absolute bottom-3 left-3">
           <span className={`text-[11px] font-semibold px-2 py-0.5 rounded-full backdrop-blur-sm ${typeBadgeClass(resource.type)}`}>
             {resource.type}
@@ -157,31 +101,26 @@ function ResourceCard({ resource, image, onSelect }: { resource: KnowledgeResour
         </div>
       </div>
 
-      {/* Content */}
-      <div className="flex flex-col flex-1 p-5 gap-3">
+      {/* Content — intentionally minimal; detail is in the modal */}
+      <div className="flex flex-col flex-1 p-4 gap-3">
         <h3 className="font-bold text-slate-900 dark:text-white text-sm leading-snug line-clamp-2 group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors">
           {resource.title}
         </h3>
-        <p className="text-slate-600 dark:text-slate-400 text-xs leading-relaxed line-clamp-2 flex-1">
-          {resource.description}
-        </p>
 
-        {/* Tags */}
-        <div className="flex flex-wrap gap-1">
-          {resource.tags.slice(0, 3).map((tag) => (
-            <span key={tag} className="text-[10px] px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-500 font-medium">
-              #{tag}
-            </span>
-          ))}
+        {/* Single-line meta strip */}
+        <div className="flex items-center gap-3 text-xs text-slate-500 dark:text-slate-400 mt-auto">
+          <span className="flex items-center gap-1">
+            <Calendar className="w-3 h-3" />
+            {formatDate(resource.date)}
+          </span>
+          <span className="flex items-center gap-1 truncate">
+            <User className="w-3 h-3 shrink-0" />
+            <span className="truncate">{resource.department}</span>
+          </span>
         </div>
 
-        {/* Compact metadata */}
-        <div className="pt-3 border-t border-slate-100 dark:border-slate-800">
-          <MetaRow resource={resource} />
-        </div>
-
-        {/* Action */}
-        <button className="mt-2 w-full flex items-center justify-center gap-2 text-xs font-semibold text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 bg-red-50 dark:bg-red-950/30 hover:bg-red-100 dark:hover:bg-red-950/50 px-4 py-2 rounded-xl transition-colors">
+        {/* CTA */}
+        <button className="w-full flex items-center justify-center gap-2 text-xs font-semibold text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 bg-red-50 dark:bg-red-950/30 hover:bg-red-100 dark:hover:bg-red-950/50 px-4 py-2 rounded-xl transition-colors border border-red-100 dark:border-red-900/40">
           <Eye className="w-3.5 h-3.5" /> View Details
         </button>
       </div>
@@ -212,11 +151,6 @@ function ResourceRow({ resource, image, onSelect }: { resource: KnowledgeResourc
           <h3 className="font-bold text-slate-900 dark:text-white text-sm leading-snug group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors line-clamp-2">
             {resource.title}
           </h3>
-          {resource.featured && (
-            <span className="inline-flex items-center gap-1 text-[10px] font-bold text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/40 px-2 py-0.5 rounded-full shrink-0">
-              <Star className="w-2.5 h-2.5 fill-current" /> Featured
-            </span>
-          )}
         </div>
 
         {/* Inline metadata strip */}
@@ -293,13 +227,6 @@ function ResourceModal({ resource, image, onClose }: { resource: KnowledgeResour
             >
               <X className="w-4 h-4" />
             </button>
-            {resource.featured && (
-              <div className="absolute top-4 left-4">
-                <span className="inline-flex items-center gap-1 text-xs font-bold text-amber-300 bg-amber-900/70 backdrop-blur-sm px-2.5 py-1 rounded-full border border-amber-600/40">
-                  <Star className="w-3 h-3 fill-current" /> Featured Resource
-                </span>
-              </div>
-            )}
             <div className="absolute bottom-4 left-5 right-5">
               <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${typeBadgeClass(resource.type)}`}>
                 {resource.type}
@@ -415,8 +342,6 @@ export function ResourceLibrary() {
     });
   }, [query, selectedType, selectedAudience]);
 
-  const featuredResources = useMemo(() => KNOWLEDGE_RESOURCES.filter((r) => r.featured), []);
-
   return (
     <section id="knowledge-hub-library" className="py-24 md:py-32 bg-slate-50 dark:bg-slate-950/50 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -431,7 +356,7 @@ export function ResourceLibrary() {
         >
           <span className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-widest text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/60 px-3.5 py-1.5 rounded-full border border-blue-200 dark:border-blue-800/60 shadow-sm">
             <BookOpen className="w-3.5 h-3.5" />
-            Knowledge Hub
+            Resource Library
           </span>
           <h2 className="text-4xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-tight leading-[1.1]">
             Learn From{" "}
@@ -445,48 +370,6 @@ export function ResourceLibrary() {
             digital guides, training materials, research, and more.
           </p>
         </motion.div>
-
-        {/* ── Featured Resources strip ── */}
-        {featuredResources.length > 0 && (
-          <motion.div
-            className="mb-14"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
-          >
-            <div className="flex items-center gap-2 mb-5">
-              <Star className="w-4 h-4 text-amber-500 fill-current" />
-              <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">Featured Resources</h3>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {featuredResources.map((r) => (
-                <button
-                  key={r.id}
-                  onClick={() => setSelectedResource(r)}
-                  className="group relative rounded-2xl overflow-hidden aspect-[16/9] bg-slate-200 dark:bg-slate-800 text-left shadow-sm hover:shadow-xl transition-shadow duration-300"
-                >
-                  {imageMap[r.id] && (
-                    <Image
-                      src={imageMap[r.id]}
-                      alt=""
-                      fill
-                      sizes="(max-width: 640px) 100vw, 25vw"
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                  )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-3">
-                    <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${typeBadgeClass(r.type)} mb-1.5 inline-block`}>
-                      {r.type}
-                    </span>
-                    <p className="text-white text-xs font-bold leading-snug line-clamp-2">{r.title}</p>
-                  </div>
-                </button>
-              ))}
-            </div>
-          </motion.div>
-        )}
 
         {/* ── Controls Bar ── */}
         <motion.div

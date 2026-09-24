@@ -51,7 +51,6 @@ export interface KnowledgeResource {
   audience: AudienceType[];
   description: string;
   tags: string[];
-  featured?: boolean;
 }
 
 export interface InnovationStep {
@@ -131,7 +130,7 @@ export const INNOVATION_STEPS: InnovationStep[] = [
   },
 ];
 
-// ── Sample Knowledge Resources ────────────────────────────────────────────────
+// ── Knowledge Resources ───────────────────────────────────────────────────────
 
 export const KNOWLEDGE_RESOURCES: KnowledgeResource[] = [
   {
@@ -146,7 +145,6 @@ export const KNOWLEDGE_RESOURCES: KnowledgeResource[] = [
     description:
       "Comprehensive evaluation of the mobile-based cash transfer platform deployed across Turkana, Marsabit and Garissa counties — covering beneficiary reach, transfer success rates, system uptime, and cost-efficiency metrics.",
     tags: ["cash transfer", "mobile money", "evaluation", "financial inclusion"],
-    featured: true,
   },
   {
     id: "kr-002",
@@ -160,7 +158,6 @@ export const KNOWLEDGE_RESOURCES: KnowledgeResource[] = [
     description:
       "A detailed case study examining how real-time satellite rainfall data, river gauge telemetry and community-level SMS alerts were integrated to trigger pre-positioned relief operations in the Tana River basin before peak flooding.",
     tags: ["early warning", "anticipatory action", "flooding", "GIS"],
-    featured: true,
   },
   {
     id: "kr-003",
@@ -200,7 +197,6 @@ export const KNOWLEDGE_RESOURCES: KnowledgeResource[] = [
     description:
       "Structured 5-day training curriculum covering smartphone data collection with KoBoToolbox, offline mapping with ODK, and secure data handling for frontline KRCS volunteers and county coordinators.",
     tags: ["training", "digital literacy", "KoBoToolbox", "field staff"],
-    featured: true,
   },
   {
     id: "kr-006",
@@ -227,7 +223,6 @@ export const KNOWLEDGE_RESOURCES: KnowledgeResource[] = [
     description:
       "Full documentation of the drone-based rapid damage assessment pilot in West Pokot, including regulatory compliance, flight planning, orthomosaic processing, and integration of outputs into KRCS response plans.",
     tags: ["drones", "damage assessment", "flood response", "innovation"],
-    featured: true,
   },
   {
     id: "kr-008",
@@ -241,58 +236,6 @@ export const KNOWLEDGE_RESOURCES: KnowledgeResource[] = [
     description:
       "Annual flagship publication showcasing the full scope of digital transformation work at Kenya Red Cross — including programme highlights, system deployments, partnership outcomes, and forward-looking strategy for 2024–2026.",
     tags: ["annual report", "digital transformation", "strategy", "publication"],
-  },
-  {
-    id: "kr-009",
-    title: "Anticipatory Finance Mechanisms — Regional Webinar Proceedings",
-    type: "Webinar",
-    date: "2024-02-14",
-    department: "Cash & Markets Unit",
-    owner: "Regional Finance Innovation Team",
-    version: "v1.0",
-    audience: ["Partners", "Leadership", "All Staff"],
-    description:
-      "Recording, transcript, and key takeaways from the East Africa regional webinar on pre-positioning funds, parametric insurance, and anticipatory finance trigger models for climate-related disasters.",
-    tags: ["anticipatory finance", "webinar", "East Africa", "climate"],
-  },
-  {
-    id: "kr-010",
-    title: "Mobile Data Collection SOP — KoBoToolbox Field Implementation",
-    type: "Data & Digital Standard",
-    date: "2024-01-25",
-    department: "Digital Transformation",
-    owner: "Field Data Systems Team",
-    version: "v4.0",
-    audience: ["Field Staff", "Technical Teams"],
-    description:
-      "Standard Operating Procedures for the design, deployment, quality assurance, and submission of mobile data forms using KoBoToolbox — including offline mode, media attachments, and GDPR-aligned data protection protocols.",
-    tags: ["KoBoToolbox", "SOP", "data collection", "field operations"],
-  },
-  {
-    id: "kr-011",
-    title: "Spatial Intelligence for Anticipatory Action — Conference Presentation",
-    type: "Presentation",
-    date: "2023-11-08",
-    department: "GIS & Spatial Intelligence",
-    owner: "GIS Team Lead",
-    version: "v1.0",
-    audience: ["Partners", "Public", "Leadership"],
-    description:
-      "Slides and speaker notes from the presentation at the IFRC Asia-Pacific Digital Health Conference, showcasing how KRCS uses real-time spatial analysis, satellite imagery, and predictive modelling to enable pre-emptive humanitarian response.",
-    tags: ["GIS", "conference", "anticipatory action", "presentation"],
-  },
-  {
-    id: "kr-012",
-    title: "Open-Source Humanitarian Tech Landscape — Research Review",
-    type: "Research",
-    date: "2023-09-12",
-    department: "Innovation Lab",
-    owner: "Research & Evidence Unit",
-    version: "v1.0",
-    audience: ["Technical Teams", "Leadership", "Partners"],
-    description:
-      "A systematic review of 47 open-source tools and platforms available for humanitarian operations, assessing maturity, community support, integration feasibility, and alignment with KRCS operational requirements.",
-    tags: ["open source", "research", "technology landscape", "humanitarian tech"],
   },
 ];
 

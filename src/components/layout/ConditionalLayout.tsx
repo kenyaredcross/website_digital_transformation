@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { FloatingFeedbackBubble } from "@/components/ui/FloatingFeedbackBubble";
 
 export function ConditionalLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -13,6 +14,7 @@ export function ConditionalLayout({ children }: { children: React.ReactNode }) {
       {!isAdminRoute && <Navbar />}
       <main className="flex-1">{children}</main>
       {!isAdminRoute && <Footer />}
+      {!isAdminRoute && <FloatingFeedbackBubble />}
     </>
   );
 }

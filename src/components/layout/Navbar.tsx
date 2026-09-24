@@ -6,11 +6,14 @@ import { usePathname } from "next/navigation";
 import { BrandLogo } from "@/components/ui/BrandLogo";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
 import { mainNav } from "@/data/navigation";
-import { Menu, X, ArrowRight, Globe, ChevronDown, BookOpen, FlaskConical } from "lucide-react";
+import { Menu, X, ArrowRight, Globe, ChevronDown, BookOpen, FlaskConical, Newspaper, BookText, Radio } from "lucide-react";
 
 const DROPDOWN_ICONS: Record<string, React.ElementType> = {
   "/knowledge-hub": BookOpen,
   "/innovation-research": FlaskConical,
+  "/stories/digital-stories": Radio,
+  "/blog": BookText,
+  "/stories/news-updates": Newspaper,
 };
 
 export function Navbar() {

@@ -49,8 +49,25 @@ export const mainNav: NavItem[] = [
     description: "Collaborations with global tech firms, UN agencies, and research bodies.",
   },
   {
-    title: "Blog",
+    title: "Stories",
     href: "/blog",
-    description: "Insights, field case studies, tech deployments, and innovation stories.",
+    description: "Field stories, blog posts, and news from KRCS digital programmes.",
+    children: [
+      {
+        title: "Digital Stories",
+        href: "/stories/digital-stories",
+        description: "People behind the transformation — staff, volunteer, and community case studies.",
+      },
+      {
+        title: "Blogs",
+        href: "/blog",
+        description: "Insights, field case studies, tech deployments, and post-mortems.",
+      },
+      {
+        title: "News & Updates",
+        href: "/stories/news-updates",
+        description: "Announcements, milestones, partnerships, and events from the digital unit.",
+      },
+    ],
   },
 ];

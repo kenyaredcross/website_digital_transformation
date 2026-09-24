@@ -116,7 +116,7 @@ export default function KnowledgeHubPage() {
                       </div>
                       <div>
                         <p className="text-xs text-muted-foreground font-mono uppercase tracking-wider">Resources Available</p>
-                        <p className="text-base font-bold text-foreground">12 Knowledge Resources</p>
+                        <p className="text-base font-bold text-foreground">8 Knowledge Resources</p>
                       </div>
                     </div>
                   </div>
