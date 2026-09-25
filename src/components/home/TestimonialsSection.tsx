@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { testimonials as initialTestimonials } from "@/data/testimonials";
 import { Testimonial } from "@/types";
 import { HeartHandshake, Quote } from "lucide-react";
 
@@ -10,7 +9,11 @@ interface TestimonialsSectionProps {
 }
 
 export function TestimonialsSection({ testimonials = [] }: TestimonialsSectionProps) {
-  const testimonialsList = testimonials.length > 0 ? testimonials : initialTestimonials;
+  const testimonialsList = testimonials;
+
+  if (!testimonialsList || testimonialsList.length === 0) {
+    return null;
+  }
 
   const row1 = testimonialsList.slice(0, Math.ceil(testimonialsList.length / 2));
   const row2 = testimonialsList.slice(Math.ceil(testimonialsList.length / 2));

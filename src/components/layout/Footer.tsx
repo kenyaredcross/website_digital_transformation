@@ -3,14 +3,13 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { BrandLogo } from "@/components/ui/BrandLogo";
-import { siteConfig as fallbackSiteConfig } from "@/data/site";
-import { getSiteConfig } from "@/lib/frappe/site";
+import { getSiteConfig, EMPTY_SITE_CONFIG } from "@/lib/frappe/site";
 import type { SiteConfig } from "@/types";
 import { mainNav } from "@/data/navigation";
 import { ExternalLink, Mail, Phone, MapPin, Heart, ShieldCheck } from "lucide-react";
 
 export function Footer() {
-  const [siteConfig, setSiteConfig] = useState<SiteConfig>(fallbackSiteConfig);
+  const [siteConfig, setSiteConfig] = useState<SiteConfig>(EMPTY_SITE_CONFIG);
 
   useEffect(() => {
     getSiteConfig().then(setSiteConfig);

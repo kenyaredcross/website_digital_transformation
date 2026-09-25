@@ -2,22 +2,23 @@ import type { Metadata } from "next";
 import { Inter, Playfair_Display, DM_Mono } from "next/font/google";
 import { ConditionalLayout } from "@/components/layout/ConditionalLayout";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
-import { getSiteConfig } from "@/lib/frappe/site";
+import { getSiteConfig } from "@/lib/get-data";
 import "./globals.css";
 
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
   display: "swap",
+  fallback: ["system-ui", "ui-sans-serif", "sans-serif"],
 });
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
   subsets: ["latin"],
   display: "swap",
-  // Load the weights we'll actually use for headings
   weight: ["400", "500", "600", "700", "800", "900"],
   style: ["normal", "italic"],
+  fallback: ["Georgia", "ui-serif", "serif"],
 });
 
 const dmMono = DM_Mono({
@@ -26,6 +27,7 @@ const dmMono = DM_Mono({
   display: "swap",
   weight: ["300", "400", "500"],
   style: ["normal", "italic"],
+  fallback: ["ui-monospace", "Courier New", "monospace"],
 });
 
 export async function generateMetadata(): Promise<Metadata> {

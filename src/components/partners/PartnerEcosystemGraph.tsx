@@ -4,7 +4,6 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { partners as staticPartners } from "@/data/partners";
 import type { Partner, Project } from "@/types";
 import { Network, Sparkles, ExternalLink, ArrowRight, ShieldCheck, Zap, Globe, Coins } from "lucide-react";
 
@@ -14,8 +13,10 @@ interface PartnerEcosystemGraphProps {
 }
 
 export function PartnerEcosystemGraph({ partners = [], projects = [] }: PartnerEcosystemGraphProps) {
-  const partnerList = partners.length > 0 ? partners : staticPartners;
-  const [activePartnerId, setActivePartnerId] = useState<string>("safaricom-foundation");
+  const partnerList = partners;
+  const [activePartnerId, setActivePartnerId] = useState<string>("");
+
+  if (partnerList.length === 0) return null;
 
   const activePartner = partnerList.find((p) => p.id === activePartnerId) || partnerList[0];
   const relatedProjects = projects.filter((p) => p.partnerIds?.includes(activePartner.id));

@@ -3,8 +3,6 @@ import type { SiteConfig } from "@/types";
 const FRAPPE_API_URL =
   process.env.NEXT_PUBLIC_FRAPPE_API_URL ?? "http://redcross.local:8000";
 
-
-/** Shape returned by Frappe's tabSite row */
 interface FrappeSiteDoc {
   name: string | number;
   site_name?: string;
@@ -13,7 +11,6 @@ interface FrappeSiteDoc {
   description?: string;
   url?: string;
   official_redcross_url?: string;
-  /** Stored as a JSON string in MariaDB; _clean() in api.py parses it */
   contact?: {
     email?: string;
     phone?: string;
@@ -35,32 +32,30 @@ interface FrappeSiteDoc {
   [key: string]: unknown;
 }
 
-/** Fallback so the site never completely breaks if Frappe is unreachable. */
-const FALLBACK: SiteConfig = {
-  name: "Kenya Red Cross Society — Digital Transformation",
-  shortName: "KRCS Digital",
-  tagline: "Digital innovation for a more resilient Kenya.",
-  description:
-    "Exploring the people, products, data and partnerships transforming humanitarian action across Kenya and the Greater Horn of Africa.",
-  url: "https://digital.redcross.or.ke",
-  officialRedCrossUrl: "https://www.redcross.or.ke",
+export const EMPTY_SITE_CONFIG: SiteConfig = {
+  name: "",
+  shortName: "",
+  tagline: "",
+  description: "",
+  url: "",
+  officialRedCrossUrl: "",
   contact: {
-    email: "data.digital@redcross.or.ke",
-    phone: "(+254) 703 037 000",
-    emergencyLine: "1199",
-    location: "South C (Bellevue), Red Cross Road, off Popo Road",
-    address: "P.O. Box 40712",
-    postalCode: "00100",
-    city: "Nairobi",
-    country: "Kenya",
-    workingHours: "Monday – Friday: 08:00 AM – 05:00 PM (EAT)",
+    email: "",
+    phone: "",
+    emergencyLine: "",
+    location: "",
+    address: "",
+    postalCode: "",
+    city: "",
+    country: "",
+    workingHours: "",
   },
   social: {
-    twitter: "https://twitter.com/KenyaRedCross",
-    facebook: "https://facebook.com/KenyaRedCross",
-    linkedin: "https://linkedin.com/company/kenya-red-cross",
-    github: "https://github.com/redcross-digital",
-    youtube: "https://youtube.com/user/KenyaRedCross",
+    twitter: "",
+    facebook: "",
+    linkedin: "",
+    github: "",
+    youtube: "",
   },
 };
 
@@ -83,44 +78,42 @@ function mapSiteConfig(raw: FrappeSiteDoc): SiteConfig {
   const social = parseJsonObject(raw.social);
 
   return {
-    name: String(raw.site_name || FALLBACK.name),
-    shortName: String(raw.short_name || FALLBACK.shortName),
-    tagline: String(raw.tagline || FALLBACK.tagline),
-    description: String(raw.description || FALLBACK.description),
-    url: String(raw.url || FALLBACK.url),
-    officialRedCrossUrl: String(
-      raw.official_redcross_url || FALLBACK.officialRedCrossUrl
-    ),
+    name: String(raw.site_name || ""),
+    shortName: String(raw.short_name || ""),
+    tagline: String(raw.tagline || ""),
+    description: String(raw.description || ""),
+    url: String(raw.url || ""),
+    officialRedCrossUrl: String(raw.official_redcross_url || ""),
     contact: {
-      email: String(contact.email || FALLBACK.contact.email),
-      phone: String(contact.phone || FALLBACK.contact.phone),
-      emergencyLine: String(contact.emergencyLine || FALLBACK.contact.emergencyLine),
-      location: String(contact.location || FALLBACK.contact.location),
-      address: String(contact.address || FALLBACK.contact.address),
-      postalCode: String(contact.postalCode || FALLBACK.contact.postalCode),
-      city: String(contact.city || FALLBACK.contact.city),
-      country: String(contact.country || FALLBACK.contact.country),
-      workingHours: String(contact.workingHours || FALLBACK.contact.workingHours),
+      email: String(contact.email || ""),
+      phone: String(contact.phone || ""),
+      emergencyLine: String(contact.emergencyLine || ""),
+      location: String(contact.location || ""),
+      address: String(contact.address || ""),
+      postalCode: String(contact.postalCode || ""),
+      city: String(contact.city || ""),
+      country: String(contact.country || ""),
+      workingHours: String(contact.workingHours || ""),
     },
     social: {
-      twitter: String(social.twitter || FALLBACK.social.twitter),
-      facebook: String(social.facebook || FALLBACK.social.facebook),
-      linkedin: String(social.linkedin || FALLBACK.social.linkedin),
-      github: String(social.github || FALLBACK.social.github),
-      youtube: String(social.youtube || FALLBACK.social.youtube),
+      twitter: String(social.twitter || ""),
+      facebook: String(social.facebook || ""),
+      linkedin: String(social.linkedin || ""),
+      github: String(social.github || ""),
+      youtube: String(social.youtube || ""),
     },
   };
 }
 
 /**
  * Fetches the singleton Site document from Frappe.
- * Falls back to hardcoded values if Frappe is unreachable (e.g. during build).
+ * Returns empty config if Frappe is unreachable (no static fallback).
  */
 export async function getSiteConfig(): Promise<SiteConfig> {
   try {
     const res = await fetch(
       `${FRAPPE_API_URL}/api/method/redcross_digital.api.get_site_config`,
-      { next: { revalidate: 300 } } // ISR: refresh every 5 min
+      { next: { revalidate: 300 } }
     );
     if (!res.ok) throw new Error(`Frappe returned ${res.status}`);
     const json = await res.json();
@@ -128,7 +121,7 @@ export async function getSiteConfig(): Promise<SiteConfig> {
     if (!raw) throw new Error("Empty message from Frappe");
     return mapSiteConfig(raw);
   } catch (err) {
-    console.warn("[site] Frappe unreachable, using fallback config:", err);
-    return FALLBACK;
+    console.warn("[site] Frappe unreachable:", err);
+    return EMPTY_SITE_CONFIG;
   }
 }

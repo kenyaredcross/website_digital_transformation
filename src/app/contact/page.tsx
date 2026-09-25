@@ -1,13 +1,13 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { siteConfig as fallbackSiteConfig } from "@/data/site";
-import { getSiteConfig } from "@/lib/frappe/site";
+import { getSiteConfig } from "@/lib/get-data";
+import { EMPTY_SITE_CONFIG } from "@/lib/frappe/site";
 import type { SiteConfig } from "@/types";
 import { Mail, Phone, MapPin, Clock, Send, ShieldCheck, CheckCircle2, Navigation, ExternalLink, Sparkles, Handshake, Database, Loader2, MessageSquarePlus, UserCheck, EyeOff } from "lucide-react";
 
 export default function ContactPage() {
-  const [siteConfig, setSiteConfig] = useState<SiteConfig>(fallbackSiteConfig);
+  const [siteConfig, setSiteConfig] = useState<SiteConfig>(EMPTY_SITE_CONFIG);
   const [tabMode, setTabMode] = useState<"general" | "partner" | "feedback">("general");
   const [submissionMode, setSubmissionMode] = useState<"identified" | "anonymous">("identified");
   const [loading, setLoading] = useState(false);

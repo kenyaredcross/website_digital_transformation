@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { AfricaMap } from "@/components/geography/AfricaMap";
 import { CountryCard } from "@/components/geography/CountryCard";
-import { getCountries } from "@/lib/frappe/countries";
+import { getCountries } from "@/lib/get-data";
 import { Globe2 } from "lucide-react";
 import type { Metadata } from "next";
 

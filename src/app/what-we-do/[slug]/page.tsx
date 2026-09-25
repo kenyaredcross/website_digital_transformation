@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { getThematicAreas } from "@/lib/get-data";
-import { getProjects } from "@/lib/frappe/projects";
+import { getThematicAreas, getProjects } from "@/lib/get-data";
 import { CheckCircle2, ArrowLeft, ArrowRight, Layers, Sparkles } from "lucide-react";
 import type { Metadata } from "next";
 

@@ -16,7 +16,7 @@ import {
   INNOVATION_CATEGORIES,
   type InnovationProject,
 } from "@/data/innovationData";
-import { getInnovations } from "@/lib/frappe/innovations";
+import { getInnovations } from "@/lib/get-data";
 
 // ── Variants ──────────────────────────────────────────────────────────────────
 

@@ -15,7 +15,16 @@ async function getAuthUser() {
   return decodeSessionToken(token);
 }
 
-import { getBlogs } from "@/lib/get-data";
+import {
+  getBlogs,
+  getProjects,
+  getPartners,
+  getTestimonials,
+  getCountries,
+  getThematicAreas,
+  getSiteConfig,
+  getInnovations,
+} from "@/lib/get-data";
 
 // GET /api/data/[entity]
 export async function GET(
@@ -26,6 +35,34 @@ export async function GET(
   try {
     if (entity === "blogs") {
       const data = await getBlogs();
+      return NextResponse.json(data);
+    }
+    if (entity === "projects") {
+      const data = await getProjects();
+      return NextResponse.json(data);
+    }
+    if (entity === "partners") {
+      const data = await getPartners();
+      return NextResponse.json(data);
+    }
+    if (entity === "testimonials") {
+      const data = await getTestimonials();
+      return NextResponse.json(data);
+    }
+    if (entity === "countries") {
+      const data = await getCountries();
+      return NextResponse.json(data);
+    }
+    if (entity === "thematicAreas" || entity === "thematic-areas") {
+      const data = await getThematicAreas();
+      return NextResponse.json(data);
+    }
+    if (entity === "innovations") {
+      const data = await getInnovations();
+      return NextResponse.json(data);
+    }
+    if (entity === "site") {
+      const data = await getSiteConfig();
       return NextResponse.json(data);
     }
     const data = getEntityData(entity);

@@ -71,7 +71,7 @@ export function FilterControls({
   years,
   thematicAreas = [],
 }: FilterControlsProps) {
-  const activeThematicAreas = thematicAreas.length > 0 ? thematicAreas : staticThematicAreas;
+  const activeThematicAreas = thematicAreas;
 
   return (
     <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-6 shadow-sm">

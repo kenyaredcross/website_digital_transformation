@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { getThematicAreas } from "@/lib/frappe/thematic-areas";
+import { getThematicAreas } from "@/lib/get-data";
 import {
   Smartphone,
   BarChart3,

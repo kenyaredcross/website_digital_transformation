@@ -7,11 +7,13 @@ import { PeoplePreview } from "@/components/home/PeoplePreview";
 import { TestimonialsSection } from "@/components/home/TestimonialsSection";
 import { PartnersPreview } from "@/components/home/PartnersPreview";
 import { getPeople } from "@/lib/frappe/people";
-import { getProjects } from "@/lib/frappe/projects";
-import { getTestimonials } from "@/lib/frappe/testimonials";
-import { getCountries } from "@/lib/frappe/countries";
-import { getThematicAreas } from "@/lib/frappe/thematic-areas";
-import { getPartners } from "@/lib/frappe/partners";
+import {
+  getProjects,
+  getTestimonials,
+  getCountries,
+  getThematicAreas,
+  getPartners,
+} from "@/lib/get-data";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Users, Sparkles } from "lucide-react";

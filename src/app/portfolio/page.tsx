@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { PortfolioFilterableGrid } from "@/components/portfolio/PortfolioFilterableGrid";
-import { getProjects } from "@/lib/frappe/projects";
-import { getThematicAreas } from "@/lib/frappe/thematic-areas";
+import { getProjects, getThematicAreas } from "@/lib/get-data";
 import { Layers } from "lucide-react";
 import type { Metadata } from "next";
 

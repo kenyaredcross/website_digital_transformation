@@ -21,6 +21,15 @@ export interface FrappePersonDoc {
   featured?: boolean | number;
 }
 
+function formatImageUrl(path: string | null | undefined): string {
+  if (!path) return "";
+  if (path.startsWith("http://") || path.startsWith("https://")) return path;
+  if (path.startsWith("/files/") || path.startsWith("files/")) {
+    return frappeFileUrl(path);
+  }
+  return path;
+}
+
 function mapPerson(raw: FrappePersonDoc & Record<string, unknown>): Person {
   const id = String(raw.external_id || raw.id || raw.name || "");
   const slug = String(raw.slug || "");
@@ -34,7 +43,7 @@ function mapPerson(raw: FrappePersonDoc & Record<string, unknown>): Person {
   );
 
   const rawAvatar = (raw.avatar || "") as string;
-  const avatar = frappeFileUrl(rawAvatar);
+  const avatar = formatImageUrl(rawAvatar);
 
   let expertise: string[] = [];
   if (Array.isArray(raw.expertise)) {

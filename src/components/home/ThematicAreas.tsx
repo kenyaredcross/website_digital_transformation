@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { thematicAreas as staticThematicAreas } from "@/data/thematicAreas";
 import { ThematicCard } from "./ThematicCard";
 import type { ThematicArea } from "@/types";
 
@@ -12,7 +11,7 @@ interface ThematicAreasProps {
 export function ThematicAreas({ thematicAreas = [] }: ThematicAreasProps) {
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
-  const activeAreas = thematicAreas.length > 0 ? thematicAreas : staticThematicAreas;
+  const activeAreas = thematicAreas;
 
   // 3 cards in first row, 4 remaining cards in second row
   const firstRowAreas = activeAreas.slice(0, 3);

@@ -1,9 +1,13 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { getPartners } from "@/lib/frappe/partners";
-import { getThematicAreas, getCountries } from "@/lib/get-data";
+import {
+  getPartners,
+  getThematicAreas,
+  getCountries,
+  getProjects,
+  getProject,
+} from "@/lib/get-data";
 import { getPeople } from "@/lib/frappe/people";
-import { getProjects, getProject } from "@/lib/frappe/projects";
 import {
   ArrowLeft,
   ArrowRight,

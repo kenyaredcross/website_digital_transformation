@@ -4,8 +4,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { PartnerMarquee } from "@/components/partners/PartnerMarquee";
 import { PartnersShowcase } from "@/components/partners/PartnersShowcase";
-import { getPartners } from "@/lib/frappe/partners";
-import { getProjects } from "@/lib/frappe/projects";
+import { getPartners, getProjects } from "@/lib/get-data";
 
 export const metadata: Metadata = {
   title: "Our Partners | Building the Digital Ecosystem Together | Kenya Red Cross Digital",
