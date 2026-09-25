@@ -16,6 +16,7 @@ import {
   INNOVATION_CATEGORIES,
   type InnovationProject,
 } from "@/data/innovationData";
+import { getInnovations } from "@/lib/frappe/innovations";
 
 // ── Variants ──────────────────────────────────────────────────────────────────
 
@@ -383,24 +384,33 @@ function ProjectModal({ project, onClose }: { project: InnovationProject; onClos
 // ── Main Section Component ────────────────────────────────────────────────────
 
 export function InnovationResearchSection() {
+  const [projects, setProjects] = useState<InnovationProject[]>(INNOVATION_PROJECTS);
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [selectedStatus, setSelectedStatus] = useState<string>("All");
   const [showFilters, setShowFilters] = useState(false);
   const [selected, setSelected] = useState<InnovationProject | null>(null);
 
+  useEffect(() => {
+    getInnovations().then((data) => {
+      if (data && data.length > 0) {
+        setProjects(data);
+      }
+    });
+  }, []);
+
   const statuses = ["All", "Scaled", "Adapted", "Pilot", "Ongoing", "Discontinued"];
 
-  const filtered = INNOVATION_PROJECTS.filter((p) => {
+  const filtered = projects.filter((p) => {
     const matchCat = selectedCategory === "All" || p.category === selectedCategory;
     const matchStat = selectedStatus === "All" || p.status === selectedStatus;
     return matchCat && matchStat;
   });
 
   const stats = [
-    { value: `${INNOVATION_PROJECTS.length}`, label: "Experiments Documented" },
-    { value: `${INNOVATION_PROJECTS.filter(p => p.status === "Scaled").length}`, label: "Solutions Scaled" },
+    { value: `${projects.length}`, label: "Experiments Documented" },
+    { value: `${projects.filter(p => p.status === "Scaled").length}`, label: "Solutions Scaled" },
     { value: "7", label: "Documentation Dimensions" },
-    { value: `${INNOVATION_PROJECTS.filter(p => p.featured).length}`, label: "Featured Projects" },
+    { value: `${projects.filter(p => p.featured).length}`, label: "Featured Projects" },
   ];
 
   return (
@@ -581,7 +591,7 @@ export function InnovationResearchSection() {
 
             <div className="flex items-center justify-between text-xs text-muted-foreground">
               <span>
-                Showing <span className="font-bold text-foreground">{filtered.length}</span> of {INNOVATION_PROJECTS.length} experiments
+                Showing <span className="font-bold text-foreground">{filtered.length}</span> of {projects.length} experiments
               </span>
               {(selectedCategory !== "All" || selectedStatus !== "All") && (
                 <button
