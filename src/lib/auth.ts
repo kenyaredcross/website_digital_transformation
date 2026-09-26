@@ -46,10 +46,11 @@ export const SESSION_COOKIE_NAME = "krcs_admin_session";
 // Allowed entities per role
 export const ROLE_PERMISSIONS: Record<UserRole, { entities: string[]; routes: string[] }> = {
   super_admin: {
-    entities: ["blogs", "projects", "people", "partners", "testimonials", "countries", "thematicAreas", "site", "about", "media"],
+    entities: ["blogs", "projects", "people", "partners", "testimonials", "countries", "thematicAreas", "site", "about", "media", "knowledge-resources", "digital-stories", "news-items"],
     routes: [
       "/admin",
       "/admin/blogs",
+      "/admin/content",
       "/admin/projects",
       "/admin/people",
       "/admin/partners",
@@ -61,10 +62,11 @@ export const ROLE_PERMISSIONS: Record<UserRole, { entities: string[]; routes: st
     ],
   },
   admin: {
-    entities: ["blogs", "projects", "people", "partners", "testimonials", "countries", "thematicAreas", "media"],
+    entities: ["blogs", "projects", "people", "partners", "testimonials", "countries", "thematicAreas", "media", "knowledge-resources", "digital-stories", "news-items"],
     routes: [
       "/admin",
       "/admin/blogs",
+      "/admin/content",
       "/admin/projects",
       "/admin/people",
       "/admin/partners",
@@ -75,8 +77,8 @@ export const ROLE_PERMISSIONS: Record<UserRole, { entities: string[]; routes: st
     ],
   },
   blogger: {
-    entities: ["blogs"],
-    routes: ["/admin/blogs"],
+    entities: ["blogs", "knowledge-resources", "digital-stories", "news-items"],
+    routes: ["/admin/blogs", "/admin/content"],
   },
 };
 
@@ -86,7 +88,7 @@ export function canAccessEntity(role: UserRole, entity: string): boolean {
 
 export function canAccessRoute(role: UserRole, routePath: string): boolean {
   if (role === "blogger") {
-    return routePath === "/admin/blogs" || routePath.startsWith("/admin/blogs/");
+    return ["/admin/blogs", "/admin/content"].some((route) => routePath === route || routePath.startsWith(`${route}/`));
   }
   const allowed = ROLE_PERMISSIONS[role]?.routes ?? [];
   return allowed.some((allowedRoute) => routePath === allowedRoute || routePath.startsWith(`${allowedRoute}/`));

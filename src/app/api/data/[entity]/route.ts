@@ -25,6 +25,7 @@ import {
   getSiteConfig,
   getInnovations,
 } from "@/lib/get-data";
+import { getKnowledgeResources, getDigitalStories, getNewsItems } from "@/lib/frappe/knowledge-content";
 
 // GET /api/data/[entity]
 export async function GET(
@@ -60,6 +61,15 @@ export async function GET(
     if (entity === "innovations") {
       const data = await getInnovations();
       return NextResponse.json(data);
+    }
+    if (entity === "knowledge-resources") {
+      return NextResponse.json(await getKnowledgeResources());
+    }
+    if (entity === "digital-stories") {
+      return NextResponse.json(await getDigitalStories());
+    }
+    if (entity === "news-items") {
+      return NextResponse.json(await getNewsItems());
     }
     if (entity === "site") {
       const data = await getSiteConfig();

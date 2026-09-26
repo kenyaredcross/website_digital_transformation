@@ -129,7 +129,15 @@ export async function getProjects(): Promise<Project[]> {
   });
   return response.data.map((item) =>
     mapProject(item as FrappeProjectDoc & Record<string, unknown>)
-  );
+  ).sort((a, b) => {
+    const desiredOrder = ["vmms", "anticipatory-action"];
+    const aIndex = desiredOrder.indexOf(a.id.toLowerCase());
+    const bIndex = desiredOrder.indexOf(b.id.toLowerCase());
+    if (aIndex !== -1 && bIndex !== -1) return aIndex - bIndex;
+    if (aIndex !== -1) return -1;
+    if (bIndex !== -1) return 1;
+    return 0;
+  });
 }
 
 export async function getProject(idOrSlug: string): Promise<Project | null> {

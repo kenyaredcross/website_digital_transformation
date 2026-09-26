@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { digitalStories } from "@/data/digitalStories";
+import { getDigitalStories } from "@/lib/frappe/knowledge-content";
 import {
   Users,
   Lightbulb,
@@ -28,7 +28,8 @@ const SECTION_META = [
   { key: "impact", icon: TrendingUp, label: "The Impact" },
 ] as const;
 
-export default function DigitalStoriesPage() {
+export default async function DigitalStoriesPage() {
+  const digitalStories = await getDigitalStories();
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white pb-24 pt-24">
       {/* ── Hero ─────────────────────────────────────────────── */}
@@ -165,7 +166,7 @@ export default function DigitalStoriesPage() {
               </h2>
               <p className="text-red-100 max-w-[48ch]">
                 If you are a KRCS staff member, volunteer, or partner with a
-                digital transformation story, we'd love to hear from you.
+                digital transformation story, we&apos;d love to hear from you.
               </p>
             </div>
             <Link

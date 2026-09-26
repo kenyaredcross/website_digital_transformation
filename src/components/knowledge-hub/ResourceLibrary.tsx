@@ -9,7 +9,6 @@ import {
   Shuffle, Users, Eye,
 } from "lucide-react";
 import {
-  KNOWLEDGE_RESOURCES,
   RESOURCE_TYPES,
   AUDIENCE_TYPES,
   RESOURCE_TYPE_COLORS,
@@ -293,13 +292,12 @@ function ResourceModal({ resource, image, onClose }: { resource: KnowledgeResour
 
 // ── Main Component ────────────────────────────────────────────────────────────
 
-export function ResourceLibrary() {
+export function ResourceLibrary({ resources = [] }: { resources?: KnowledgeResource[] }) {
   const [query, setQuery] = useState("");
   const [selectedType, setSelectedType] = useState<ResourceType | "All">("All");
   const [selectedAudience, setSelectedAudience] = useState<AudienceType | "All">("All");
   const [view, setView] = useState<"grid" | "list">("grid");
   const [showFilters, setShowFilters] = useState(false);
-  const [imageMap, setImageMap] = useState<Record<string, string>>({});
   const [selectedResource, setSelectedResource] = useState<KnowledgeResource | null>(null);
   const [shuffleSeed, setShuffleSeed] = useState(0);
 
@@ -307,27 +305,22 @@ export function ResourceLibrary() {
   const buildImageMap = useCallback((seed: number) => {
     const shuffled = seededShuffle([...DT_UPDATES_IMAGES], seed);
     const map: Record<string, string> = {};
-    KNOWLEDGE_RESOURCES.forEach((r, i) => {
+    resources.forEach((r, i) => {
       map[r.id] = shuffled[i % shuffled.length];
     });
     return map;
-  }, []);
+  }, [resources]);
 
-  useEffect(() => {
-    const seed = Date.now() & 0xffff;
-    setShuffleSeed(seed);
-    setImageMap(buildImageMap(seed));
-  }, [buildImageMap]);
+  const imageMap = useMemo(() => buildImageMap(shuffleSeed), [buildImageMap, shuffleSeed]);
 
   const handleShuffle = () => {
     const seed = (shuffleSeed + 31337) & 0xffff;
     setShuffleSeed(seed);
-    setImageMap(buildImageMap(seed));
   };
 
   // Filtering
   const filtered = useMemo(() => {
-    return KNOWLEDGE_RESOURCES.filter((r) => {
+    return resources.filter((r) => {
       const q = query.toLowerCase();
       const matchQuery =
         !query ||
@@ -340,7 +333,7 @@ export function ResourceLibrary() {
       const matchAudience = selectedAudience === "All" || r.audience.includes(selectedAudience as AudienceType);
       return matchQuery && matchType && matchAudience;
     });
-  }, [query, selectedType, selectedAudience]);
+  }, [query, selectedType, selectedAudience, resources]);
 
   return (
     <section id="knowledge-hub-library" className="py-24 md:py-32 bg-slate-50 dark:bg-slate-950/50 transition-colors duration-300">
@@ -508,7 +501,7 @@ export function ResourceLibrary() {
           {/* Results count & active filters */}
           <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
             <span>
-              Showing <span className="font-bold text-slate-900 dark:text-white">{filtered.length}</span> of {KNOWLEDGE_RESOURCES.length} resources
+              Showing <span className="font-bold text-slate-900 dark:text-white">{filtered.length}</span> of {resources.length} resources
             </span>
             {(selectedType !== "All" || selectedAudience !== "All" || query) && (
               <button

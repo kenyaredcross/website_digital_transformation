@@ -84,7 +84,14 @@ export async function getPeople(): Promise<Person[]> {
   const response = await frappeList<FrappePersonDoc>("Person", { limit: 100 });
   return response.data.map((item) =>
     mapPerson(item as FrappePersonDoc & Record<string, unknown>)
-  );
+  ).sort((a, b) => {
+    const aNumber = /^p(\d+)$/i.exec(a.id)?.[1];
+    const bNumber = /^p(\d+)$/i.exec(b.id)?.[1];
+    if (aNumber && bNumber) return Number(aNumber) - Number(bNumber);
+    if (aNumber) return -1;
+    if (bNumber) return 1;
+    return a.id.localeCompare(b.id, undefined, { numeric: true, sensitivity: "base" });
+  });
 }
 
 export async function getPerson(idOrSlug: string): Promise<Person | null> {

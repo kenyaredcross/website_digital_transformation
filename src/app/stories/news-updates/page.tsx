@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { newsItems } from "@/data/newsUpdates";
+import { getNewsItems } from "@/lib/frappe/knowledge-content";
 import { Calendar, Tag, User, Building2, ArrowRight, ExternalLink } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -22,7 +22,8 @@ const CATEGORY_COLORS: Record<string, string> = {
     "bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700",
 };
 
-export default function NewsUpdatesPage() {
+export default async function NewsUpdatesPage() {
+  const newsItems = await getNewsItems();
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white pb-24 pt-24">
       {/* ── Hero ─────────────────────────────────────────────── */}

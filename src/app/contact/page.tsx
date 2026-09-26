@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { getSiteConfig } from "@/lib/get-data";
 import { EMPTY_SITE_CONFIG } from "@/lib/frappe/site";
 import type { SiteConfig } from "@/types";
-import { Mail, Phone, MapPin, Clock, Send, ShieldCheck, CheckCircle2, Navigation, ExternalLink, Sparkles, Handshake, Database, Loader2, MessageSquarePlus, UserCheck, EyeOff } from "lucide-react";
+import { Mail, Phone, MapPin, Clock, Send, ShieldCheck, CheckCircle2, Navigation, Handshake, Database, Loader2, MessageSquarePlus, UserCheck, EyeOff } from "lucide-react";
 
 export default function ContactPage() {
   const [siteConfig, setSiteConfig] = useState<SiteConfig>(EMPTY_SITE_CONFIG);
@@ -47,6 +47,8 @@ export default function ContactPage() {
 
   useEffect(() => {
     getSiteConfig().then(setSiteConfig);
+    let initialTabTimeout: number | undefined;
+    let scrollTimeout: number | undefined;
 
     const handleSwitchTab = (e: Event) => {
       const customEvent = e as CustomEvent<string>;
@@ -63,15 +65,17 @@ export default function ContactPage() {
       const hash = window.location.hash;
 
       if (typeParam === "feedback" || hash === "#feedback" || hash === "#feedback-form" || hash === "#feedback-form-section") {
-        setTabMode("feedback");
-        setTimeout(() => {
+        initialTabTimeout = window.setTimeout(() => setTabMode("feedback"), 0);
+        scrollTimeout = window.setTimeout(() => {
           const el = document.getElementById("form-section");
           if (el) el.scrollIntoView({ behavior: "smooth" });
         }, 100);
       } else if (typeParam === "partner" || hash === "#partnering" || hash === "#partner-form") {
-        setTabMode("partner");
-        setFormData((prev) => ({ ...prev, subject: "Partnering Inquiry" }));
-        setTimeout(() => {
+        initialTabTimeout = window.setTimeout(() => {
+          setTabMode("partner");
+          setFormData((prev) => ({ ...prev, subject: "Partnership proposal" }));
+        }, 0);
+        scrollTimeout = window.setTimeout(() => {
           const el = document.getElementById("form-section");
           if (el) el.scrollIntoView({ behavior: "smooth" });
         }, 100);
@@ -80,6 +84,8 @@ export default function ContactPage() {
 
     return () => {
       window.removeEventListener("switch-contact-tab", handleSwitchTab);
+      if (initialTabTimeout !== undefined) window.clearTimeout(initialTabTimeout);
+      if (scrollTimeout !== undefined) window.clearTimeout(scrollTimeout);
     };
   }, []);
 
@@ -136,6 +142,7 @@ export default function ContactPage() {
             phone: formData.phone,
             organization: formData.organization,
             collaborationArea: formData.collaborationArea,
+            subject: formData.subject,
             message: formData.message,
           }),
         });
@@ -149,10 +156,24 @@ export default function ContactPage() {
           message: data.message || "Partner inquiry submitted successfully!",
         });
       } else {
-        // General Inquiry
+        const res = await fetch("/api/inquiry", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            full_name: formData.name,
+            email: formData.email,
+            phone: formData.phone,
+            organization: formData.organization,
+            subject: formData.subject,
+            message: formData.message,
+          }),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || "Failed to submit inquiry.");
         setSubmissionResult({
-          frappeSynced: false,
-          message: "Thank you for reaching out. Your message has been received.",
+          frappeSynced: true,
+          docName: data.name,
+          message: data.message || "Thank you for reaching out. Your inquiry has been received.",
         });
       }
 
@@ -352,7 +373,7 @@ export default function ContactPage() {
                       Frappe Record Saved
                     </p>
                     <p className="text-[11px] text-slate-500 dark:text-slate-400">
-                      DocType: <span className="font-semibold text-slate-900 dark:text-white">{tabMode === "feedback" ? "Feedback" : "Partner Inquiry"}</span>
+                      DocType: <span className="font-semibold text-slate-900 dark:text-white">{tabMode === "feedback" ? "Feedback" : tabMode === "partner" ? "Partnership Proposal" : "Inquiry"}</span>
                       {submissionResult?.docName && (
                         <span> | ID: <span className="font-semibold text-slate-900 dark:text-white">{submissionResult.docName}</span></span>
                       )}

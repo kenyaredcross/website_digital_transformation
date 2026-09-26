@@ -44,6 +44,12 @@ const NAV_ITEMS: NavItem[] = [
     roles: ["super_admin", "admin", "blogger"],
   },
   {
+    label: "Knowledge, Stories & News",
+    href: "/admin/content",
+    icon: FileText,
+    roles: ["super_admin", "admin", "blogger"],
+  },
+  {
     label: "Projects Portfolio",
     href: "/admin/projects",
     icon: Briefcase,
