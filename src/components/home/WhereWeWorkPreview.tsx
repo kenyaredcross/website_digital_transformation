@@ -17,9 +17,7 @@ export function WhereWeWorkPreview({ countries = [] }: WhereWeWorkPreviewProps) 
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
           <div className="space-y-3">
-            <span className="text-xs font-bold uppercase tracking-widest text-red-600 dark:text-red-500 font-mono flex items-center gap-2">
-              <MapPin className="w-4 h-4" /> Geographic Footprint
-            </span>
+           
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white tracking-tight">
               From Kenya to the region.
             </h2>

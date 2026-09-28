@@ -23,9 +23,7 @@ export function FeaturedProjects({ projects = [] }: FeaturedProjectsProps) {
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
           <div className="space-y-2">
-            <span className="text-xs font-bold uppercase tracking-widest text-red-600 dark:text-red-500 font-mono flex items-center gap-2">
-              <Sparkles className="w-3.5 h-3.5" /> Flagship Portfolio
-            </span>
+            
             <h2 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight">
               Featured work.
             </h2>

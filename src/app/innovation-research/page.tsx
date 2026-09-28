@@ -48,16 +48,6 @@ export default function InnovationResearchPage() {
 
             {/* Left: Text */}
             <div className="flex-1 space-y-7">
-              <div className="flex flex-wrap gap-2">
-                <span className="kh-step kh-step-1 inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-widest text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/80 px-3.5 py-1.5 rounded-full border border-red-200 dark:border-red-800/70 shadow-sm backdrop-blur-md">
-                  <FlaskConical className="w-3.5 h-3.5" />
-                  Innovation &amp; Research
-                </span>
-                <span className="kh-step kh-step-1 inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-widest text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-950/80 px-3.5 py-1.5 rounded-full border border-purple-200 dark:border-purple-800/70 shadow-sm backdrop-blur-md">
-                  <Lightbulb className="w-3.5 h-3.5" />
-                  Emerging Technologies
-                </span>
-              </div>
 
               <h1 className="kh-step kh-step-2 text-5xl sm:text-6xl lg:text-7xl font-black text-foreground tracking-tight leading-[1.05]">
                 Exploring New{" "}

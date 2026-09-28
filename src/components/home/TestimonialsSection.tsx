@@ -28,9 +28,7 @@ export function TestimonialsSection({ testimonials = [] }: TestimonialsSectionPr
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-7xl h-64 bg-red-600/5 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 mb-10 text-center">
-        <span className="text-xs font-bold uppercase tracking-widest text-red-600 dark:text-red-500 font-mono inline-flex items-center gap-2 mb-2">
-          <HeartHandshake className="w-4 h-4" /> Voices of Impact
-        </span>
+        
         <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
           Frontline feedback on our digital solutions.
         </h2>

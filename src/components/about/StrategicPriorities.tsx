@@ -185,7 +185,7 @@ export function StrategicPriorities() {
     <section id="strategic-priorities" className="border-b border-slate-200 bg-white py-24 dark:border-slate-800 dark:bg-slate-900">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto mb-16 max-w-3xl space-y-3 text-center">
-          <span className="font-mono text-xs font-bold uppercase tracking-widest text-red-600 dark:text-red-500">Our Strategy</span>
+          
           <h2 className="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-4xl">Our Strategic Priorities</h2>
           <p className="text-base leading-relaxed text-slate-600 dark:text-slate-400">
             Six strategic areas guide how Kenya Red Cross uses data and digital transformation to strengthen humanitarian action and serve communities.

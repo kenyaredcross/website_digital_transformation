@@ -69,10 +69,6 @@ export default async function PartnersPage() {
 
             {/* ── Left: Text content ── */}
             <div className="flex-1 space-y-7">
-              {/* Label / Badge */}
-              <span className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-widest text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/80 px-3.5 py-1.5 rounded-full border border-red-200 dark:border-red-800/70 shadow-sm backdrop-blur-md w-fit">
-                <Handshake className="w-4 h-4 text-red-600 dark:text-red-400" /> Our Partners
-              </span>
 
               {/* Main Headline */}
               <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-slate-900 dark:text-white tracking-tight leading-[1.08]">

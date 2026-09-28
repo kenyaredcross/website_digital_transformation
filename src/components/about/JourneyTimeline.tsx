@@ -29,14 +29,7 @@ export function JourneyTimeline() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-20 space-y-4">
-          <motion.span
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-xs font-bold uppercase tracking-widest text-red-600 dark:text-red-500 font-mono inline-flex items-center gap-2 bg-red-100 dark:bg-red-950/70 border border-red-200 dark:border-red-800/60 px-3.5 py-1.5 rounded-full"
-          >
-            <Flag className="w-4 h-4 text-red-600 dark:text-red-500" /> Digital Transformation Journey
-          </motion.span>
+          
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

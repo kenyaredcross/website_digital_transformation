@@ -53,14 +53,7 @@ export default async function KnowledgeHubPage() {
             <div className="flex-1 space-y-7">
               {/* Eyebrow badges */}
               <div className="flex flex-wrap gap-2">
-                <span className="kh-step kh-step-1 inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-widest text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/80 px-3.5 py-1.5 rounded-full border border-red-200 dark:border-red-800/70 shadow-sm backdrop-blur-md">
-                  <Library className="w-3.5 h-3.5" />
-                  Knowledge Hub
-                </span>
-                <span className="kh-step kh-step-1 inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-widest text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/80 px-3.5 py-1.5 rounded-full border border-blue-200 dark:border-blue-800/70 shadow-sm backdrop-blur-md">
-                  <BookOpen className="w-3.5 h-3.5" />
-                  Resource Library
-                </span>
+                
               </div>
 
               {/* Headline */}

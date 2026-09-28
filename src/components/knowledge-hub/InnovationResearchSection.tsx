@@ -427,12 +427,7 @@ export function InnovationResearchSection() {
           >
             {/* Left */}
             <div className="space-y-6">
-              <motion.div variants={fadeUp}>
-                <span className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-widest text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/60 px-3.5 py-1.5 rounded-full border border-red-200 dark:border-red-800/60 shadow-sm">
-                  <FlaskConical className="w-3.5 h-3.5" />
-                  Our Approach
-                </span>
-              </motion.div>
+              
 
               <motion.h2 variants={fadeUp} className="text-4xl sm:text-5xl font-black text-foreground tracking-tight leading-[1.1]">
                 We explore how emerging{" "}
@@ -510,10 +505,7 @@ export function InnovationResearchSection() {
             initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }} transition={{ duration: 0.55 }}
           >
-            <span className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-widest text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/60 px-3.5 py-1.5 rounded-full border border-red-200 dark:border-red-800/60 shadow-sm">
-              <Microscope className="w-3.5 h-3.5" />
-              Experiment Registry
-            </span>
+            
             <h2 className="text-4xl sm:text-5xl font-black text-foreground tracking-tight leading-[1.1]">
               Our Innovation{" "}
               <span className="relative inline-block">

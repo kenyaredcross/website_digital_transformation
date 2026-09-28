@@ -52,9 +52,7 @@ export function AboutGallery() {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
           <div className="space-y-3 max-w-2xl">
-            <span className="text-xs font-bold uppercase tracking-widest text-red-600 dark:text-red-500 font-mono flex items-center gap-2">
-              <Camera className="w-4 h-4 text-red-600 dark:text-red-500" /> Field Operations & Impact
-            </span>
+            
             <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
               Frontline Deployments in Action
             </h2>

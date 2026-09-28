@@ -347,10 +347,7 @@ export function ResourceLibrary({ resources = [] }: { resources?: KnowledgeResou
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
-          <span className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-widest text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/60 px-3.5 py-1.5 rounded-full border border-blue-200 dark:border-blue-800/60 shadow-sm">
-            <BookOpen className="w-3.5 h-3.5" />
-            Resource Library
-          </span>
+         
           <h2 className="text-4xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-tight leading-[1.1]">
             Learn From{" "}
             <span className="relative inline-block">

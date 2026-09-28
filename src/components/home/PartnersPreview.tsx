@@ -23,9 +23,7 @@ export function PartnersPreview({ partners = [] }: PartnersPreviewProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
-          <span className="text-xs font-bold uppercase tracking-widest text-red-600 dark:text-red-500 font-mono flex items-center justify-center gap-2">
-            <Handshake className="w-4 h-4" /> Global Ecosystem
-          </span>
+          
           <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
             Working together for greater impact.
           </h2>

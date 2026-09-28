@@ -41,12 +41,7 @@ export default async function DigitalStoriesPage() {
         />
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl space-y-6">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-red-50 dark:bg-red-950/40 border border-red-100 dark:border-red-900/50">
-              <span className="w-1.5 h-1.5 rounded-full bg-red-600" />
-              <span className="text-xs font-semibold text-red-600 dark:text-red-400 tracking-wide uppercase">
-                Digital Stories
-              </span>
-            </div>
+            
 
             <h1 className="text-5xl font-bold leading-[1.05] tracking-tight text-slate-900 dark:text-white sm:text-6xl lg:text-7xl font-[var(--font-playfair)]">
               People Behind the{" "}

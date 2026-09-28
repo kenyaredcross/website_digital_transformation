@@ -51,10 +51,7 @@ export default async function WhereWeWorkPage() {
 
             {/* ── Left: Text content ── */}
             <div className="flex-1 space-y-7">
-              {/* Label */}
-              <span className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-widest text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/80 px-3.5 py-1.5 rounded-full border border-red-200 dark:border-red-800/70 shadow-sm backdrop-blur-md w-fit">
-                <Globe2 className="w-4 h-4" /> Geographic Footprint
-              </span>
+              
 
               {/* Headline */}
               <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-slate-900 dark:text-white tracking-tight leading-[1.05]">
@@ -104,9 +101,7 @@ export default async function WhereWeWorkPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-slate-200 dark:border-slate-800">
             <div>
-              <span className="text-xs font-mono font-bold text-red-600 dark:text-red-400 uppercase tracking-widest">
-                Active Operational Hubs
-              </span>
+             
               <h2 className="text-3xl font-bold text-slate-900 dark:text-white tracking-tight mt-1">
                 Country Operations Directory
               </h2>

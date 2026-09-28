@@ -59,10 +59,7 @@ export default function AboutPage() {
 
             {/* ── Left: Text content ── */}
             <div className="flex-1 space-y-7">
-              {/* Label */}
-              <span className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-widest text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/80 px-3.5 py-1.5 rounded-full border border-red-200 dark:border-red-800/70 shadow-sm backdrop-blur-md w-fit">
-                About Our Department
-              </span>
+             
 
               {/* Headline */}
               <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-slate-900 dark:text-white tracking-tight leading-[1.05]">
@@ -119,8 +116,7 @@ export default function AboutPage() {
               </div>
 
               <div className="pt-4 flex items-center gap-2 text-xs font-mono text-slate-400 dark:text-slate-500">
-                <Sparkles className="w-4 h-4 text-red-500" />
-                <span>Empowering field response & community resilience</span>
+                
               </div>
             </div>
 
@@ -156,8 +152,7 @@ export default function AboutPage() {
               </div>
 
               <div className="pt-4 flex items-center gap-2 text-xs font-mono text-slate-400 dark:text-slate-500">
-                <Eye className="w-4 h-4 text-blue-500" />
-                <span>Transforming operations, decisions & community action</span>
+                
               </div>
             </div>
           </div>
@@ -171,9 +166,7 @@ export default function AboutPage() {
       <section className="py-24 bg-slate-50 dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
-            <span className="text-xs font-bold uppercase tracking-widest text-red-600 dark:text-red-500 font-mono">
-              Guiding Principles
-            </span>
+            
             <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
               Our Core Values
             </h2>
@@ -207,9 +200,7 @@ export default function AboutPage() {
       <section className="py-24 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
-            <span className="text-xs font-bold uppercase tracking-widest text-red-600 dark:text-red-500 font-mono">
-              Our Methodology
-            </span>
+           
             <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
               Our Digital Transformation Approach
             </h2>
