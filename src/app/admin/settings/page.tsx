@@ -3,17 +3,13 @@
 import { useEffect, useState } from "react";
 import {
   Settings,
-  ShieldCheck,
   Save,
   CheckCircle2,
-  Lock,
-  Mail,
   Building,
   Phone,
 } from "lucide-react";
 import { SiteConfig } from "@/types";
 import { fetchEntityData, updateEntityData } from "@/lib/api-client";
-import { HARDCODED_USERS } from "@/lib/auth";
 
 export default function AdminSettingsPage() {
   const [siteConfig, setSiteConfig] = useState<SiteConfig | null>(null);
@@ -79,49 +75,10 @@ export default function AdminSettingsPage() {
           <Settings className="w-6 h-6 text-[#EE2435]" />
           <span>System Settings & User Role Matrix</span>
         </h1>
-        <p className="text-slate-400 text-sm mt-1">
-          Global site parameters, official contact details, and role-based credential directory.
-        </p>
+        <p className="text-slate-400 text-sm mt-1">Global site parameters and official contact details.</p>
       </div>
 
-      {/* User Accounts & Role Matrix (Super Admin View) */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
-        <h2 className="text-base font-bold text-white flex items-center gap-2">
-          <ShieldCheck className="w-5 h-5 text-emerald-400" />
-          <span>System User Credentials Directory</span>
-        </h2>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {Object.entries(HARDCODED_USERS).map(([email, record]) => (
-            <div key={email} className="bg-slate-950/90 border border-slate-800 rounded-xl p-4 space-y-2">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-white">{record.user.name}</span>
-                <span
-                  className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
-                    record.user.role === "super_admin"
-                      ? "bg-red-500/20 text-red-400 border border-red-500/30"
-                      : record.user.role === "admin"
-                      ? "bg-blue-500/20 text-blue-400 border border-blue-500/30"
-                      : "bg-purple-500/20 text-purple-400 border border-purple-500/30"
-                  }`}
-                >
-                  {record.user.role}
-                </span>
-              </div>
-
-              <div className="text-xs text-slate-400 flex items-center gap-1.5">
-                <Mail className="w-3.5 h-3.5 text-slate-500" />
-                <span>{email}</span>
-              </div>
-
-              <div className="text-xs text-slate-400 flex items-center gap-1.5 font-mono">
-                <Lock className="w-3.5 h-3.5 text-slate-500" />
-                <span>Password: {record.passwordHash}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+      <div className="rounded-xl border border-slate-800 bg-slate-900 p-4 text-sm text-slate-300">Admin accounts and DocType access are managed through Frappe roles.</div>
 
       {/* Site Contact & Configuration Form */}
       {siteConfig && (

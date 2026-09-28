@@ -5,15 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import {
   LayoutDashboard,
-  FileText,
-  Briefcase,
-  Users,
-  Handshake,
-  MessageSquare,
-  Globe2,
-  Layers,
-  Image as ImageIcon,
-  Settings,
+  Database,
   LogOut,
   ExternalLink,
   ShieldCheck,
@@ -31,72 +23,8 @@ interface NavItem {
 }
 
 const NAV_ITEMS: NavItem[] = [
-  {
-    label: "Dashboard",
-    href: "/admin",
-    icon: LayoutDashboard,
-    roles: ["super_admin", "admin"],
-  },
-  {
-    label: "Blog Posts",
-    href: "/admin/blogs",
-    icon: FileText,
-    roles: ["super_admin", "admin", "blogger"],
-  },
-  {
-    label: "Knowledge, Stories & News",
-    href: "/admin/content",
-    icon: FileText,
-    roles: ["super_admin", "admin", "blogger"],
-  },
-  {
-    label: "Projects Portfolio",
-    href: "/admin/projects",
-    icon: Briefcase,
-    roles: ["super_admin", "admin"],
-  },
-  {
-    label: "People & Team",
-    href: "/admin/people",
-    icon: Users,
-    roles: ["super_admin", "admin"],
-  },
-  {
-    label: "Partnerships",
-    href: "/admin/partners",
-    icon: Handshake,
-    roles: ["super_admin", "admin"],
-  },
-  {
-    label: "Testimonials",
-    href: "/admin/testimonials",
-    icon: MessageSquare,
-    roles: ["super_admin", "admin"],
-  },
-  {
-    label: "Countries & Coverage",
-    href: "/admin/countries",
-    icon: Globe2,
-    roles: ["super_admin", "admin"],
-  },
-  {
-    label: "Thematic Areas",
-    href: "/admin/thematic-areas",
-    icon: Layers,
-    roles: ["super_admin", "admin"],
-  },
-  {
-    label: "Media & Assets",
-    href: "/admin/media",
-    icon: ImageIcon,
-    roles: ["super_admin", "admin"],
-  },
-  {
-    label: "Site Settings",
-    href: "/admin/settings",
-    icon: Settings,
-    roles: ["super_admin"],
-  },
+  { label: "Dashboard", href: "/admin", icon: LayoutDashboard, roles: ["super_admin"] },
+  { label: "Frappe Data & Inbox", href: "/admin/data", icon: Database, roles: ["super_admin"] },
 ];
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {

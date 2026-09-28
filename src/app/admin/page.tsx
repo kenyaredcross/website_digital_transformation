@@ -62,7 +62,7 @@ export default function AdminDashboardPage() {
     {
       title: "Blog Posts",
       count: stats.blogsCount,
-      href: "/admin/blogs",
+      href: "/admin/data",
       icon: FileText,
       color: "from-red-500/20 to-orange-500/20 text-[#EE2435]",
       border: "border-red-500/30",
@@ -70,7 +70,7 @@ export default function AdminDashboardPage() {
     {
       title: "Projects Portfolio",
       count: stats.projectsCount,
-      href: "/admin/projects",
+      href: "/admin/data",
       icon: Briefcase,
       color: "from-blue-500/20 to-cyan-500/20 text-blue-400",
       border: "border-blue-500/30",
@@ -78,7 +78,7 @@ export default function AdminDashboardPage() {
     {
       title: "People & Team",
       count: stats.peopleCount,
-      href: "/admin/people",
+      href: "/admin/data",
       icon: Users,
       color: "from-emerald-500/20 to-teal-500/20 text-emerald-400",
       border: "border-emerald-500/30",
@@ -86,7 +86,7 @@ export default function AdminDashboardPage() {
     {
       title: "Partnerships",
       count: stats.partnersCount,
-      href: "/admin/partners",
+      href: "/admin/data",
       icon: Handshake,
       color: "from-purple-500/20 to-pink-500/20 text-purple-400",
       border: "border-purple-500/30",
@@ -94,7 +94,7 @@ export default function AdminDashboardPage() {
     {
       title: "Testimonials",
       count: stats.testimonialsCount,
-      href: "/admin/testimonials",
+      href: "/admin/data",
       icon: MessageSquare,
       color: "from-amber-500/20 to-yellow-500/20 text-amber-400",
       border: "border-amber-500/30",
@@ -102,7 +102,7 @@ export default function AdminDashboardPage() {
     {
       title: "Countries Active",
       count: stats.countriesCount,
-      href: "/admin/countries",
+      href: "/admin/data",
       icon: Globe2,
       color: "from-indigo-500/20 to-blue-500/20 text-indigo-400",
       border: "border-indigo-500/30",
@@ -125,20 +125,20 @@ export default function AdminDashboardPage() {
               Website Content Manager
             </h1>
             <p className="text-slate-400 text-sm mt-1 max-w-2xl leading-relaxed">
-              Real-time role-based administration portal. Edit, create, or remove content across all website pages and data files.
+              Manage live website records in Frappe and review contact submissions from one secure workspace.
             </p>
           </div>
 
           <div className="flex flex-wrap items-center gap-3">
             <Link
-              href="/admin/blogs"
+              href="/admin/data"
               className="px-4 py-2.5 bg-[#EE2435] hover:bg-[#d41c2c] text-white rounded-xl text-xs font-semibold flex items-center gap-2 shadow-lg shadow-[#EE2435]/25 transition-all"
             >
               <PlusCircle className="w-4 h-4" />
               <span>New Blog Post</span>
             </Link>
             <Link
-              href="/admin/projects"
+              href="/admin/data"
               className="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all"
             >
               <PlusCircle className="w-4 h-4" />
@@ -195,19 +195,19 @@ export default function AdminDashboardPage() {
           <div className="p-4 bg-slate-950/80 border border-slate-800 rounded-xl">
             <div className="font-bold text-red-400 mb-1">Super Admin Role</div>
             <div className="text-slate-400 leading-relaxed">
-              Full access to edit/add/delete across all 12 data files, site configuration, and system settings.
+              Frappe System Manager access enables create, view, edit and delete actions across the connected DocTypes.
             </div>
           </div>
           <div className="p-4 bg-slate-950/80 border border-slate-800 rounded-xl">
             <div className="font-bold text-blue-400 mb-1">Admin Role</div>
             <div className="text-slate-400 leading-relaxed">
-              Full CRUD access to blogs, projects, team members, partners, testimonials, countries, and thematic areas.
+              Admin access is granted by the Frappe account roles and DocType permissions.
             </div>
           </div>
           <div className="p-4 bg-slate-950/80 border border-slate-800 rounded-xl">
             <div className="font-bold text-purple-400 mb-1">Blogger Role</div>
             <div className="text-slate-400 leading-relaxed">
-              Strictly restricted to accessing and managing Blog posts only (`/admin/blogs`).
+              Only Frappe accounts with System Manager access can open this workspace.
             </div>
           </div>
         </div>

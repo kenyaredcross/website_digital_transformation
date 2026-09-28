@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Lock, Mail, ShieldAlert, ArrowRight, UserCheck } from "lucide-react";
+import { Lock, Mail, ShieldAlert, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 export default function AdminLoginPage() {
@@ -44,12 +44,6 @@ export default function AdminLoginPage() {
     }
   };
 
-  const setQuickCredentials = (e: string, p: string) => {
-    setEmail(e);
-    setPassword(p);
-    setError(null);
-  };
-
   return (
     <div className="min-h-screen bg-[#011E41] flex items-center justify-center p-4 relative overflow-hidden font-sans">
       {/* Background Decorative Gradients */}
@@ -70,7 +64,7 @@ export default function AdminLoginPage() {
             </div>
           </Link>
           <h1 className="text-2xl font-bold text-white mt-2">Admin Portal Login</h1>
-          <p className="text-gray-400 text-sm mt-1">Role-Based Content Management System</p>
+          <p className="text-gray-400 text-sm mt-1">Sign in with your Frappe account</p>
         </div>
 
         {/* Login Form Card */}
@@ -94,7 +88,7 @@ export default function AdminLoginPage() {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="admin@redcross.or.ke"
+                  placeholder="name@redcross.or.ke"
                   className="w-full pl-11 pr-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-white placeholder-gray-600 focus:outline-none focus:border-[#EE2435] text-sm transition-colors"
                 />
               </div>
@@ -133,41 +127,6 @@ export default function AdminLoginPage() {
             </button>
           </form>
 
-          {/* Quick Preset Selector for Demo/Evaluation */}
-          <div className="mt-8 pt-6 border-t border-slate-800">
-            <div className="flex items-center gap-2 mb-3">
-              <UserCheck className="w-4 h-4 text-emerald-400" />
-              <span className="text-xs font-medium text-gray-400">Demo Role Quick Select:</span>
-            </div>
-            <div className="grid grid-cols-3 gap-2">
-              <button
-                type="button"
-                onClick={() => setQuickCredentials("superadmin@redcross.or.ke", "superadmin123")}
-                className="p-2.5 bg-slate-800/80 hover:bg-slate-800 border border-slate-700/60 rounded-xl text-left transition-colors cursor-pointer group"
-              >
-                <div className="text-[11px] font-bold text-white group-hover:text-[#EE2435]">Super Admin</div>
-                <div className="text-[9px] text-gray-400 truncate">All Pages</div>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setQuickCredentials("admin@redcross.or.ke", "admin123")}
-                className="p-2.5 bg-slate-800/80 hover:bg-slate-800 border border-slate-700/60 rounded-xl text-left transition-colors cursor-pointer group"
-              >
-                <div className="text-[11px] font-bold text-white group-hover:text-blue-400">Admin</div>
-                <div className="text-[9px] text-gray-400 truncate">Data Content</div>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setQuickCredentials("blogger@redcross.or.ke", "blogger123")}
-                className="p-2.5 bg-slate-800/80 hover:bg-slate-800 border border-slate-700/60 rounded-xl text-left transition-colors cursor-pointer group"
-              >
-                <div className="text-[11px] font-bold text-white group-hover:text-purple-400">Blogger</div>
-                <div className="text-[9px] text-gray-400 truncate">Blogs Only</div>
-              </button>
-            </div>
-          </div>
         </div>
 
         {/* Footer Link */}
