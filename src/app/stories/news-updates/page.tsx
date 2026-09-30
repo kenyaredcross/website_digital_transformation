@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getNewsItems } from "@/lib/frappe/knowledge-content";
-import { Calendar, Tag, User, Building2, ArrowRight, ExternalLink } from "lucide-react";
+import { Calendar, Tag, User, Building2, ArrowRight, ExternalLink, Newspaper } from "lucide-react";
+import { EmptyState } from "@/components/ui/EmptyState";
 
 export const metadata: Metadata = {
   title: "News & Updates | Kenya Red Cross Digital",
@@ -52,7 +53,7 @@ export default async function NewsUpdatesPage() {
       {/* ── News List ────────────────────────────────────────── */}
       <section className="py-16 md:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-8">
-          {newsItems.map((item) => {
+          {newsItems.length === 0 ? <EmptyState icon={Newspaper} title="No updates to share yet" description="News, announcements and milestones will appear here as soon as they are published." /> : newsItems.map((item) => {
             const catClass =
               CATEGORY_COLORS[item.category] ??
               "bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700";

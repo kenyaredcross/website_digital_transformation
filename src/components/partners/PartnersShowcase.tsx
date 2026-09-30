@@ -14,9 +14,11 @@ import {
   Cpu,
   DollarSign,
   Users,
+  Handshake,
   X,
   ChevronDown,
 } from "lucide-react";
+import { EmptyState } from "@/components/ui/EmptyState";
 
 type Category = "All" | "Strategic" | "Technology" | "Funding" | "Implementation";
 
@@ -341,7 +343,7 @@ export function PartnersShowcase({ partners = [], projects = [] }: PartnersShowc
 
         {/* Cards Grid — masonry-style 3 col on xl, 2 on md */}
         <AnimatePresence mode="wait">
-          <motion.div
+          {filtered.length === 0 ? <EmptyState icon={Handshake} title={partners.length === 0 ? "No partners to show yet" : "No partners in this category"} description={partners.length === 0 ? "Partner profiles will appear here once they are available." : "There are no partners in this collaboration area. Choose another category to explore."} /> : <motion.div
             key={activeTab}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -352,7 +354,7 @@ export function PartnersShowcase({ partners = [], projects = [] }: PartnersShowc
             {filtered.map((partner, i) => (
               <PartnerCard key={partner.id} partner={partner} index={i} projects={projects} />
             ))}
-          </motion.div>
+          </motion.div>}
         </AnimatePresence>
       </div>
     </section>

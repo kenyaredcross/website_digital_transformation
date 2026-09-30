@@ -11,7 +11,9 @@ import {
   ArrowRight,
   Calendar,
   Tag,
+  BookOpenCheck,
 } from "lucide-react";
+import { EmptyState } from "@/components/ui/EmptyState";
 
 export const metadata: Metadata = {
   title: "Digital Stories | Kenya Red Cross Digital",
@@ -63,7 +65,7 @@ export default async function DigitalStoriesPage() {
       {/* ── Stories Grid ─────────────────────────────────────── */}
       <section className="py-16 md:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12">
-          {digitalStories.map((story, index) => (
+          {digitalStories.length === 0 ? <EmptyState icon={BookOpenCheck} title="No digital stories yet" description="Stories from our staff, volunteers, partners and communities will appear here as they are published." /> : digitalStories.map((story, index) => (
             <article
               key={story.id}
               className="group relative bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300"

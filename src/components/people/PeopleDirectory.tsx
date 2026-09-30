@@ -3,8 +3,9 @@
 import { useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Search, Filter, ArrowRight } from "lucide-react";
+import { Search, Filter, ArrowRight, Users } from "lucide-react";
 import type { Person } from "@/types";
+import { EmptyState } from "@/components/ui/EmptyState";
 
 interface PeopleDirectoryProps {
   people?: Person[];
@@ -96,7 +97,14 @@ export function PeopleDirectory({ people, initialPeople }: PeopleDirectoryProps 
       </div>
 
       {/* Directory Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      {filteredPeople.length === 0 ? (
+        <EmptyState
+          icon={Users}
+          title={peopleList.length === 0 ? "No team members yet" : "No team members found"}
+          description={peopleList.length === 0 ? "Our people profiles will appear here as soon as they are available." : "No profiles match your search or selected department. Try changing your search or filter."}
+          action={peopleList.length > 0 ? <button onClick={() => { setSearchQuery(""); setSelectedDepartment("All"); }} className="rounded-xl bg-red-600 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-red-700">Clear search and filters</button> : undefined}
+        />
+      ) : <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
         {filteredPeople.map((person) => (
           <Link
             key={person.id}
@@ -153,7 +161,7 @@ export function PeopleDirectory({ people, initialPeople }: PeopleDirectoryProps 
             </div>
           </Link>
         ))}
-      </div>
+      </div>}
     </div>
   );
 }

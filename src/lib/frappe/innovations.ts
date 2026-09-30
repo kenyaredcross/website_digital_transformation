@@ -1,10 +1,16 @@
 import { frappeList } from "./client";
-import { INNOVATION_PROJECTS, type InnovationProject } from "@/data/innovationData";
+import type { InnovationProject } from "@/data/innovationData";
 
 export interface FrappeInnovationDoc {
   name: string;
   external_id?: string;
   title: string;
+  category: string;
+  status: InnovationProject["status"];
+  period: string;
+  location: string;
+  lead: string;
+  team: string;
   what_we_tested: string;
   why_we_tested: string;
   what_we_learned: string;
@@ -12,6 +18,18 @@ export interface FrappeInnovationDoc {
   what_didnt_work: string[] | string;
   what_to_improve: string[] | string;
   recommendation: string;
+}
+
+interface FrappeCountryRef {
+  name: string;
+  external_id?: string;
+  country_name?: string;
+}
+
+interface FrappePersonRef {
+  name: string;
+  external_id?: string;
+  full_name?: string;
 }
 
 function parseJsonIfNeeded<T>(val: unknown, fallback: T): T {
@@ -30,47 +48,61 @@ function parseJsonIfNeeded<T>(val: unknown, fallback: T): T {
 
 export async function getInnovations(): Promise<InnovationProject[]> {
   try {
-    const response = await frappeList<FrappeInnovationDoc>("Innovations", {
-      limit: 100,
-    });
+    const [response, countries, people] = await Promise.all([
+      frappeList<FrappeInnovationDoc>("Innovations", { limit: 100 }),
+      frappeList<FrappeCountryRef>("Countries", { limit: 500 }),
+      frappeList<FrappePersonRef>("Person", { limit: 500 }),
+    ]);
+
+    const countryNames = new Map<string, string>();
+    for (const country of countries.data) {
+      const label = country.country_name || country.name;
+      countryNames.set(country.name, label);
+      if (country.external_id) countryNames.set(country.external_id, label);
+    }
+
+    const personNames = new Map<string, string>();
+    for (const person of people.data) {
+      const label = person.full_name || person.name;
+      personNames.set(person.name, label);
+      if (person.external_id) personNames.set(person.external_id, label);
+    }
 
     if (response?.data && response.data.length > 0) {
       return response.data.map((doc) => {
         const extId = doc.external_id || doc.name;
-        const staticItem = INNOVATION_PROJECTS.find((p) => p.id === extId);
-
-        const whatWorked = parseJsonIfNeeded<string[]>(doc.what_worked, staticItem?.whatWorked || []);
-        const whatDidntWork = parseJsonIfNeeded<string[]>(doc.what_didnt_work, staticItem?.whatDidntWork || []);
-        const whatToImprove = parseJsonIfNeeded<string[]>(doc.what_to_improve, staticItem?.whatToImprove || []);
+        const whatWorked = parseJsonIfNeeded<string[]>(doc.what_worked, []);
+        const whatDidntWork = parseJsonIfNeeded<string[]>(doc.what_didnt_work, []);
+        const whatToImprove = parseJsonIfNeeded<string[]>(doc.what_to_improve, []);
 
         return {
           id: extId,
-          title: doc.title || staticItem?.title || "",
-          status: staticItem?.status || "Scaled",
-          category: staticItem?.category || "Artificial Intelligence",
-          period: staticItem?.period || "",
-          location: staticItem?.location || "",
-          lead: staticItem?.lead || "",
-          team: staticItem?.team || "",
-          partnerOrgs: staticItem?.partnerOrgs || [],
-          cover: staticItem?.cover || "/assets/images/dt_updates/app_phone.jpg",
-          tagline: staticItem?.tagline || "",
-          whatWeTested: doc.what_we_tested || staticItem?.whatWeTested || "",
-          whyWeTested: doc.why_we_tested || staticItem?.whyWeTested || "",
-          whatWeLearned: doc.what_we_learned || staticItem?.whatWeLearned || "",
+          title: doc.title || "",
+          status: doc.status || "Ongoing",
+          category: doc.category || "Research",
+          period: doc.period || "",
+          location: countryNames.get(doc.location) || doc.location || "",
+          lead: personNames.get(doc.lead) || doc.lead || "",
+          team: doc.team || "Digital Transformation Team",
+          partnerOrgs: [],
+          cover: "/assets/images/dt_updates/app_phone.jpg",
+          tagline: doc.what_we_tested?.split(/[.!?]/, 1)[0] || "",
+          whatWeTested: doc.what_we_tested || "",
+          whyWeTested: doc.why_we_tested || "",
+          whatWeLearned: doc.what_we_learned || "",
           whatWorked: Array.isArray(whatWorked) ? whatWorked : [String(whatWorked)],
           whatDidntWork: Array.isArray(whatDidntWork) ? whatDidntWork : [String(whatDidntWork)],
           whatToImprove: Array.isArray(whatToImprove) ? whatToImprove : [String(whatToImprove)],
-          recommendation: doc.recommendation || staticItem?.recommendation || "",
-          tags: staticItem?.tags || [],
-          featured: staticItem?.featured ?? true,
-          color: staticItem?.color || "blue",
+          recommendation: doc.recommendation || "",
+          tags: [],
+          featured: false,
+          color: "blue",
         };
       });
     }
   } catch (err) {
-    console.warn("Failed to fetch Innovations from Frappe, using local fallback:", err);
+    console.warn("Failed to fetch Innovations from Frappe:", err);
   }
 
-  return INNOVATION_PROJECTS;
+  return [];
 }

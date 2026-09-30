@@ -1,4 +1,4 @@
-import { Handshake, Globe, ShieldCheck, Sparkles, Coins, ArrowRight, Building2, Layers, HeartHandshake } from "lucide-react";
+import { Globe, ShieldCheck, Sparkles, Coins, ArrowRight, Building2, Layers, HeartHandshake } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
@@ -137,39 +137,27 @@ export default async function PartnersPage() {
       </section>
 
       {/* ── Scrolling logo marquee ──────────────────────────── */}
-      <PartnerMarquee partners={partners} />
+      {partners.length > 0 && <PartnerMarquee partners={partners} />}
 
       {/* ── Animated Partner Cards ─────────────────────────── */}
       <PartnersShowcase partners={partners} projects={projects} />
 
       {/* ── Partner With Kenya Red Cross CTA Section ───────── */}
-      <section id="partner-cta" className="py-20 bg-slate-900 dark:bg-slate-950 text-white relative overflow-hidden transition-colors">
-        {/* Decorative Background Gradients */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-20 blur-3xl"
-          style={{ background: "radial-gradient(circle, rgba(238,36,53,0.8) 0%, transparent 70%)" }}
-        />
-        <div
-          aria-hidden
-          className="pointer-events-none absolute left-0 top-0 w-[400px] h-[400px] rounded-full opacity-15 blur-3xl"
-          style={{ background: "radial-gradient(circle, rgba(59,130,246,0.6) 0%, transparent 70%)" }}
-        />
-
+      <section id="partner-cta" className="py-20 bg-slate-100/80 dark:bg-slate-950 text-slate-900 dark:text-white relative overflow-hidden transition-colors duration-300 border-t border-slate-200/60 dark:border-slate-800/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="p-8 sm:p-12 lg:p-16 rounded-3xl bg-slate-800/80 dark:bg-slate-900/90 border border-slate-700/80 dark:border-slate-800 shadow-2xl backdrop-blur-xl grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+          <div className="p-8 sm:p-12 lg:p-16 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-2xl backdrop-blur-xl grid grid-cols-1 lg:grid-cols-12 gap-10 items-center transition-colors">
             
             {/* Left Content */}
             <div className="lg:col-span-8 space-y-6">
-              <span className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-widest text-red-400 bg-red-950/80 px-3.5 py-1.5 rounded-full border border-red-800/70 shadow-sm">
-                <Sparkles className="w-4 h-4 text-red-400" /> Collaboration Opportunity
+              <span className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-widest text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/80 px-3.5 py-1.5 rounded-full border border-red-200 dark:border-red-800/70 shadow-xs">
+                <Sparkles className="w-4 h-4 text-red-600 dark:text-red-400" /> Collaboration Opportunity
               </span>
 
-              <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight">
+              <h2 className="text-3xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
                 Partner With Kenya Red Cross
               </h2>
 
-              <p className="text-lg sm:text-xl text-slate-300 leading-relaxed font-normal">
+              <p className="text-lg sm:text-xl text-slate-700 dark:text-slate-300 leading-relaxed font-normal">
                 If your organisation is interested in collaboration around data, technology, research, innovation or digital capacity development, get in touch with the Data and Digital Transformation team.
               </p>
 
@@ -180,9 +168,9 @@ export default async function PartnersPage() {
                   return (
                     <span
                       key={item.label}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900/90 border border-slate-700 text-xs font-mono text-slate-300"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-50 dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700/80 text-xs font-mono text-slate-800 dark:text-slate-300 shadow-xs transition-colors"
                     >
-                      <Icon className="w-3.5 h-3.5 text-red-400" />
+                      <Icon className="w-3.5 h-3.5 text-red-600 dark:text-red-400" />
                       {item.label}
                     </span>
                   );
@@ -194,13 +182,13 @@ export default async function PartnersPage() {
             <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-4 items-stretch lg:items-end justify-center">
               <Link
                 href="/contact?type=partner#partnering"
-                className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl font-bold text-base text-white bg-red-600 hover:bg-red-500 active:scale-95 transition-all shadow-xl shadow-red-600/30 group text-center"
+                className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl font-bold text-base text-white bg-red-600 hover:bg-red-700 active:scale-95 transition-all shadow-xl shadow-red-600/25 group text-center"
               >
                 <span>Get in Touch to Partner</span>
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
               
-              <span className="text-xs font-mono text-slate-400 text-center lg:text-right">
+              <span className="text-xs font-mono text-slate-500 dark:text-slate-400 text-center lg:text-right">
                 Direct submissions logged to Frappe & MariaDB
               </span>
             </div>

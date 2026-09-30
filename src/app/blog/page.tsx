@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { BlogFilterableGrid } from "@/components/blog/BlogFilterableGrid";
+import { getBlogs } from "@/lib/frappe/blogs";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -8,7 +9,9 @@ export const metadata: Metadata = {
     "Field case studies, technical breakdowns and lessons learned from deploying early warning systems, mobile cash transfer and spatial intelligence across Kenya and East Africa.",
 };
 
-export default function BlogPage() {
+export default async function BlogPage() {
+  const blogs = await getBlogs();
+
   return (
     <div className="min-h-screen bg-slate-50 pb-24 pt-25 text-slate-900 dark:bg-slate-950 dark:text-white">
       {/* ── Hero ───────────────────────────────────────────── */}
@@ -64,7 +67,7 @@ export default function BlogPage() {
       {/* ── Stories ────────────────────────────────────────── */}
       <section className="py-16 md:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <BlogFilterableGrid />
+          <BlogFilterableGrid blogs={blogs} />
         </div>
       </section>
     </div>

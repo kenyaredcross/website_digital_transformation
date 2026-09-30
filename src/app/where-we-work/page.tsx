@@ -1,8 +1,7 @@
 import Image from "next/image";
 import { AfricaMap } from "@/components/geography/AfricaMap";
-import { CountryCard } from "@/components/geography/CountryCard";
+import { CountryMarquee } from "@/components/geography/CountryMarquee";
 import { getCountries } from "@/lib/get-data";
-import { Globe2 } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -96,28 +95,8 @@ export default async function WhereWeWorkPage() {
         </div>
       </section>
 
-      {/* Country Breakdown Cards Grid */}
-      <section className="py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-slate-200 dark:border-slate-800">
-            <div>
-             
-              <h2 className="text-3xl font-bold text-slate-900 dark:text-white tracking-tight mt-1">
-                Country Operations Directory
-              </h2>
-            </div>
-            <p className="text-sm text-slate-600 dark:text-slate-400 max-w-md">
-              Hover over or click individual country records below to review local initiatives and data feeds.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {countries.map((country) => (
-              <CountryCard key={country.id} country={country} />
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Country Operations Marquee */}
+      <CountryMarquee countries={countries} />
     </div>
   );
 }

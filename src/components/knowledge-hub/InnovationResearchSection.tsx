@@ -9,11 +9,9 @@ import {
   Microscope, Zap, Filter,
 } from "lucide-react";
 import {
-  INNOVATION_PROJECTS,
   INNOVATION_DIMENSIONS,
   STATUS_CONFIG,
   CATEGORY_COLORS,
-  INNOVATION_CATEGORIES,
   type InnovationProject,
 } from "@/data/innovationData";
 import { getInnovations } from "@/lib/get-data";
@@ -104,14 +102,15 @@ function ProjectCard({ project, onSelect }: { project: InnovationProject; onSele
           {project.title}
         </h3>
         <p className="text-muted-foreground text-xs leading-relaxed line-clamp-2 flex-1 italic">
-          "{project.tagline}"
+          &ldquo;{project.tagline || project.whatWeTested}&rdquo;
         </p>
 
         {/* Meta strip */}
         <div className="flex flex-wrap gap-x-3 gap-y-1 text-xs text-muted-foreground">
           <span className="flex items-center gap-1"><Calendar className="w-3 h-3" />{project.period}</span>
           <span className="flex items-center gap-1"><MapPin className="w-3 h-3" />{project.location}</span>
-          <span className="flex items-center gap-1"><Users className="w-3 h-3" />{project.team}</span>
+          <span className="flex items-center gap-1"><Users className="w-3 h-3" />{project.lead}</span>
+          <span className="flex items-center gap-1"><Tag className="w-3 h-3" />{project.team}</span>
         </div>
 
         {/* Tags */}
@@ -173,13 +172,14 @@ function ProjectRow({ project, onSelect }: { project: InnovationProject; onSelec
         </h3>
 
         <p className="text-muted-foreground text-xs leading-relaxed italic line-clamp-1">
-          &ldquo;{project.tagline}&rdquo;
+          &ldquo;{project.tagline || project.whatWeTested}&rdquo;
         </p>
 
         <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted-foreground">
           <span className="flex items-center gap-1"><Calendar className="w-3 h-3" />{project.period}</span>
           <span className="flex items-center gap-1"><MapPin className="w-3 h-3" />{project.location}</span>
-          <span className="flex items-center gap-1"><Users className="w-3 h-3" />{project.team}</span>
+          <span className="flex items-center gap-1"><Users className="w-3 h-3" />{project.lead}</span>
+          <span className="flex items-center gap-1"><Tag className="w-3 h-3" />{project.team}</span>
         </div>
 
         <div className="flex flex-wrap gap-1">
@@ -250,7 +250,7 @@ function ProjectModal({ project, onClose }: { project: InnovationProject; onClos
                 {sc.label}
               </div>
               <h2 className="text-white font-black text-xl leading-snug">{project.title}</h2>
-              <p className="text-white/70 text-sm mt-1 italic">"{project.tagline}"</p>
+              <p className="text-white/70 text-sm mt-1 italic">&ldquo;{project.tagline || project.whatWeTested}&rdquo;</p>
             </div>
           </div>
 
@@ -384,26 +384,28 @@ function ProjectModal({ project, onClose }: { project: InnovationProject; onClos
 // ── Main Section Component ────────────────────────────────────────────────────
 
 export function InnovationResearchSection() {
-  const [projects, setProjects] = useState<InnovationProject[]>(INNOVATION_PROJECTS);
+  const [projects, setProjects] = useState<InnovationProject[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [selectedStatus, setSelectedStatus] = useState<string>("All");
+  const [selectedLocation, setSelectedLocation] = useState<string>("All");
   const [showFilters, setShowFilters] = useState(false);
   const [selected, setSelected] = useState<InnovationProject | null>(null);
 
   useEffect(() => {
     getInnovations().then((data) => {
-      if (data && data.length > 0) {
-        setProjects(data);
-      }
+      setProjects(data);
     });
   }, []);
 
-  const statuses = ["All", "Scaled", "Adapted", "Pilot", "Ongoing", "Discontinued"];
+  const categories = ["All", ...Array.from(new Set(projects.map((project) => project.category).filter(Boolean))).sort()];
+  const statuses = ["All", ...Array.from(new Set(projects.map((project) => project.status).filter(Boolean))).sort()];
+  const locations = ["All", ...Array.from(new Set(projects.map((project) => project.location).filter(Boolean))).sort()];
 
   const filtered = projects.filter((p) => {
     const matchCat = selectedCategory === "All" || p.category === selectedCategory;
     const matchStat = selectedStatus === "All" || p.status === selectedStatus;
-    return matchCat && matchStat;
+    const matchLocation = selectedLocation === "All" || p.location === selectedLocation;
+    return matchCat && matchStat && matchLocation;
   });
 
   const stats = [
@@ -523,7 +525,7 @@ export function InnovationResearchSection() {
             <div className="flex flex-col sm:flex-row gap-3">
               {/* Category pills */}
               <div className="flex flex-wrap gap-2 flex-1">
-                {["All", ...INNOVATION_CATEGORIES].map((cat) => (
+                {categories.map((cat) => (
                   <button
                     key={cat}
                     onClick={() => setSelectedCategory(cat)}
@@ -539,18 +541,31 @@ export function InnovationResearchSection() {
               </div>
 
               {/* Status filter */}
-              <button
-                onClick={() => setShowFilters(!showFilters)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium border transition-colors shrink-0 ${
-                  showFilters || selectedStatus !== "All"
-                    ? "border-red-300 dark:border-red-700 bg-red-50 dark:bg-red-950/40 text-red-600 dark:text-red-400"
-                    : "border-border bg-card text-muted-foreground hover:bg-muted"
-                }`}
-              >
-                <Filter className="w-4 h-4" />
-                Status
-                <ChevronDown className={`w-3.5 h-3.5 transition-transform ${showFilters ? "rotate-180" : ""}`} />
-              </button>
+              <div className="flex flex-wrap gap-2 sm:shrink-0">
+                <label className="flex items-center gap-2 rounded-xl border border-border bg-card px-3 text-xs text-muted-foreground">
+                  <MapPin className="h-3.5 w-3.5" />
+                  <span className="sr-only">Filter by location</span>
+                  <select
+                    value={selectedLocation}
+                    onChange={(event) => setSelectedLocation(event.target.value)}
+                    className="max-w-44 bg-transparent py-2.5 text-foreground outline-none"
+                  >
+                    {locations.map((location) => <option key={location} value={location}>{location === "All" ? "All locations" : location}</option>)}
+                  </select>
+                </label>
+                <button
+                  onClick={() => setShowFilters(!showFilters)}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium border transition-colors shrink-0 ${
+                    showFilters || selectedStatus !== "All"
+                      ? "border-red-300 dark:border-red-700 bg-red-50 dark:bg-red-950/40 text-red-600 dark:text-red-400"
+                      : "border-border bg-card text-muted-foreground hover:bg-muted"
+                  }`}
+                >
+                  <Filter className="w-4 h-4" />
+                  Status
+                  <ChevronDown className={`w-3.5 h-3.5 transition-transform ${showFilters ? "rotate-180" : ""}`} />
+                </button>
+              </div>
             </div>
 
             <AnimatePresence>
@@ -585,9 +600,9 @@ export function InnovationResearchSection() {
               <span>
                 Showing <span className="font-bold text-foreground">{filtered.length}</span> of {projects.length} experiments
               </span>
-              {(selectedCategory !== "All" || selectedStatus !== "All") && (
+              {(selectedCategory !== "All" || selectedStatus !== "All" || selectedLocation !== "All") && (
                 <button
-                  onClick={() => { setSelectedCategory("All"); setSelectedStatus("All"); }}
+                  onClick={() => { setSelectedCategory("All"); setSelectedStatus("All"); setSelectedLocation("All"); }}
                   className="flex items-center gap-1 text-red-600 dark:text-red-400 hover:text-red-700 font-semibold"
                 >
                   <X className="w-3 h-3" /> Clear filters
@@ -610,7 +625,7 @@ export function InnovationResearchSection() {
               </motion.div>
             ) : (
               <motion.div
-                key={`${selectedCategory}-${selectedStatus}`}
+                key={`${selectedCategory}-${selectedStatus}-${selectedLocation}`}
                 className="flex flex-col gap-3"
                 variants={stagger}
                 initial="hidden"

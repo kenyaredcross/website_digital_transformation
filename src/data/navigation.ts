@@ -17,6 +17,11 @@ export const mainNav: NavItem[] = [
     description: "Explore our seven core thematic areas driving humanitarian technology.",
     children: [
       {
+        title: "Thematic Areas",
+        href: "/what-we-do",
+        description: "Overview of our 7 core thematic pillars driving digital impact.",
+      },
+      {
         title: "Knowledge Hub",
         href: "/knowledge-hub",
         description: "Resources, case studies and lessons learned from digital transformation.",
@@ -54,14 +59,14 @@ export const mainNav: NavItem[] = [
     description: "Field stories, blog posts, and news from KRCS digital programmes.",
     children: [
       {
-        title: "Digital Stories",
-        href: "/stories/digital-stories",
-        description: "People behind the transformation — staff, volunteer, and community case studies.",
-      },
-      {
         title: "Blogs",
         href: "/blog",
         description: "Insights, field case studies, tech deployments, and post-mortems.",
+      },
+      {
+        title: "Digital Stories",
+        href: "/stories/digital-stories",
+        description: "People behind the transformation — staff, volunteer, and community case studies.",
       },
       {
         title: "News & Updates",
@@ -71,3 +76,4 @@ export const mainNav: NavItem[] = [
     ],
   },
 ];
+

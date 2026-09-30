@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { BlogPost } from "@/types";
 import { BlogCard, BlogCardVariant } from "@/components/blog/BlogCard";
 import { Search, X } from "lucide-react";
@@ -59,33 +59,19 @@ function buildLayout(count: number): Slot[] {
   return slots;
 }
 
-export function BlogFilterableGrid() {
-  const [blogsList, setBlogsList] = useState<BlogPost[]>([]);
+export function BlogFilterableGrid({ blogs }: { blogs: BlogPost[] }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
 
-  useEffect(() => {
-    let active = true;
-    fetch("/api/data/blogs")
-      .then((res) => res.json())
-      .then((data) => {
-        if (active && Array.isArray(data) && data.length > 0) setBlogsList(data);
-      })
-      .catch((err) => console.error("Failed to load live blogs:", err));
-    return () => {
-      active = false;
-    };
-  }, []);
-
   const categories = useMemo(
-    () => ["All", ...Array.from(new Set(blogsList.map((b) => b.category)))],
-    [blogsList]
+    () => ["All", ...Array.from(new Set(blogs.map((b) => b.category)))],
+    [blogs]
   );
 
   const filteredBlogs = useMemo(() => {
     const q = searchQuery.trim().toLowerCase();
 
-    return blogsList
+    return blogs
       .filter((post) => {
         if (selectedCategory !== "All" && post.category !== selectedCategory) return false;
         if (!q) return true;
@@ -98,7 +84,7 @@ export function BlogFilterableGrid() {
       /* Editorial prominence is data-driven: flagged posts take the
          featured slots, everything else keeps its source order. */
       .sort((a, b) => Number(!!b.featured) - Number(!!a.featured));
-  }, [blogsList, selectedCategory, searchQuery]);
+  }, [blogs, selectedCategory, searchQuery]);
 
   const layout = useMemo(() => buildLayout(filteredBlogs.length), [filteredBlogs.length]);
   const isFiltered = selectedCategory !== "All" || searchQuery.trim() !== "";

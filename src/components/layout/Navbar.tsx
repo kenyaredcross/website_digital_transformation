@@ -6,13 +6,26 @@ import { usePathname } from "next/navigation";
 import { BrandLogo } from "@/components/ui/BrandLogo";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
 import { mainNav } from "@/data/navigation";
-import { Menu, X, ArrowRight, Globe, ChevronDown, BookOpen, FlaskConical, Newspaper, BookText, Radio } from "lucide-react";
+import {
+  Menu,
+  X,
+  ArrowRight,
+  Globe,
+  ChevronDown,
+  BookOpen,
+  FlaskConical,
+  Newspaper,
+  BookText,
+  Radio,
+  Sparkles,
+} from "lucide-react";
 
 const DROPDOWN_ICONS: Record<string, React.ElementType> = {
+  "/what-we-do": Sparkles,
   "/knowledge-hub": BookOpen,
   "/innovation-research": FlaskConical,
-  "/stories/digital-stories": Radio,
   "/blog": BookText,
+  "/stories/digital-stories": Radio,
   "/stories/news-updates": Newspaper,
 };
 
@@ -20,7 +33,10 @@ export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [mobileSubmenuOpen, setMobileSubmenuOpen] = useState<Record<string, boolean>>({});
+
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -42,11 +58,30 @@ export function Navbar() {
     return () => document.removeEventListener("mousedown", handleClick);
   }, []);
 
-  // Close dropdown on route change
+  // Close dropdown and mobile menu on route change
   useEffect(() => {
     setOpenDropdown(null);
     setMobileMenuOpen(false);
   }, [pathname]);
+
+  const handleMouseEnter = (key: string) => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    setOpenDropdown(key);
+  };
+
+  const handleMouseLeave = () => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    timeoutRef.current = setTimeout(() => {
+      setOpenDropdown(null);
+    }, 180);
+  };
+
+  const toggleMobileSubmenu = (key: string) => {
+    setMobileSubmenuOpen((prev) => ({
+      ...prev,
+      [key]: !prev[key],
+    }));
+  };
 
   return (
     <header
@@ -76,11 +111,16 @@ export function Navbar() {
               if (item.children && item.children.length > 0) {
                 const isOpen = openDropdown === item.href;
                 return (
-                  <div key={item.href} className="relative">
+                  <div
+                    key={item.href}
+                    className="relative"
+                    onMouseEnter={() => handleMouseEnter(item.href)}
+                    onMouseLeave={handleMouseLeave}
+                  >
                     <button
                       type="button"
                       onClick={() => setOpenDropdown(isOpen ? null : item.href)}
-                      className={`flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                      className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm font-medium transition-all ${
                         isActive
                           ? "text-red-600 bg-red-50 dark:bg-red-950/40 dark:text-red-400 font-semibold"
                           : "text-slate-700 hover:text-red-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:text-white dark:hover:bg-slate-800/60"
@@ -88,84 +128,63 @@ export function Navbar() {
                       aria-expanded={isOpen}
                       aria-haspopup="true"
                     >
-                      <Link
-                        href={item.href}
-                        onClick={(e) => e.stopPropagation()}
-                        className="hover:no-underline"
-                      >
-                        {item.title}
-                      </Link>
+                      <span>{item.title}</span>
                       <ChevronDown
                         className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                          isOpen ? "rotate-180" : ""
+                          isOpen ? "rotate-180 text-red-600 dark:text-red-400" : "text-slate-400"
                         }`}
                       />
                     </button>
 
                     {/* Dropdown panel */}
                     {isOpen && (
-                      <div className="absolute left-0 top-full mt-2 w-72 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-xl overflow-hidden animate-in fade-in slide-in-from-top-2 duration-150">
-                        <div className="p-2 space-y-1">
-                          {/* Parent link */}
-                          <Link
-                            href={item.href}
-                            className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
-                          >
-                            All {item.title} →
-                          </Link>
-                          <div className="h-px bg-slate-100 dark:bg-slate-800 mx-2" />
-                          {item.children.map((child) => {
-                            const ChildIcon = DROPDOWN_ICONS[child.href];
-                            const isChildActive =
-                              pathname === child.href ||
-                              (child.href !== "/" && pathname.startsWith(child.href));
-                            return (
-                              <Link
-                                key={child.href}
-                                href={child.href}
-                                className={`flex items-start gap-3 px-3 py-3 rounded-xl transition-colors group ${
-                                  isChildActive
-                                    ? "bg-red-50 dark:bg-red-950/40"
-                                    : "hover:bg-slate-50 dark:hover:bg-slate-800"
-                                }`}
-                              >
-                                {ChildIcon && (
-                                  <div
-                                    className={`p-2 rounded-lg shrink-0 mt-0.5 transition-colors ${
-                                      isChildActive
-                                        ? "bg-red-100 dark:bg-red-900/50"
-                                        : "bg-slate-100 dark:bg-slate-800 group-hover:bg-red-50 dark:group-hover:bg-red-950/40"
-                                    }`}
-                                  >
-                                    <ChildIcon
-                                      className={`w-4 h-4 ${
-                                        isChildActive
-                                          ? "text-red-600 dark:text-red-400"
-                                          : "text-slate-500 dark:text-slate-400 group-hover:text-red-600 dark:group-hover:text-red-400"
-                                      }`}
-                                    />
-                                  </div>
-                                )}
-                                <div className="min-w-0">
-                                  <p
-                                    className={`text-sm font-semibold leading-tight ${
-                                      isChildActive
-                                        ? "text-red-600 dark:text-red-400"
-                                        : "text-slate-800 dark:text-slate-200 group-hover:text-red-600 dark:group-hover:text-red-400"
-                                    }`}
-                                  >
-                                    {child.title}
-                                  </p>
-                                  {child.description && (
-                                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 leading-snug">
-                                      {child.description}
-                                    </p>
-                                  )}
+                      <div className="absolute left-0 top-full mt-2 w-80 bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl shadow-xl overflow-hidden animate-in fade-in slide-in-from-top-2 duration-150 p-2 space-y-1">
+                        {item.children.map((child) => {
+                          const ChildIcon = DROPDOWN_ICONS[child.href];
+                          const isChildActive =
+                            pathname === child.href ||
+                            (child.href !== "/" && pathname.startsWith(child.href));
+                          return (
+                            <Link
+                              key={child.title + child.href}
+                              href={child.href}
+                              onClick={() => setOpenDropdown(null)}
+                              className={`flex items-start gap-3 px-3.5 py-3 rounded-xl transition-colors group ${
+                                isChildActive
+                                  ? "bg-red-50 dark:bg-red-950/40"
+                                  : "hover:bg-slate-100/80 dark:hover:bg-slate-800/60"
+                              }`}
+                            >
+                              {ChildIcon && (
+                                <div
+                                  className={`p-2 rounded-lg shrink-0 mt-0.5 transition-colors ${
+                                    isChildActive
+                                      ? "bg-red-100 dark:bg-red-900/50 text-red-600 dark:text-red-400"
+                                      : "bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 group-hover:bg-red-50 dark:group-hover:bg-red-950/40 group-hover:text-red-600 dark:group-hover:text-red-400"
+                                  }`}
+                                >
+                                  <ChildIcon className="w-4 h-4" />
                                 </div>
-                              </Link>
-                            );
-                          })}
-                        </div>
+                              )}
+                              <div className="min-w-0">
+                                <p
+                                  className={`text-sm font-semibold leading-tight ${
+                                    isChildActive
+                                      ? "text-red-600 dark:text-red-400"
+                                      : "text-slate-800 dark:text-slate-200 group-hover:text-red-600 dark:group-hover:text-red-400"
+                                  }`}
+                                >
+                                  {child.title}
+                                </p>
+                                {child.description && (
+                                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 leading-snug">
+                                    {child.description}
+                                  </p>
+                                )}
+                              </div>
+                            </Link>
+                          );
+                        })}
                       </div>
                     )}
                   </div>
@@ -176,7 +195,7 @@ export function Navbar() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  className={`px-3.5 py-2 rounded-lg text-sm font-medium transition-colors ${
                     isActive
                       ? "text-red-600 bg-red-50 dark:bg-red-950/40 dark:text-red-400 font-semibold"
                       : "text-slate-700 hover:text-red-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:text-white dark:hover:bg-slate-800/60"
@@ -194,11 +213,7 @@ export function Navbar() {
 
             <Link
               href="/portfolio"
-              className={`hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs md:text-sm font-semibold shadow-sm transition-all hover:shadow hover:-translate-y-0.5 ${
-                isScrolled
-                  ? "text-white bg-red-600 hover:bg-red-700 active:bg-red-800"
-                  : "text-white bg-red-600 hover:bg-red-700 active:bg-red-800"
-              }`}
+              className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs md:text-sm font-semibold text-white bg-red-600 hover:bg-red-700 active:bg-red-800 shadow-sm transition-all hover:shadow hover:-translate-y-0.5"
             >
               <span>Explore Our Work</span>
               <ArrowRight className="w-4 h-4" />
@@ -232,6 +247,64 @@ export function Navbar() {
                     (child.href !== "/" && pathname.startsWith(child.href))
                 );
 
+              const hasChildren = item.children && item.children.length > 0;
+              const isMobileSubOpen = !!mobileSubmenuOpen[item.href] || isActive;
+
+              if (hasChildren) {
+                return (
+                  <div key={item.href} className="border-b border-slate-100 dark:border-slate-800/60 pb-1">
+                    <button
+                      type="button"
+                      onClick={() => toggleMobileSubmenu(item.href)}
+                      className={`w-full px-4 py-3 rounded-lg text-base font-medium transition-colors flex items-center justify-between ${
+                        isActive
+                          ? "text-red-600 bg-red-50 dark:bg-red-950/40 dark:text-red-400 font-bold"
+                          : "text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"
+                      }`}
+                    >
+                      <div className="flex items-center gap-2">
+                        <span>{item.title}</span>
+                        <span className="text-xs px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 font-normal">
+                          {item.children?.length} options
+                        </span>
+                      </div>
+                      <ChevronDown
+                        className={`w-4 h-4 transition-transform duration-200 ${
+                          isMobileSubOpen ? "rotate-180 text-red-600 dark:text-red-400" : "text-slate-400"
+                        }`}
+                      />
+                    </button>
+
+                    {/* Mobile sub-items */}
+                    {isMobileSubOpen && item.children && (
+                      <div className="ml-4 mt-1 mb-2 pl-3 border-l-2 border-red-500/30 dark:border-red-500/20 space-y-1">
+                        {item.children.map((child) => {
+                          const ChildIcon = DROPDOWN_ICONS[child.href];
+                          const isChildActive =
+                            pathname === child.href ||
+                            (child.href !== "/" && pathname.startsWith(child.href));
+                          return (
+                            <Link
+                              key={child.title + child.href}
+                              href={child.href}
+                              onClick={() => setMobileMenuOpen(false)}
+                              className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+                                isChildActive
+                                  ? "text-red-600 bg-red-50 dark:bg-red-950/40 dark:text-red-400 font-semibold"
+                                  : "text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
+                              }`}
+                            >
+                              {ChildIcon && <ChildIcon className="w-4 h-4 shrink-0 text-slate-500 dark:text-slate-400" />}
+                              <span>{child.title}</span>
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+                );
+              }
+
               return (
                 <div key={item.href}>
                   <Link
@@ -246,33 +319,6 @@ export function Navbar() {
                     <span>{item.title}</span>
                     {isActive && <span className="w-1.5 h-1.5 rounded-full bg-red-600" />}
                   </Link>
-
-                  {/* Mobile sub-items */}
-                  {item.children && item.children.length > 0 && (
-                    <div className="ml-4 mt-1 mb-2 pl-4 border-l-2 border-slate-200 dark:border-slate-700 space-y-1">
-                      {item.children.map((child) => {
-                        const ChildIcon = DROPDOWN_ICONS[child.href];
-                        const isChildActive =
-                          pathname === child.href ||
-                          (child.href !== "/" && pathname.startsWith(child.href));
-                        return (
-                          <Link
-                            key={child.href}
-                            href={child.href}
-                            onClick={() => setMobileMenuOpen(false)}
-                            className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
-                              isChildActive
-                                ? "text-red-600 bg-red-50 dark:bg-red-950/40 dark:text-red-400 font-semibold"
-                                : "text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
-                            }`}
-                          >
-                            {ChildIcon && <ChildIcon className="w-4 h-4 shrink-0" />}
-                            <span>{child.title}</span>
-                          </Link>
-                        );
-                      })}
-                    </div>
-                  )}
                 </div>
               );
             })}
@@ -307,3 +353,4 @@ export function Navbar() {
     </header>
   );
 }
+
