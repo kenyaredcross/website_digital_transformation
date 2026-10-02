@@ -57,7 +57,8 @@ export function PartnersPreview({ partners = [] }: PartnersPreviewProps) {
 function PartnerCard({ partner }: { partner: Partner }) {
   const [showDetails, setShowDetails] = useState(false);
 
-  const handleCardClick = () => {
+  const handleCardClick = (e: React.MouseEvent) => {
+    // If not showing details yet, show them
     if (!showDetails) {
       setShowDetails(true);
     } else if (partner.website) {
@@ -70,7 +71,7 @@ function PartnerCard({ partner }: { partner: Partner }) {
       onMouseEnter={() => setShowDetails(true)}
       onMouseLeave={() => setShowDetails(false)}
       onClick={handleCardClick}
-      className={`group relative rounded-xl transition-all duration-300 cursor-pointer min-h-[260px] flex flex-col justify-between overflow-hidden border ${
+      className={`group relative rounded-xl transition-all duration-300 cursor-pointer min-h-[240px] sm:min-h-[260px] flex flex-col justify-between overflow-hidden border ${
         showDetails
           ? "bg-white dark:bg-slate-900 border-red-500 shadow-xl ring-2 ring-red-500/20"
           : "bg-slate-50 dark:bg-slate-900/80 border-slate-200 dark:border-slate-800 hover:border-red-500/50 hover:shadow-md"

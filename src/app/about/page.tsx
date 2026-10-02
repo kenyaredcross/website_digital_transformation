@@ -1,16 +1,12 @@
+"use client";
+
 import Image from "next/image";
 import { aboutData } from "@/data/about";
 import { AboutGallery } from "@/components/about/AboutGallery";
 import { JourneyTimeline } from "@/components/about/JourneyTimeline";
 import { StrategicPriorities } from "@/components/about/StrategicPriorities";
-import { Search, PenTool, FlaskConical, BookOpen, RefreshCw, Rocket, Target, Compass, Sparkles, Eye } from "lucide-react";
-import type { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "About Us | Kenya Red Cross Digital Transformation",
-  description:
-    "Learn about our mission, vision, values, 6-step digital transformation approach, and journey.",
-};
+import { Search, PenTool, FlaskConical, BookOpen, RefreshCw, Rocket, Target, Compass, Sparkles } from "lucide-react";
+import { motion } from "framer-motion";
 
 const iconMap = {
   Search,
@@ -23,9 +19,9 @@ const iconMap = {
 
 export default function AboutPage() {
   return (
-    <div className="pt-25 pb-20 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white min-h-screen transition-colors duration-300">
+    <div className="pt-16 sm:pt-24 pb-12 sm:pb-20 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white min-h-screen transition-colors duration-300">
       {/* ── Hero Section ──────────────────────────────────── */}
-      <section className="relative py-15 md:py-15 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 overflow-hidden transition-colors duration-300">
+      <section className="relative py-10 sm:py-16 md:py-20 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 overflow-hidden transition-colors duration-300">
 
         {/* Dark mode only: full-bleed background image + gradient overlays */}
         <div className="absolute inset-0 z-0 hidden dark:block">
@@ -53,28 +49,33 @@ export default function AboutPage() {
           style={{ background: "radial-gradient(circle, rgba(59,130,246,0.1) 0%, transparent 70%)" }}
         />
 
-        {/* Two-column layout: text left, image right (light) / text only (dark) */}
+        {/* Two-column layout: text left, image right */}
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row lg:items-center gap-12 lg:gap-16">
+          <div className="flex flex-col lg:flex-row lg:items-center gap-8 lg:gap-16">
 
             {/* ── Left: Text content ── */}
-            <div className="flex-1 space-y-7">
-             
-
-              {/* Headline */}
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-slate-900 dark:text-white tracking-tight leading-[1.05]">
-                {aboutData.heroHeading}
+            <div className="flex-1 space-y-4 sm:space-y-7">
+              {/* Headline with red "purpose" */}
+              <h1 className="text-3.5xl sm:text-5xl lg:text-7xl font-black text-slate-900 dark:text-white tracking-tight leading-[1.1]">
+                Technology with{" "}
+                <span className="relative inline-block text-red-600 dark:text-red-500">
+                  purpose.
+                  <span
+                    aria-hidden
+                    className="absolute -bottom-1 left-0 right-0 h-3 rounded-full opacity-25 bg-red-400 dark:bg-red-600 blur-sm"
+                  />
+                </span>
               </h1>
 
               {/* Sub-copy */}
-              <p className="text-xl text-slate-600 dark:text-slate-300 leading-relaxed">
+              <p className="text-base sm:text-xl text-slate-600 dark:text-slate-300 leading-relaxed">
                 {aboutData.heroSubheading}
               </p>
             </div>
 
-            {/* ── Right: Image square — light mode only, zero gradient overlay ── */}
+            {/* ── Right: Image square — light mode only ── */}
             <div className="block dark:hidden lg:flex-shrink-0 lg:w-[420px] xl:w-[480px] w-full">
-              <div className="relative w-full aspect-square rounded-3xl overflow-hidden shadow-2xl ring-1 ring-slate-200">
+              <div className="relative w-full aspect-[4/3] sm:aspect-square rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl ring-1 ring-slate-200">
                 <Image
                   src="/assets/images/distro/lake4.jpg"
                   alt="Humanitarian Technology & Field Operations"
@@ -90,72 +91,111 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── 2-Column Mission & Vision Section ──────────────────────────────────── */}
-      <section className="py-20 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 items-stretch">
-            {/* Left Column: Our Mission */}
-            <div className="p-8 sm:p-10 rounded-3xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 border-t-4 border-t-red-600 dark:border-t-red-500 shadow-lg flex flex-col justify-between space-y-6">
-              <div className="space-y-4">
-                <div className="flex items-center gap-2">
-                  <span className="p-2 rounded-xl bg-red-100 dark:bg-red-950/80 text-red-600 dark:text-red-400">
-                    <Target className="w-5 h-5" />
+      {/* ── 2-Row Stacked Mission & Vision Section ──────────────────────────────────── */}
+      <section className="py-14 sm:py-24 bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 relative overflow-hidden transition-colors duration-300">
+        
+        {/* Subtle Ambient Background Lighting */}
+        <div className="absolute top-1/3 left-0 w-96 h-96 bg-red-600/5 rounded-full blur-[140px] pointer-events-none" />
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-600/5 rounded-full blur-[140px] pointer-events-none" />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-8 sm:space-y-12">
+          
+          {/* Section Heading */}
+          <div className="text-center max-w-3xl mx-auto space-y-2 sm:space-y-3">
+            <h2 className="text-3xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-tight">
+              Mission & Vision
+            </h2>
+            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400">
+              Transforming humanitarian relief through human-centered tech, data intelligence, and local innovation.
+            </p>
+          </div>
+
+          {/* Row 1: Our Mission */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="group relative rounded-3xl bg-slate-50 dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 p-6 sm:p-10 shadow-xl hover:shadow-red-500/10 transition-all duration-500 overflow-hidden"
+          >
+            {/* Red Gradient Accent Bar */}
+            <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-red-600 via-rose-500 to-amber-500" />
+            
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+              {/* Left Column: Number & Title Badge */}
+              <div className="lg:col-span-4 space-y-3">
+                <div className="flex items-center gap-3">
+                  <span className="flex items-center justify-center w-10 h-10 rounded-2xl bg-red-100 dark:bg-red-950/80 text-red-600 dark:text-red-400 font-mono font-black text-sm border border-red-200 dark:border-red-800">
+                    01
                   </span>
                   <span className="text-xs font-mono font-bold uppercase tracking-widest text-red-600 dark:text-red-400">
                     Our Mission
                   </span>
                 </div>
-
-                <h2 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
+                <h3 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
                   Technology with purpose for life-saving impact.
-                </h2>
-
-                <p className="text-base sm:text-lg text-slate-700 dark:text-slate-300 leading-relaxed pt-4 border-t border-slate-200/80 dark:border-slate-800/80">
-                  &quot;{aboutData.mission}&quot;
-                </p>
+                </h3>
               </div>
 
-              <div className="pt-4 flex items-center gap-2 text-xs font-mono text-slate-400 dark:text-slate-500">
+              {/* Right Column: Mission Quote & Feature Tags */}
+              <div className="lg:col-span-8 space-y-4 sm:space-y-5 lg:border-l lg:border-slate-200 lg:dark:border-slate-800/80 lg:pl-8">
+                <p className="text-base sm:text-xl font-medium text-slate-800 dark:text-slate-200 leading-relaxed italic border-l-4 border-red-500 pl-4">
+                  &quot;{aboutData.mission}&quot;
+                </p>
+
                 
               </div>
             </div>
+          </motion.div>
 
-            {/* Right Column: Our Vision */}
-            <div className="p-8 sm:p-10 rounded-3xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 border-t-4 border-t-blue-600 dark:border-t-blue-500 shadow-lg flex flex-col justify-between space-y-6">
-              <div className="space-y-4">
-                <div className="flex items-center gap-2">
-                  <span className="p-2 rounded-xl bg-blue-100 dark:bg-blue-950/80 text-blue-600 dark:text-blue-400">
-                    <Compass className="w-5 h-5" />
+          {/* Row 2: Our Vision */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.15 }}
+            className="group relative rounded-3xl bg-slate-50 dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 p-6 sm:p-10 shadow-xl hover:shadow-blue-500/10 transition-all duration-500 overflow-hidden"
+          >
+            {/* Blue Gradient Accent Bar */}
+            <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-blue-600 via-indigo-500 to-cyan-400" />
+            
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+              {/* Left Column: Number & Title Badge */}
+              <div className="lg:col-span-4 space-y-3">
+                <div className="flex items-center gap-3">
+                  <span className="flex items-center justify-center w-10 h-10 rounded-2xl bg-blue-100 dark:bg-blue-950/80 text-blue-600 dark:text-blue-400 font-mono font-black text-sm border border-blue-200 dark:border-blue-800">
+                    02
                   </span>
                   <span className="text-xs font-mono font-bold uppercase tracking-widest text-blue-600 dark:text-blue-400">
                     Our Vision
                   </span>
                 </div>
-
-                <h2 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
+                <h3 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
                   {aboutData.visionSubtitle || "A humanitarian organisation empowered by data and digital solutions"}
-                </h2>
+                </h3>
+              </div>
 
+              {/* Right Column: Vision Content & Feature Tags */}
+              <div className="lg:col-span-8 space-y-4 sm:space-y-5 lg:border-l lg:border-slate-200 lg:dark:border-slate-800/80 lg:pl-8">
                 {aboutData.visionParagraphs ? (
-                  <div className="space-y-4 pt-4 border-t border-slate-200/80 dark:border-slate-800/80">
+                  <div className="space-y-3">
                     {aboutData.visionParagraphs.map((p, idx) => (
-                      <p key={idx} className="text-base sm:text-lg text-slate-700 dark:text-slate-300 leading-relaxed">
+                      <p key={idx} className="text-sm sm:text-lg text-slate-700 dark:text-slate-300 leading-relaxed">
                         {p}
                       </p>
                     ))}
                   </div>
                 ) : (
-                  <p className="text-base sm:text-lg text-slate-700 dark:text-slate-300 leading-relaxed pt-4 border-t border-slate-200/80 dark:border-slate-800/80">
+                  <p className="text-sm sm:text-lg text-slate-700 dark:text-slate-300 leading-relaxed">
                     {aboutData.vision}
                   </p>
                 )}
-              </div>
 
-              <div className="pt-4 flex items-center gap-2 text-xs font-mono text-slate-400 dark:text-slate-500">
-                
+              
               </div>
             </div>
-          </div>
+          </motion.div>
+
         </div>
       </section>
 
@@ -163,29 +203,28 @@ export default function AboutPage() {
       <AboutGallery />
 
       {/* Values Section */}
-      <section className="py-24 bg-slate-50 dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800">
+      <section className="py-14 sm:py-24 bg-slate-50 dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
-            
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+          <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-16 space-y-2 sm:space-y-3">
+            <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
               Our Core Values
             </h2>
-            <p className="text-slate-600 dark:text-slate-400 text-base">
+            <p className="text-slate-600 dark:text-slate-400 text-sm sm:text-base">
               The ethical and operational foundation guiding our software development and data governance.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8">
             {aboutData.values.map((val) => (
               <div
                 key={val.number}
-                className="p-8 rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 hover:border-red-500/40 transition-all duration-300 space-y-4 shadow-sm"
+                className="p-5 sm:p-8 rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 hover:border-red-500/40 transition-all duration-300 space-y-3 sm:space-y-4 shadow-sm"
               >
-                <span className="text-3xl font-black font-mono text-red-600 dark:text-red-500">
+                <span className="text-2xl sm:text-3xl font-black font-mono text-red-600 dark:text-red-500">
                   {val.number}
                 </span>
-                <h3 className="text-xl font-bold text-slate-900 dark:text-white">{val.title}</h3>
-                <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">{val.title}</h3>
+                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
                   {val.description}
                 </p>
               </div>
@@ -197,37 +236,36 @@ export default function AboutPage() {
       <StrategicPriorities />
 
       {/* 6-Step Visual Approach */}
-      <section className="py-24 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+      <section className="py-14 sm:py-24 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
-           
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+          <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-16 space-y-2 sm:space-y-3">
+            <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
               Our Digital Transformation Approach
             </h2>
-            <p className="text-slate-600 dark:text-slate-400 text-base sm:text-lg">
+            <p className="text-slate-600 dark:text-slate-400 text-sm sm:text-lg">
               We follow a people-centred approach to digital transformation.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 sm:gap-6">
             {aboutData.approach.map((step) => {
               const Icon = iconMap[step.iconName as keyof typeof iconMap] || Search;
 
               return (
                 <div
                   key={step.step}
-                  className="relative p-6 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 flex flex-col justify-between shadow-sm"
+                  className="relative p-5 sm:p-6 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 flex flex-col justify-between shadow-sm"
                 >
                   <div>
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="text-2xl font-black font-mono text-red-600 dark:text-red-500">
+                    <div className="flex items-center justify-between mb-3 sm:mb-4">
+                      <span className="text-xl sm:text-2xl font-black font-mono text-red-600 dark:text-red-500">
                         0{step.step}
                       </span>
-                      <div className="p-2.5 rounded-lg bg-red-100 dark:bg-red-950/60 border border-red-200 dark:border-red-800/50 text-red-600 dark:text-red-400">
-                        <Icon className="w-5 h-5" />
+                      <div className="p-2 sm:p-2.5 rounded-lg bg-red-100 dark:bg-red-950/60 border border-red-200 dark:border-red-800/50 text-red-600 dark:text-red-400">
+                        <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
                       </div>
                     </div>
-                    <h3 className="text-base font-bold text-slate-900 dark:text-white mb-2">
+                    <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white mb-1.5 sm:mb-2">
                       {step.title}
                     </h3>
                     <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">

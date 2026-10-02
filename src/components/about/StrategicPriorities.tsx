@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   BookOpen,
   Handshake,
@@ -9,6 +9,10 @@ import {
   ShieldCheck,
   Users,
   Wrench,
+  ChevronRight,
+  CheckCircle2,
+  X,
+  Sparkles,
   type LucideIcon,
 } from "lucide-react";
 
@@ -19,7 +23,7 @@ interface StrategicPriority {
   details: string;
   areas: string[];
   icon: LucideIcon;
-  accent: string;
+  accent: "red" | "blue" | "emerald" | "amber" | "violet" | "cyan";
 }
 
 const strategicPriorities: StrategicPriority[] = [
@@ -85,119 +89,336 @@ const strategicPriorities: StrategicPriority[] = [
   },
 ];
 
-const accentStyles: Record<string, { icon: string; number: string; border: string }> = {
+const accentStyles: Record<
+  StrategicPriority["accent"],
+  {
+    bgActive: string;
+    borderActive: string;
+    badge: string;
+    iconActive: string;
+    iconInactive: string;
+    textActive: string;
+    accentBar: string;
+    bulletBg: string;
+  }
+> = {
   red: {
-    icon: "bg-red-100 text-red-600 dark:bg-red-950/60 dark:text-red-400",
-    number: "text-red-600 dark:text-red-400",
-    border: "hover:border-red-400 dark:hover:border-red-500/70",
+    bgActive: "bg-red-600 dark:bg-red-600 text-white border-red-700 shadow-xl shadow-red-900/30",
+    borderActive: "border-red-500 dark:border-red-500",
+    badge: "bg-red-700 text-red-100",
+    iconActive: "bg-red-500 text-white",
+    iconInactive: "bg-red-100 text-red-600 dark:bg-red-950/60 dark:text-red-400",
+    textActive: "text-red-600 dark:text-red-400",
+    accentBar: "from-red-500 to-rose-600",
+    bulletBg: "bg-red-500",
   },
   blue: {
-    icon: "bg-blue-100 text-blue-600 dark:bg-blue-950/60 dark:text-blue-400",
-    number: "text-blue-600 dark:text-blue-400",
-    border: "hover:border-blue-400 dark:hover:border-blue-500/70",
+    bgActive: "bg-blue-600 dark:bg-blue-600 text-white border-blue-700 shadow-xl shadow-blue-900/30",
+    borderActive: "border-blue-500 dark:border-blue-500",
+    badge: "bg-blue-700 text-blue-100",
+    iconActive: "bg-blue-500 text-white",
+    iconInactive: "bg-blue-100 text-blue-600 dark:bg-blue-950/60 dark:text-blue-400",
+    textActive: "text-blue-600 dark:text-blue-400",
+    accentBar: "from-blue-500 to-indigo-600",
+    bulletBg: "bg-blue-500",
   },
   emerald: {
-    icon: "bg-emerald-100 text-emerald-600 dark:bg-emerald-950/60 dark:text-emerald-400",
-    number: "text-emerald-600 dark:text-emerald-400",
-    border: "hover:border-emerald-400 dark:hover:border-emerald-500/70",
+    bgActive: "bg-emerald-600 dark:bg-emerald-600 text-white border-emerald-700 shadow-xl shadow-emerald-900/30",
+    borderActive: "border-emerald-500 dark:border-emerald-500",
+    badge: "bg-emerald-700 text-emerald-100",
+    iconActive: "bg-emerald-500 text-white",
+    iconInactive: "bg-emerald-100 text-emerald-600 dark:bg-emerald-950/60 dark:text-emerald-400",
+    textActive: "text-emerald-600 dark:text-emerald-400",
+    accentBar: "from-emerald-500 to-teal-600",
+    bulletBg: "bg-emerald-500",
   },
   amber: {
-    icon: "bg-amber-100 text-amber-700 dark:bg-amber-950/60 dark:text-amber-400",
-    number: "text-amber-700 dark:text-amber-400",
-    border: "hover:border-amber-400 dark:hover:border-amber-500/70",
+    bgActive: "bg-amber-600 dark:bg-amber-600 text-white border-amber-700 shadow-xl shadow-amber-900/30",
+    borderActive: "border-amber-500 dark:border-amber-500",
+    badge: "bg-amber-700 text-amber-100",
+    iconActive: "bg-amber-500 text-white",
+    iconInactive: "bg-amber-100 text-amber-700 dark:bg-amber-950/60 dark:text-amber-400",
+    textActive: "text-amber-600 dark:text-amber-400",
+    accentBar: "from-amber-500 to-orange-600",
+    bulletBg: "bg-amber-500",
   },
   violet: {
-    icon: "bg-violet-100 text-violet-600 dark:bg-violet-950/60 dark:text-violet-400",
-    number: "text-violet-600 dark:text-violet-400",
-    border: "hover:border-violet-400 dark:hover:border-violet-500/70",
+    bgActive: "bg-violet-600 dark:bg-violet-600 text-white border-violet-700 shadow-xl shadow-violet-900/30",
+    borderActive: "border-violet-500 dark:border-violet-500",
+    badge: "bg-violet-700 text-violet-100",
+    iconActive: "bg-violet-500 text-white",
+    iconInactive: "bg-violet-100 text-violet-600 dark:bg-violet-950/60 dark:text-violet-400",
+    textActive: "text-violet-600 dark:text-violet-400",
+    accentBar: "from-violet-500 to-purple-600",
+    bulletBg: "bg-violet-500",
   },
   cyan: {
-    icon: "bg-cyan-100 text-cyan-700 dark:bg-cyan-950/60 dark:text-cyan-400",
-    number: "text-cyan-700 dark:text-cyan-400",
-    border: "hover:border-cyan-400 dark:hover:border-cyan-500/70",
+    bgActive: "bg-cyan-600 dark:bg-cyan-600 text-white border-cyan-700 shadow-xl shadow-cyan-900/30",
+    borderActive: "border-cyan-500 dark:border-cyan-500",
+    badge: "bg-cyan-700 text-cyan-100",
+    iconActive: "bg-cyan-500 text-white",
+    iconInactive: "bg-cyan-100 text-cyan-700 dark:bg-cyan-950/60 dark:text-cyan-400",
+    textActive: "text-cyan-600 dark:text-cyan-400",
+    accentBar: "from-cyan-500 to-teal-600",
+    bulletBg: "bg-cyan-500",
   },
 };
 
-function PriorityCard({ priority }: { priority: StrategicPriority }) {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const Icon = priority.icon;
-  const styles = accentStyles[priority.accent];
-
-  return (
-    <motion.article
-      onMouseEnter={() => setIsExpanded(true)}
-      onMouseLeave={() => setIsExpanded(false)}
-      onFocus={() => setIsExpanded(true)}
-      onBlur={(event) => {
-        if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
-          setIsExpanded(false);
-        }
-      }}
-      whileHover={{ y: -4 }}
-      transition={{ duration: 0.2 }}
-      className={`group relative min-h-[360px] overflow-hidden rounded-2xl border bg-white p-7 shadow-sm transition-colors duration-300 dark:bg-slate-900 ${styles.border} ${isExpanded ? "shadow-lg dark:shadow-black/20" : "border-slate-200 dark:border-slate-800"}`}
-    >
-      <div className="flex h-full flex-col">
-        <div className="flex items-start justify-between gap-4">
-          <span className={`font-mono text-3xl font-black ${styles.number}`}>{priority.number}</span>
-          <div className={`rounded-xl p-3 ${styles.icon}`}>
-            <Icon className="h-5 w-5" />
-          </div>
-        </div>
-
-        <h3 className="mt-7 text-xl font-bold leading-tight text-slate-900 dark:text-white">{priority.title}</h3>
-        <p className="mt-3 text-sm font-medium leading-relaxed text-slate-600 dark:text-slate-300">{priority.summary}</p>
-
-        <AnimatePresence initial={false}>
-          {isExpanded && (
-            <motion.div
-              initial={{ opacity: 0, height: 0, y: 8 }}
-              animate={{ opacity: 1, height: "auto", y: 0 }}
-              exit={{ opacity: 0, height: 0, y: 8 }}
-              transition={{ duration: 0.2 }}
-              className="overflow-hidden"
-            >
-              <p className="mt-5 border-t border-slate-200 pt-5 text-sm leading-relaxed text-slate-600 dark:border-slate-800 dark:text-slate-400">
-                {priority.details}
-              </p>
-              <ul className="mt-4 grid grid-cols-1 gap-2 text-xs text-slate-600 dark:text-slate-400">
-                {priority.areas.map((area) => (
-                  <li key={area} className="flex items-start gap-2">
-                    <span className={`mt-1 h-1.5 w-1.5 shrink-0 rounded-full ${styles.number.replace("text-", "bg-")}`} />
-                    <span>{area}</span>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        <span className="mt-auto pt-6 text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500">
-          {isExpanded ? "Move away to collapse" : "Hover to explore"}
-        </span>
-      </div>
-    </motion.article>
-  );
-}
-
 export function StrategicPriorities() {
+  const [activeNumber, setActiveNumber] = useState<string>(strategicPriorities[0].number);
+
+  const activePriority =
+    strategicPriorities.find((p) => p.number === activeNumber) ?? strategicPriorities[0];
+
+  const handleSelect = (num: string) => {
+    setActiveNumber((prev) => (prev === num ? num : num));
+  };
+
+  const handleMobileToggle = (num: string) => {
+    setActiveNumber((prev) => (prev === num ? "" : num));
+  };
+
   return (
-    <section id="strategic-priorities" className="border-b border-slate-200 bg-white py-24 dark:border-slate-800 dark:bg-slate-900">
+    <section id="strategic-priorities" className="border-b border-slate-200 bg-white py-14 sm:py-24 dark:border-slate-800 dark:bg-slate-900 transition-colors duration-300">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto mb-16 max-w-3xl space-y-3 text-center">
-          
-          <h2 className="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-4xl">Our Strategic Priorities</h2>
-          <p className="text-base leading-relaxed text-slate-600 dark:text-slate-400">
-            Six strategic areas guide how Kenya Red Cross uses data and digital transformation to strengthen humanitarian action and serve communities.
+        
+        {/* Section Header */}
+        <div className="mx-auto mb-10 sm:mb-16 max-w-3xl space-y-3 text-center">
+          <p className="text-xs sm:text-sm font-bold uppercase tracking-widest text-red-600 dark:text-red-400">
+            Strategic Pillars
+          </p>
+          <h2 className="text-3xl font-black tracking-tight text-slate-900 dark:text-white sm:text-4xl lg:text-5xl">
+            Our Strategic Priorities
+          </h2>
+          <p className="text-sm sm:text-base leading-relaxed text-slate-600 dark:text-slate-400">
+            Click on any priority to explore how Kenya Red Cross uses data and digital solutions to strengthen humanitarian action.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {strategicPriorities.map((priority) => (
-            <PriorityCard key={priority.number} priority={priority} />
-          ))}
+        {/* ── MOBILE LAYOUT (< lg): Accordion style (opens directly below clicked title) ── */}
+        <div className="block lg:hidden space-y-3">
+          {strategicPriorities.map((priority) => {
+            const Icon = priority.icon;
+            const isActive = activeNumber === priority.number;
+            const style = accentStyles[priority.accent];
+
+            return (
+              <div key={priority.number} className="flex flex-col gap-3">
+                {/* Minimized Title Button */}
+                <button
+                  type="button"
+                  onClick={() => handleMobileToggle(priority.number)}
+                  className={`w-full flex items-center justify-between p-4 rounded-2xl border text-left transition-all duration-300 cursor-pointer ${
+                    isActive
+                      ? style.bgActive
+                      : "bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white hover:border-slate-400"
+                  }`}
+                >
+                  <div className="flex items-center gap-3">
+                    <span
+                      className={`text-xs font-mono font-black px-2.5 py-0.5 rounded-full ${
+                        isActive
+                          ? style.badge
+                          : "bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300"
+                      }`}
+                    >
+                      {priority.number}
+                    </span>
+                    <div
+                      className={`p-2 rounded-xl transition-colors ${
+                        isActive ? style.iconActive : style.iconInactive
+                      }`}
+                    >
+                      <Icon className="w-4 h-4" />
+                    </div>
+                    <span className="text-sm font-bold leading-snug">{priority.title}</span>
+                  </div>
+
+                  <ChevronRight
+                    className={`w-4 h-4 shrink-0 transition-transform duration-300 ${
+                      isActive ? "rotate-90 text-white" : "text-slate-400"
+                    }`}
+                  />
+                </button>
+
+                {/* Mobile Expanded Details — Opens right below the title */}
+                {isActive && (
+                  <div className="mb-2">
+                    <PriorityDetailCard
+                      priority={priority}
+                      onClose={() => setActiveNumber("")}
+                    />
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
+
+        {/* ── DESKTOP LAYOUT (>= lg): 2 Columns ──
+            Left Column: Extra-minimized title cards
+            Right Column: Active priority details panel
+        */}
+        <div className="hidden lg:grid lg:grid-cols-12 gap-8 items-start">
+
+          {/* Left Column (5 cols): Minimized Title Cards */}
+          <div className="lg:col-span-5 grid grid-cols-1 gap-3">
+            {strategicPriorities.map((priority) => {
+              const Icon = priority.icon;
+              const isActive = activeNumber === priority.number;
+              const style = accentStyles[priority.accent];
+
+              return (
+                <button
+                  key={priority.number}
+                  type="button"
+                  onClick={() => handleSelect(priority.number)}
+                  className={`group relative flex items-center justify-between p-4 rounded-2xl border text-left transition-all duration-300 cursor-pointer ${
+                    isActive
+                      ? `${style.bgActive} scale-[1.01]`
+                      : "bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-800 hover:border-slate-400 dark:hover:border-slate-700 shadow-sm text-slate-900 dark:text-white"
+                  }`}
+                >
+                  <div className="flex items-center gap-3.5">
+                    {/* Number Badge */}
+                    <span
+                      className={`text-xs font-mono font-black px-2.5 py-0.5 rounded-full ${
+                        isActive
+                          ? style.badge
+                          : "bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300"
+                      }`}
+                    >
+                      {priority.number}
+                    </span>
+
+                    {/* Icon */}
+                    <div
+                      className={`p-2.5 rounded-xl transition-colors ${
+                        isActive ? style.iconActive : style.iconInactive
+                      }`}
+                    >
+                      <Icon className="w-4 h-4" />
+                    </div>
+
+                    {/* Title */}
+                    <div>
+                      <p className="text-sm font-bold leading-snug">{priority.title}</p>
+                      <p
+                        className={`text-xs mt-0.5 line-clamp-1 ${
+                          isActive ? "text-slate-100" : "text-slate-500 dark:text-slate-400"
+                        }`}
+                      >
+                        {priority.summary}
+                      </p>
+                    </div>
+                  </div>
+
+                  <ChevronRight
+                    className={`w-4 h-4 shrink-0 transition-transform duration-300 ${
+                      isActive ? "translate-x-1 text-white" : "text-slate-400 dark:text-slate-500 group-hover:text-slate-700 dark:group-hover:text-slate-300"
+                    }`}
+                  />
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Right Column (7 cols): Active Priority Detailed Card */}
+          <div className="lg:col-span-7 sticky top-28">
+            {activePriority ? (
+              <PriorityDetailCard priority={activePriority} onClose={() => setActiveNumber("")} />
+            ) : (
+              <div className="rounded-3xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 p-12 text-center text-slate-400">
+                Select a strategic priority from the left to view detailed information.
+              </div>
+            )}
+          </div>
+
+        </div>
+
       </div>
     </section>
+  );
+}
+
+{/* ── Detailed Priority Card Component ── */}
+function PriorityDetailCard({
+  priority,
+  onClose,
+}: {
+  priority: StrategicPriority;
+  onClose: () => void;
+}) {
+  const Icon = priority.icon;
+  const style = accentStyles[priority.accent];
+
+  return (
+    <div className="relative rounded-2xl sm:rounded-3xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 shadow-2xl overflow-hidden transition-all duration-300">
+      
+      {/* Top Gradient Accent Bar */}
+      <div className={`h-1.5 w-full bg-gradient-to-r ${style.accentBar}`} />
+
+      <div className="p-6 sm:p-8 lg:p-10 space-y-6">
+
+        {/* Top Header */}
+        <div className="flex items-start justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <span className={`text-2xl sm:text-3xl font-black font-mono ${style.textActive}`}>
+              {priority.number}
+            </span>
+            <div className={`rounded-2xl p-3 ${style.iconInactive}`}>
+              <Icon className="w-6 h-6" />
+            </div>
+            <div>
+              <span className="text-[10px] font-mono uppercase font-bold tracking-widest text-slate-400">
+                Priority Area
+              </span>
+              <h3 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white leading-tight">
+                {priority.title}
+              </h3>
+            </div>
+          </div>
+
+          {/* Close / Collapse button */}
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Close detail"
+            className="p-2 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+
+        {/* Highlight Summary Statement */}
+        <p className={`text-base sm:text-lg font-bold italic leading-relaxed pl-4 border-l-4 ${style.textActive} border-slate-300 dark:border-slate-700`}>
+          &quot;{priority.summary}&quot;
+        </p>
+
+        {/* Detailed Explanation */}
+        <p className="text-sm sm:text-base text-slate-700 dark:text-slate-300 leading-relaxed">
+          {priority.details}
+        </p>
+
+        {/* Strategic Focus Areas */}
+        <div className="pt-4 border-t border-slate-100 dark:border-slate-800/80 space-y-3">
+          <h4 className="text-xs font-mono font-bold uppercase tracking-widest text-slate-400">
+            Key Strategic Focus Areas
+          </h4>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {priority.areas.map((area) => (
+              <div
+                key={area}
+                className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-200"
+              >
+                <CheckCircle2 className={`w-4 h-4 shrink-0 ${style.textActive}`} />
+                <span>{area}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+    </div>
   );
 }

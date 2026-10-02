@@ -35,20 +35,20 @@ export function TestimonialsSection({ testimonials = [] }: TestimonialsSectionPr
       </div>
 
       {/* Marquee Container with Gradient Edge Masks */}
-      <div className="relative w-full overflow-hidden space-y-5">
+      <div className="relative w-full overflow-hidden space-y-4 sm:space-y-5">
         {/* Left/Right Edge Blur Fades */}
-        <div className="absolute top-0 bottom-0 left-0 w-16 sm:w-32 bg-gradient-to-r from-slate-50 dark:from-slate-900 to-transparent z-20 pointer-events-none" />
-        <div className="absolute top-0 bottom-0 right-0 w-16 sm:w-32 bg-gradient-to-l from-slate-50 dark:from-slate-900 to-transparent z-20 pointer-events-none" />
+        <div className="absolute top-0 bottom-0 left-0 w-8 sm:w-32 bg-gradient-to-r from-slate-50 dark:from-slate-900 to-transparent z-20 pointer-events-none" />
+        <div className="absolute top-0 bottom-0 right-0 w-8 sm:w-32 bg-gradient-to-l from-slate-50 dark:from-slate-900 to-transparent z-20 pointer-events-none" />
 
         {/* Marquee Row 1 (Moving Left) */}
-        <div className="flex w-max space-x-5 animate-marquee hover:[animation-play-state:paused]">
+        <div className="flex w-max space-x-4 sm:space-x-5 animate-marquee hover:[animation-play-state:paused]">
           {marqueeRow1.map((item, idx) => (
             <TestimonialCard key={`${item.id}-r1-${idx}`} item={item} />
           ))}
         </div>
 
         {/* Marquee Row 2 (Moving Right) */}
-        <div className="flex w-max space-x-5 animate-marquee-reverse hover:[animation-play-state:paused]">
+        <div className="flex w-max space-x-4 sm:space-x-5 animate-marquee-reverse hover:[animation-play-state:paused]">
           {marqueeRow2.map((item, idx) => (
             <TestimonialCard key={`${item.id}-r2-${idx}`} item={item} />
           ))}
@@ -86,7 +86,7 @@ export function TestimonialsSection({ testimonials = [] }: TestimonialsSectionPr
 
 function TestimonialCard({ item }: { item: Testimonial }) {
   return (
-    <div className="w-[320px] sm:w-[380px] shrink-0 p-5 rounded-xl bg-white dark:bg-slate-950 border border-slate-200/90 dark:border-slate-800 shadow-sm hover:border-red-500/50 hover:shadow-md transition-all duration-300 flex flex-col justify-between select-none">
+    <div className="w-[270px] sm:w-[380px] shrink-0 p-4 sm:p-5 rounded-xl bg-white dark:bg-slate-950 border border-slate-200/90 dark:border-slate-800 shadow-sm hover:border-red-500/50 hover:shadow-md transition-all duration-300 flex flex-col justify-between select-none">
       <div>
         <div className="flex items-center justify-between mb-3">
           <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-red-50 dark:bg-red-950/60 text-red-600 dark:text-red-400 border border-red-200/60 dark:border-red-800/50">

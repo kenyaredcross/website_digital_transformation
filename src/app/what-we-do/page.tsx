@@ -13,10 +13,10 @@ export default async function WhatWeDoPage() {
   const thematicAreas = await getThematicAreas();
 
   return (
-    <div className="pt-25 pb-20 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white min-h-screen transition-colors duration-300">
+    <div className="pt-16 sm:pt-24 pb-12 sm:pb-20 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white min-h-screen transition-colors duration-300">
 
       {/* ── Hero Section ──────────────────────────────────── */}
-      <section className="relative py-15 md:py-15 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 overflow-hidden transition-colors duration-300">
+      <section className="relative py-10 sm:py-16 md:py-20 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 overflow-hidden transition-colors duration-300">
 
         {/* Dark mode only: full-bleed background image + gradient overlays */}
         <div className="absolute inset-0 z-0 hidden dark:block">
@@ -46,13 +46,13 @@ export default async function WhatWeDoPage() {
 
         {/* Two-column layout: text left, image right (light) / text only (dark) */}
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row lg:items-center gap-12 lg:gap-16">
+          <div className="flex flex-col lg:flex-row lg:items-center gap-8 lg:gap-16">
 
             {/* ── Left: Text content ── */}
-            <div className="flex-1 space-y-7">
+            <div className="flex-1 space-y-4 sm:space-y-7">
 
               {/* Headline */}
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-slate-900 dark:text-white tracking-tight leading-[1.05]">
+              <h1 className="text-3.5xl sm:text-5xl lg:text-7xl font-black text-slate-900 dark:text-white tracking-tight leading-[1.1]">
                 What We{" "}
                 <span className="relative inline-block">
                   <span className="relative z-10 text-red-600 dark:text-red-500">Do</span>
@@ -64,14 +64,14 @@ export default async function WhatWeDoPage() {
               </h1>
 
               {/* Sub-copy */}
-              <p className="text-xl text-slate-600 dark:text-slate-300 leading-relaxed">
+              <p className="text-base sm:text-xl text-slate-600 dark:text-slate-300 leading-relaxed">
                 Building resilient digital infrastructure, spatial analytics, early warning models, and frontier AI for humanitarian action across East Africa.
               </p>
             </div>
 
-            {/* ── Right: Image square — light mode only, zero gradient overlay ── */}
+            {/* ── Right: Image square — light mode only ── */}
             <div className="block dark:hidden lg:flex-shrink-0 lg:w-[420px] xl:w-[480px] w-full">
-              <div className="relative w-full aspect-square rounded-3xl overflow-hidden shadow-2xl ring-1 ring-slate-200">
+              <div className="relative w-full aspect-[4/3] sm:aspect-square rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl ring-1 ring-slate-200">
                 <Image
                   src="/assets/images/distro/presentation3.jpg"
                   alt="Humanitarian Technology & Field Operations"
