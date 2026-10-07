@@ -95,8 +95,8 @@ export default async function WhereWeWorkPage() {
         </div>
       </section>
 
-      {/* Country Operations Marquee */}
-      <CountryMarquee countries={countries} />
+      {/* Country Operations Marquee  <CountryMarquee countries={countries} /> */}
+      
     </div>
   );
 }
