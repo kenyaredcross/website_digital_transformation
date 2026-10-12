@@ -35,7 +35,7 @@ export default async function NewsUpdatesPage() {
         />
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl space-y-6">
-            <h1 className="text-5xl font-bold leading-[1.05] tracking-tight text-slate-900 dark:text-white sm:text-6xl lg:text-7xl font-[var(--font-playfair)]">
+            <h1 className="text-5xl font-bold leading-[1.05] tracking-tight text-slate-900 dark:text-white sm:text-6xl lg:text-7xl font-heading">
               Progress, Documented
             </h1>
 
@@ -85,7 +85,7 @@ export default async function NewsUpdatesPage() {
                         </span>
                       </div>
 
-                      <h2 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white leading-snug font-[var(--font-playfair)]">
+                      <h2 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white leading-snug font-heading">
                         {item.title}
                       </h2>
 
@@ -154,7 +154,7 @@ export default async function NewsUpdatesPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-10 md:p-14 flex flex-col md:flex-row items-center justify-between gap-8 shadow-sm">
             <div className="space-y-3">
-              <h2 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white font-[var(--font-playfair)]">
+              <h2 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white font-heading">
                 Stay in the loop
               </h2>
               <p className="text-slate-600 dark:text-slate-400 max-w-[48ch]">

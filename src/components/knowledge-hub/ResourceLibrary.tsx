@@ -351,8 +351,8 @@ export function ResourceLibrary({ resources = [] }: { resources?: KnowledgeResou
           <h2 className="text-4xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-tight leading-[1.1]">
             Learn From{" "}
             <span className="relative inline-block">
-              <span className="relative z-10 text-blue-600 dark:text-blue-400">Our Work</span>
-              <span aria-hidden className="absolute -bottom-1 left-0 right-0 h-2.5 rounded-full opacity-20 bg-blue-400 dark:bg-blue-500 blur-sm" />
+              <span className="relative z-10 text-red-600 dark:text-red-400">Our Work</span>
+              <span aria-hidden className="absolute -bottom-1 left-0 right-0 h-2.5 rounded-full opacity-20 bg-red-400 dark:bg-red-500 blur-sm" />
             </span>
           </h2>
           <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl">

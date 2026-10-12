@@ -216,7 +216,7 @@ export function StrategicPriorities() {
                 >
                   <div className="flex items-center gap-3">
                     <span
-                      className={`text-xs font-mono font-black px-2.5 py-0.5 rounded-full ${
+                      className={`text-xs font-sans font-black px-2.5 py-0.5 rounded-full ${
                         isActive
                           ? style.badge
                           : "bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300"
@@ -282,7 +282,7 @@ export function StrategicPriorities() {
                   <div className="flex items-center gap-3.5">
                     {/* Number Badge */}
                     <span
-                      className={`text-xs font-mono font-black px-2.5 py-0.5 rounded-full ${
+                      className={`text-xs font-sans font-black px-2.5 py-0.5 rounded-full ${
                         isActive
                           ? style.badge
                           : "bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300"
@@ -363,7 +363,7 @@ function PriorityDetailCard({
         {/* Top Header */}
         <div className="flex items-start justify-between gap-4">
           <div className="flex items-center gap-3">
-            <span className={`text-2xl sm:text-3xl font-black font-mono ${style.textActive}`}>
+            <span className={`text-2xl sm:text-3xl font-black font-sans ${style.textActive}`}>
               {priority.number}
             </span>
             <div className={`rounded-2xl p-3 ${style.iconInactive}`}>

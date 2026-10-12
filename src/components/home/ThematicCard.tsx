@@ -87,10 +87,10 @@ export function ThematicCard({
         {/* Card Top Header */}
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2.5">
-            <span className="text-2xl font-black font-mono text-red-600 dark:text-red-500">
+            <span className="text-2xl font-black font-sans text-red-600 dark:text-red-500">
               {area.number}
             </span>
-            <span className="text-[11px] font-mono font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+            <span className="text-[11px] font-sans font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
               Pillar
             </span>
           </div>
@@ -188,7 +188,7 @@ export function ThematicCard({
       {/* Footer Metrics & CTA Link */}
       <div className="pt-3 border-t border-slate-200 dark:border-slate-800/80 flex items-center justify-between mt-auto">
         <div className="text-xs">
-          <span className="block font-mono font-bold text-slate-900 dark:text-white">
+          <span className="block font-sans font-bold text-slate-900 dark:text-white">
             {area.impactMetrics[0]?.value}
           </span>
           <span className="text-[11px] text-slate-500 dark:text-slate-400">

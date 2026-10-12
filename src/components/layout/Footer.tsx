@@ -41,7 +41,7 @@ export function Footer() {
           <div className="lg:col-span-2 space-y-5">
             <BrandLogo variant="dark" size="lg" />
             <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed max-w-md">
-              The Digital Transformation Department drives technology adoption, spatial intelligence, AI, and data analytics across Kenya Red Cross Society interventions—transforming humanitarian action from reactive relief to anticipatory resilience.
+              The Digital Transformation Department drives technology adoption, spatial intelligence, AI and data analytics across Kenya Red Cross Society interventions transforming humanitarian action from reactive relief to anticipatory resilience.
             </p>
 
             <div className="pt-2 space-y-2 text-xs text-slate-600 dark:text-slate-400">

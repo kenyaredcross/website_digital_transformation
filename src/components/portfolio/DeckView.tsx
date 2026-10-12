@@ -171,7 +171,7 @@ export function DeckView({ projects, deckIndex, deckDir, onNext, onPrev }: DeckV
               style={{ width: `${((deckIndex + 1) / total) * 100}%` }}
             />
           </div>
-          <p className="text-center text-xs font-mono text-slate-500 dark:text-slate-400">
+          <p className="text-center text-xs font-sans text-slate-500 dark:text-slate-400">
             {deckIndex + 1} / {total} — use arrow keys or swipe
           </p>
         </div>

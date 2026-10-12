@@ -74,7 +74,7 @@ export function JourneyTimeline() {
                       isEven ? "md:justify-end" : "justify-start"
                     }`}
                   >
-                    <span className="text-xs font-mono font-bold uppercase text-red-600 dark:text-red-400 bg-red-100 dark:bg-red-950/80 border border-red-200 dark:border-red-800/40 px-2.5 py-0.5 rounded">
+                    <span className="text-xs font-sans font-bold uppercase text-red-600 dark:text-red-400 bg-red-100 dark:bg-red-950/80 border border-red-200 dark:border-red-800/40 px-2.5 py-0.5 rounded">
                       {m.year}
                     </span>
                     {m.imageTag && (
@@ -127,7 +127,7 @@ export function JourneyTimeline() {
                   <div className="absolute left-6 md:left-1/2 -translate-x-1/2 top-0 z-30 flex items-center justify-center">
                     <motion.div
                       whileHover={{ scale: 1.15 }}
-                      className="w-12 h-12 rounded-full bg-white dark:bg-slate-950 border-2 border-red-600 dark:border-red-500 text-red-600 dark:text-red-400 font-mono text-sm font-black flex items-center justify-center shadow-lg bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-950"
+                      className="w-12 h-12 rounded-full bg-white dark:bg-slate-950 border-2 border-red-600 dark:border-red-500 text-red-600 dark:text-red-400 font-sans text-sm font-black flex items-center justify-center shadow-lg bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-950"
                     >
                       {m.year}
                     </motion.div>

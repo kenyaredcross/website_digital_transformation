@@ -5,7 +5,7 @@ import { aboutData } from "@/data/about";
 import { AboutGallery } from "@/components/about/AboutGallery";
 import { JourneyTimeline } from "@/components/about/JourneyTimeline";
 import { StrategicPriorities } from "@/components/about/StrategicPriorities";
-import { Search, PenTool, FlaskConical, BookOpen, RefreshCw, Rocket, Target, Compass, Sparkles } from "lucide-react";
+import { Search, PenTool, FlaskConical, BookOpen, RefreshCw, Rocket } from "lucide-react";
 import { motion } from "framer-motion";
 
 const iconMap = {
@@ -96,7 +96,7 @@ export default function AboutPage() {
         
         {/* Subtle Ambient Background Lighting */}
         <div className="absolute top-1/3 left-0 w-96 h-96 bg-red-600/5 rounded-full blur-[140px] pointer-events-none" />
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-600/5 rounded-full blur-[140px] pointer-events-none" />
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-red-600/5 rounded-full blur-[140px] pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-8 sm:space-y-12">
           
@@ -116,19 +116,16 @@ export default function AboutPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="group relative rounded-3xl bg-slate-50 dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 p-6 sm:p-10 shadow-xl hover:shadow-red-500/10 transition-all duration-500 overflow-hidden"
+            className="group relative rounded-3xl bg-slate-50 dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 p-6 sm:p-10 shadow-xl hover:shadow-2xl hover:shadow-red-500/15 hover:border-red-500/40 transition-all duration-500 overflow-hidden"
           >
-            {/* Red Gradient Accent Bar */}
-            <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-red-600 via-rose-500 to-amber-500" />
-            
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
               {/* Left Column: Number & Title Badge */}
               <div className="lg:col-span-4 space-y-3">
                 <div className="flex items-center gap-3">
-                  <span className="flex items-center justify-center w-10 h-10 rounded-2xl bg-red-100 dark:bg-red-950/80 text-red-600 dark:text-red-400 font-mono font-black text-sm border border-red-200 dark:border-red-800">
+                  <span className="flex items-center justify-center w-10 h-10 rounded-2xl bg-red-100 dark:bg-red-950/80 text-red-600 dark:text-red-400 font-sans font-black text-sm border border-red-200 dark:border-red-800">
                     01
                   </span>
-                  <span className="text-xs font-mono font-bold uppercase tracking-widest text-red-600 dark:text-red-400">
+                  <span className="text-xs font-sans font-bold uppercase tracking-widest text-red-600 dark:text-red-400">
                     Our Mission
                   </span>
                 </div>
@@ -154,19 +151,16 @@ export default function AboutPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.15 }}
-            className="group relative rounded-3xl bg-slate-50 dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 p-6 sm:p-10 shadow-xl hover:shadow-blue-500/10 transition-all duration-500 overflow-hidden"
+            className="group relative rounded-3xl bg-slate-50 dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 p-6 sm:p-10 shadow-xl hover:shadow-2xl hover:shadow-red-500/15 hover:border-red-500/40 transition-all duration-500 overflow-hidden"
           >
-            {/* Blue Gradient Accent Bar */}
-            <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-blue-600 via-indigo-500 to-cyan-400" />
-            
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
               {/* Left Column: Number & Title Badge */}
               <div className="lg:col-span-4 space-y-3">
                 <div className="flex items-center gap-3">
-                  <span className="flex items-center justify-center w-10 h-10 rounded-2xl bg-blue-100 dark:bg-blue-950/80 text-blue-600 dark:text-blue-400 font-mono font-black text-sm border border-blue-200 dark:border-blue-800">
+                  <span className="flex items-center justify-center w-10 h-10 rounded-2xl bg-red-100 dark:bg-red-950/80 text-red-600 dark:text-red-400 font-sans font-black text-sm border border-red-200 dark:border-red-800">
                     02
                   </span>
-                  <span className="text-xs font-mono font-bold uppercase tracking-widest text-blue-600 dark:text-blue-400">
+                  <span className="text-xs font-sans font-bold uppercase tracking-widest text-red-600 dark:text-red-400">
                     Our Vision
                   </span>
                 </div>
@@ -220,7 +214,7 @@ export default function AboutPage() {
                 key={val.number}
                 className="p-5 sm:p-8 rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 hover:border-red-500/40 transition-all duration-300 space-y-3 sm:space-y-4 shadow-sm"
               >
-                <span className="text-2xl sm:text-3xl font-black font-mono text-red-600 dark:text-red-500">
+                <span className="text-2xl sm:text-3xl font-black font-sans text-red-600 dark:text-red-500">
                   {val.number}
                 </span>
                 <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">{val.title}</h3>
@@ -258,7 +252,7 @@ export default function AboutPage() {
                 >
                   <div>
                     <div className="flex items-center justify-between mb-3 sm:mb-4">
-                      <span className="text-xl sm:text-2xl font-black font-mono text-red-600 dark:text-red-500">
+                      <span className="text-xl sm:text-2xl font-black font-sans text-red-600 dark:text-red-500">
                         0{step.step}
                       </span>
                       <div className="p-2 sm:p-2.5 rounded-lg bg-red-100 dark:bg-red-950/60 border border-red-200 dark:border-red-800/50 text-red-600 dark:text-red-400">

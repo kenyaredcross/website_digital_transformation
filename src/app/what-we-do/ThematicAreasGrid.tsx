@@ -98,7 +98,7 @@ export default function ThematicAreasGrid({ thematicAreas }: Props) {
                     <div className="flex items-center gap-3">
                       {/* Number badge */}
                       <span
-                        className={`text-[10px] font-black font-mono tracking-wider px-2 py-0.5 rounded-full ${
+                        className={`text-[10px] font-black font-sans tracking-wider px-2 py-0.5 rounded-full ${
                           isActive
                             ? "bg-red-700 text-red-100"
                             : "bg-slate-100 dark:bg-slate-800 text-red-600 dark:text-red-400"
@@ -177,7 +177,7 @@ export default function ThematicAreasGrid({ thematicAreas }: Props) {
                   <div className="flex items-center gap-3.5">
                     {/* Number badge */}
                     <span
-                      className={`text-xs font-black font-mono tracking-wider px-2.5 py-0.5 rounded-full ${
+                      className={`text-xs font-black font-sans tracking-wider px-2.5 py-0.5 rounded-full ${
                         isActive
                           ? "bg-red-700 text-red-100"
                           : "bg-slate-100 dark:bg-slate-800 text-red-600 dark:text-red-400"
@@ -286,7 +286,7 @@ function DetailPanel({
 
           {/* Image Badge & Title */}
           <div className="absolute inset-x-4 bottom-4 sm:inset-x-6 sm:bottom-6">
-            <span className="text-2xl sm:text-3xl font-black font-mono text-red-400 opacity-90 block mb-1">
+            <span className="text-2xl sm:text-3xl font-black font-sans text-red-400 opacity-90 block mb-1">
               {area.number}
             </span>
             <h3 className="text-lg sm:text-2xl font-black text-white leading-tight">

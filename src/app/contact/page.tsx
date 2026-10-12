@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { Mail, Handshake, MessageSquarePlus } from "lucide-react";
 import { ContactFormPanel } from "@/components/contact/ContactFormPanel";
 import { ContactInformation } from "@/components/contact/ContactInformation";
 import { ContactMap } from "@/components/contact/ContactMap";
@@ -154,11 +153,6 @@ export default function ContactPage() {
     <div className="pt-25 pb-20 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white min-h-screen transition-colors duration-300">
       <section className="py-16 md:py-24 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/90 relative overflow-hidden transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
-          <div className="flex flex-wrap items-center gap-3">
-            <span className="text-xs font-mono font-bold uppercase tracking-widest text-red-600 dark:text-red-400 bg-red-100 dark:bg-red-950/90 px-3.5 py-1.5 rounded-full border border-red-200 dark:border-red-800/70 shadow-sm flex items-center gap-2"><Mail className="w-4 h-4" />Get In Touch</span>
-            {mode === "partner" && <span className="text-xs font-mono font-bold uppercase tracking-widest text-emerald-700 dark:text-emerald-300 bg-emerald-100 dark:bg-emerald-950/90 px-3.5 py-1.5 rounded-full border border-emerald-300 dark:border-emerald-800 shadow-sm flex items-center gap-2"><Handshake className="w-4 h-4" />Partnering Mode Active</span>}
-            {mode === "feedback" && <span className="text-xs font-mono font-bold uppercase tracking-widest text-purple-700 dark:text-purple-300 bg-purple-100 dark:bg-purple-950/90 px-3.5 py-1.5 rounded-full border border-purple-300 dark:border-purple-800 shadow-sm flex items-center gap-2"><MessageSquarePlus className="w-4 h-4" />User Feedback Mode Active</span>}
-          </div>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 dark:text-white tracking-tight">{title}</h1>
           <p className="text-xl text-slate-600 dark:text-slate-300 max-w-3xl leading-relaxed">{description}</p>
         </div>

@@ -175,7 +175,7 @@ export default async function ProjectDetailPage({
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-slate-200 dark:border-slate-800">
                     {project.impactMetrics.map((m) => (
                       <div key={m.label} className="p-4 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800">
-                        <span className="block text-2xl font-black font-mono text-emerald-600 dark:text-emerald-400 mb-1">
+                        <span className="block text-2xl font-black font-sans text-emerald-600 dark:text-emerald-400 mb-1">
                           {m.value}
                         </span>
                         <span className="text-xs text-slate-600 dark:text-slate-400 font-medium">

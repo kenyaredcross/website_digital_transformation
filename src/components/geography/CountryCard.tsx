@@ -109,7 +109,7 @@ export function CountryCard({ country }: { country: Country }) {
           {/* Quantitative Stats Grid */}
           <div className="grid grid-cols-3 gap-2 text-center mb-6">
             <div className="p-2.5 rounded-lg bg-slate-50/90 dark:bg-slate-950/80 border border-slate-200/80 dark:border-slate-800/80 backdrop-blur-xs shadow-xs">
-              <span className="block text-base font-black font-mono text-slate-900 dark:text-white">
+              <span className="block text-base font-black font-sans text-slate-900 dark:text-white">
                 {country.activeInitiativesCount}
               </span>
               <span className="text-[9px] text-slate-500 dark:text-slate-400 block font-medium">
@@ -117,7 +117,7 @@ export function CountryCard({ country }: { country: Country }) {
               </span>
             </div>
             <div className="p-2.5 rounded-lg bg-slate-50/90 dark:bg-slate-950/80 border border-slate-200/80 dark:border-slate-800/80 backdrop-blur-xs shadow-xs">
-              <span className="block text-base font-black font-mono text-red-600 dark:text-red-400">
+              <span className="block text-base font-black font-sans text-red-600 dark:text-red-400">
                 {country.digitalProductsCount}
               </span>
               <span className="text-[9px] text-slate-500 dark:text-slate-400 block font-medium">
@@ -125,7 +125,7 @@ export function CountryCard({ country }: { country: Country }) {
               </span>
             </div>
             <div className="p-2.5 rounded-lg bg-slate-50/90 dark:bg-slate-950/80 border border-slate-200/80 dark:border-slate-800/80 backdrop-blur-xs shadow-xs">
-              <span className="block text-base font-black font-mono text-blue-600 dark:text-blue-400">
+              <span className="block text-base font-black font-sans text-blue-600 dark:text-blue-400">
                 {country.dataServicesCount}
               </span>
               <span className="text-[9px] text-slate-500 dark:text-slate-400 block font-medium">

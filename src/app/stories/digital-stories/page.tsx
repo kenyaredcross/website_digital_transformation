@@ -45,7 +45,7 @@ export default async function DigitalStoriesPage() {
           <div className="max-w-3xl space-y-6">
             
 
-            <h1 className="text-5xl font-bold leading-[1.05] tracking-tight text-slate-900 dark:text-white sm:text-6xl lg:text-7xl font-[var(--font-playfair)]">
+            <h1 className="text-5xl font-bold leading-[1.05] tracking-tight text-slate-900 dark:text-white sm:text-6xl lg:text-7xl font-heading">
               People Behind the{" "}
               <span className="text-red-600">Transformation</span>
             </h1>
@@ -89,7 +89,7 @@ export default async function DigitalStoriesPage() {
                       </span>
                     </div>
 
-                    <h2 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white leading-snug font-[var(--font-playfair)]">
+                    <h2 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white leading-snug font-heading">
                       {story.title}
                     </h2>
                     <p className="text-slate-600 dark:text-slate-400 leading-relaxed max-w-[64ch]">
@@ -98,7 +98,7 @@ export default async function DigitalStoriesPage() {
                   </div>
 
                   <div className="shrink-0 flex items-center justify-center w-12 h-12 rounded-2xl bg-red-50 dark:bg-red-950/40 border border-red-100 dark:border-red-900/50">
-                    <span className="text-xl font-bold text-red-600 dark:text-red-400">
+                    <span className="text-xl font-bold font-sans text-red-600 dark:text-red-400">
                       {String(index + 1).padStart(2, "0")}
                     </span>
                   </div>
@@ -158,7 +158,7 @@ export default async function DigitalStoriesPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="rounded-3xl bg-gradient-to-br from-red-600 to-red-700 p-10 md:p-14 text-white flex flex-col md:flex-row items-center justify-between gap-8">
             <div className="space-y-3">
-              <h2 className="text-2xl md:text-3xl font-bold font-[var(--font-playfair)]">
+              <h2 className="text-2xl md:text-3xl font-bold font-heading">
                 Have a story to tell?
               </h2>
               <p className="text-red-100 max-w-[48ch]">

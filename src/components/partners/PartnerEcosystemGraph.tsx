@@ -213,23 +213,23 @@ export function PartnerEcosystemGraph({ partners = [], projects = [] }: PartnerE
       <div className="pt-8 border-t border-slate-800/80 grid grid-cols-2 md:grid-cols-4 gap-6 text-center relative z-10">
         <div className="p-4 rounded-2xl bg-slate-900/60 border border-slate-800/60">
           <Globe className="w-5 h-5 text-red-500 mx-auto mb-2" />
-          <span className="block text-2xl font-black font-mono text-white">47 Counties</span>
-          <span className="text-[10px] font-mono text-slate-400 uppercase">National Operational Reach</span>
+          <span className="block text-2xl font-black font-sans text-white">47 Counties</span>
+          <span className="text-[10px] font-sans text-slate-400 uppercase">National Operational Reach</span>
         </div>
         <div className="p-4 rounded-2xl bg-slate-900/60 border border-slate-800/60">
           <Coins className="w-5 h-5 text-emerald-500 mx-auto mb-2" />
-          <span className="block text-2xl font-black font-mono text-white">1M+ Transfers</span>
-          <span className="text-[10px] font-mono text-slate-400 uppercase">Automated Aid Disbursements</span>
+          <span className="block text-2xl font-black font-sans text-white">1M+ Transfers</span>
+          <span className="text-[10px] font-sans text-slate-400 uppercase">Automated Aid Disbursements</span>
         </div>
         <div className="p-4 rounded-2xl bg-slate-900/60 border border-slate-800/60">
           <ShieldCheck className="w-5 h-5 text-blue-500 mx-auto mb-2" />
-          <span className="block text-2xl font-black font-mono text-white">100K+ Responders</span>
-          <span className="text-[10px] font-mono text-slate-400 uppercase">Managed via VMMS</span>
+          <span className="block text-2xl font-black font-sans text-white">100K+ Responders</span>
+          <span className="text-[10px] font-sans text-slate-400 uppercase">Managed via VMMS</span>
         </div>
         <div className="p-4 rounded-2xl bg-slate-900/60 border border-slate-800/60">
           <Sparkles className="w-5 h-5 text-amber-500 mx-auto mb-2" />
-          <span className="block text-2xl font-black font-mono text-white">6 Ecosystem Tools</span>
-          <span className="text-[10px] font-mono text-slate-400 uppercase">Open Humanitarian Stack</span>
+          <span className="block text-2xl font-black font-sans text-white">6 Ecosystem Tools</span>
+          <span className="text-[10px] font-sans text-slate-400 uppercase">Open Humanitarian Stack</span>
         </div>
       </div>
     </div>

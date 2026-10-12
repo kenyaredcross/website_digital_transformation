@@ -41,7 +41,7 @@ function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
       : count;
 
   return (
-    <span ref={ref} className="font-black font-mono tracking-tight">
+    <span ref={ref} className="font-black font-sans tracking-tight">
       {formattedCount}
       {suffix}
     </span>

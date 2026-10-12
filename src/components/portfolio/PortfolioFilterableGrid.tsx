@@ -112,7 +112,7 @@ export function PortfolioFilterableGrid({
       />
 
       {/* Results count + reset */}
-      <div className="flex items-center justify-between text-xs font-mono text-slate-600 dark:text-slate-400 px-1">
+      <div className="flex items-center justify-between text-xs font-sans text-slate-600 dark:text-slate-400 px-1">
         <span aria-live="polite">
           Showing <strong className="text-slate-900 dark:text-white">{total}</strong> of{" "}
           {projects.length} digital solutions

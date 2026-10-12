@@ -477,7 +477,7 @@ export function InnovationResearchSection() {
                       <div className="flex-1 min-w-0">
                         <span className={`text-sm font-semibold ${c.text}`}>{dim.label}</span>
                       </div>
-                      <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded-full ${c.badge}`}>
+                      <span className={`text-[10px] font-sans font-bold px-2 py-0.5 rounded-full ${c.badge}`}>
                         {String(i + 1).padStart(2, "0")}
                       </span>
                     </motion.div>

@@ -63,7 +63,7 @@ export default async function ThematicAreaDetailPage({
           </Link>
 
           <div className="flex items-center gap-3">
-            <span className="text-3xl font-black font-mono text-red-600 dark:text-red-500">
+            <span className="text-3xl font-black font-sans text-red-600 dark:text-red-500">
               {area.number}
             </span>
             <span className="px-3 py-1 rounded-full text-xs font-mono font-bold bg-red-100 dark:bg-red-950 text-red-600 dark:text-red-400 border border-red-200 dark:border-red-800">
@@ -177,7 +177,7 @@ export default async function ThematicAreaDetailPage({
                       key={m.label}
                       className="p-4 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800/80"
                     >
-                      <span className="block text-2xl font-black font-mono text-slate-900 dark:text-white mb-1">
+                      <span className="block text-2xl font-black font-sans text-slate-900 dark:text-white mb-1">
                         {m.value}
                       </span>
                       <span className="text-xs text-slate-600 dark:text-slate-400 font-medium">

@@ -491,7 +491,7 @@ export function AfricaMap({ countries = [], isCompact = false }: AfricaMapProps)
                 <div className="grid grid-cols-3 gap-3 text-center">
                   <div className="p-3 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
                     <Activity className="w-4 h-4 text-red-600 dark:text-red-400 mx-auto mb-1" />
-                    <span className="block text-lg font-black font-mono text-slate-900 dark:text-white">
+                    <span className="block text-lg font-black font-sans text-slate-900 dark:text-white">
                       {selectedCountry.activeInitiativesCount}
                     </span>
                     <span className="text-[9px] text-slate-500 dark:text-slate-400 block font-medium">
@@ -500,7 +500,7 @@ export function AfricaMap({ countries = [], isCompact = false }: AfricaMapProps)
                   </div>
                   <div className="p-3 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
                     <Layers className="w-4 h-4 text-blue-600 dark:text-blue-400 mx-auto mb-1" />
-                    <span className="block text-lg font-black font-mono text-slate-900 dark:text-white">
+                    <span className="block text-lg font-black font-sans text-slate-900 dark:text-white">
                       {selectedCountry.digitalProductsCount}
                     </span>
                     <span className="text-[9px] text-slate-500 dark:text-slate-400 block font-medium">
@@ -509,7 +509,7 @@ export function AfricaMap({ countries = [], isCompact = false }: AfricaMapProps)
                   </div>
                   <div className="p-3 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
                     <Database className="w-4 h-4 text-purple-600 dark:text-purple-400 mx-auto mb-1" />
-                    <span className="block text-lg font-black font-mono text-slate-900 dark:text-white">
+                    <span className="block text-lg font-black font-sans text-slate-900 dark:text-white">
                       {selectedCountry.dataServicesCount}
                     </span>
                     <span className="text-[9px] text-slate-500 dark:text-slate-400 block font-medium">

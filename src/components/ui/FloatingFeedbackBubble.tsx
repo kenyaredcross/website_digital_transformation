@@ -72,8 +72,6 @@ export function FloatingFeedbackBubble() {
             role="dialog"
             aria-label="Talk to us"
           >
-            {/* Accent bar */}
-            <div className="h-1 w-full bg-gradient-to-r from-rose-500 via-red-500 to-orange-400" />
 
             <div className="p-3.5">
               {/* Dismiss */}

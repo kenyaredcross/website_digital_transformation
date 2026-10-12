@@ -7,9 +7,12 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans:    var(--font-inter);
-  --font-heading: var(--font-playfair);
-  --font-mono:    var(--font-dm-mono);
+  --font-sans:    var(--font-inter), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-heading: var(--font-playfair), "Playfair Display", Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-serif:   var(--font-playfair), "Playfair Display", Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-display: var(--font-playfair), "Playfair Display", Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-playfair: var(--font-playfair), "Playfair Display", Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono:    var(--font-dm-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
   --color-brand-red: #EE2435;
   --color-brand-red-hover: #D01C2B;
@@ -50,6 +53,10 @@
 }
 
 :root {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-heading: var(--font-playfair), "Playfair Display", Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-serif: var(--font-playfair), "Playfair Display", Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-playfair: var(--font-playfair), "Playfair Display", Georgia, Cambria, "Times New Roman", Times, serif;
   --background: #FFFFFF;
   --foreground: #011E41;
   --card: #FFFFFF;
@@ -96,26 +103,32 @@
   * {
     @apply border-border outline-ring/50;
   }
+  html {
+    font-family: var(--font-sans), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
   body {
     @apply bg-background text-foreground selection:bg-red-100 selection:text-red-900;
-    font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+    font-family: var(--font-sans), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11"; /* Inter optical features */
   }
-  h1, h2, h3 {
-    font-family: var(--font-playfair), ui-serif, Georgia, serif;
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading), "Playfair Display", Georgia, ui-serif, serif;
     font-feature-settings: "kern", "liga";
   }
 }
 
-/* Utility class — apply Playfair to any element */
-.font-heading {
-  font-family: var(--font-playfair), ui-serif, Georgia, serif;
+/* Typography utility classes */
+.font-heading,
+.font-serif,
+.font-display,
+.font-playfair {
+  font-family: var(--font-playfair), "Playfair Display", Georgia, ui-serif, serif !important;
 }
-/* Explicit Inter override when needed */
+.font-sans,
 .font-sans-inter {
-  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-sans), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
 }
-/* Explicit DM Mono override when needed */
+.font-mono,
 .font-mono-dm {
   font-family: var(--font-dm-mono), ui-monospace, "Courier New", monospace;
 }

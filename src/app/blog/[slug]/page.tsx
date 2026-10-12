@@ -177,7 +177,7 @@ export default async function BlogPostPage({
           {/* Additional Gallery Photos */}
           {post.galleryImages && post.galleryImages.length > 0 && (
             <div className="space-y-4 pt-6 border-t border-slate-200 dark:border-slate-800">
-              <h3 className="text-xl font-bold text-slate-900 dark:text-white font-mono">Field Gallery</h3>
+              <h3 className="text-xl font-bold text-slate-900 dark:text-white font-heading">Field Gallery</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {post.galleryImages.map((imgUrl, idx) => (
                   <div

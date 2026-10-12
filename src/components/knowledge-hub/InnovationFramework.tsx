@@ -225,7 +225,7 @@ export function InnovationFramework() {
                   className={`relative group rounded-2xl border p-5 transition-shadow duration-300 hover:shadow-lg ${c.bg} ${c.border}`}
                 >
                   {/* Step number */}
-                  <span className="absolute top-4 right-4 text-xs font-mono font-bold text-slate-400 dark:text-slate-600">
+                  <span className="absolute top-4 right-4 text-xs font-sans font-bold text-slate-400 dark:text-slate-600">
                     {String(i + 1).padStart(2, "0")}
                   </span>
 
