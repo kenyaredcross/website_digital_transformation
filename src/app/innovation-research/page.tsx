@@ -1,7 +1,8 @@
 import Image from "next/image";
-import { FlaskConical, Lightbulb } from "lucide-react";
+import { FlaskConical } from "lucide-react";
 import type { Metadata } from "next";
 import { InnovationResearchSection } from "@/components/knowledge-hub/InnovationResearchSection";
+import { getInnovations } from "@/lib/get-data";
 
 export const metadata: Metadata = {
   title: "Innovation & Research | Kenya Red Cross Digital Transformation",
@@ -9,7 +10,9 @@ export const metadata: Metadata = {
     "Discover how Kenya Red Cross explores emerging technologies and new approaches for humanitarian action — through research, experimentation, and structured knowledge sharing documented across 7 key dimensions.",
 };
 
-export default function InnovationResearchPage() {
+export default async function InnovationResearchPage() {
+  const innovations = await getInnovations();
+
   return (
     <div className="pt-20 min-h-screen bg-background text-foreground transition-colors duration-300">
 
@@ -114,7 +117,7 @@ export default function InnovationResearchPage() {
       </section>
 
       {/* ── Innovation & Research Content ─────────────────────────────────── */}
-      <InnovationResearchSection />
+      <InnovationResearchSection projects={innovations} />
 
     </div>
   );

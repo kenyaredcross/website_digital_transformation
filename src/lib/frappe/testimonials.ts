@@ -1,4 +1,4 @@
-import { frappeList, frappeGet, frappeFileUrl } from "./client";
+import { frappeListAll, frappeGet, frappeFileUrl } from "./client";
 import type { Testimonial } from "@/types";
 
 export interface FrappeTestimonialDoc {
@@ -47,10 +47,8 @@ function mapTestimonial(raw: FrappeTestimonialDoc & Record<string, unknown>): Te
 }
 
 export async function getTestimonials(): Promise<Testimonial[]> {
-  const response = await frappeList<FrappeTestimonialDoc>("Testimonials", {
-    limit: 100,
-  });
-  return response.data.map((item) =>
+  const records = await frappeListAll<FrappeTestimonialDoc>("Testimonials", { limit: 100 });
+  return records.map((item) =>
     mapTestimonial(item as FrappeTestimonialDoc & Record<string, unknown>)
   );
 }

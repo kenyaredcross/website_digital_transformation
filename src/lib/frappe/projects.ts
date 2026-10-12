@@ -1,4 +1,4 @@
-import { frappeList, frappeGet, frappeFileUrl } from "./client";
+import { frappeListAll, frappeGet, frappeFileUrl } from "./client";
 import type { Project } from "@/types";
 
 export interface FrappeProjectDoc {
@@ -124,10 +124,8 @@ function mapProject(raw: FrappeProjectDoc & Record<string, unknown>): Project {
 }
 
 export async function getProjects(): Promise<Project[]> {
-  const response = await frappeList<FrappeProjectDoc>("Projects", {
-    limit: 100,
-  });
-  return response.data.map((item) =>
+  const records = await frappeListAll<FrappeProjectDoc>("Projects", { limit: 100 });
+  return records.map((item) =>
     mapProject(item as FrappeProjectDoc & Record<string, unknown>)
   ).sort((a, b) => {
     const desiredOrder = ["vmms", "anticipatory-action"];

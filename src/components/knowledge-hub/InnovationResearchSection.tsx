@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
 import {
@@ -14,7 +14,6 @@ import {
   CATEGORY_COLORS,
   type InnovationProject,
 } from "@/data/innovationData";
-import { getInnovations } from "@/lib/get-data";
 
 // ── Variants ──────────────────────────────────────────────────────────────────
 
@@ -383,19 +382,12 @@ function ProjectModal({ project, onClose }: { project: InnovationProject; onClos
 
 // ── Main Section Component ────────────────────────────────────────────────────
 
-export function InnovationResearchSection() {
-  const [projects, setProjects] = useState<InnovationProject[]>([]);
+export function InnovationResearchSection({ projects }: { projects: InnovationProject[] }) {
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [selectedStatus, setSelectedStatus] = useState<string>("All");
   const [selectedLocation, setSelectedLocation] = useState<string>("All");
   const [showFilters, setShowFilters] = useState(false);
   const [selected, setSelected] = useState<InnovationProject | null>(null);
-
-  useEffect(() => {
-    getInnovations().then((data) => {
-      setProjects(data);
-    });
-  }, []);
 
   const categories = ["All", ...Array.from(new Set(projects.map((project) => project.category).filter(Boolean))).sort()];
   const statuses = ["All", ...Array.from(new Set(projects.map((project) => project.status).filter(Boolean))).sort()];

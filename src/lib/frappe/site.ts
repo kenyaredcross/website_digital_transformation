@@ -59,7 +59,7 @@ export const EMPTY_SITE_CONFIG: SiteConfig = {
   },
 };
 
-function parseJsonObject(val: unknown): Record<string, any> {
+function parseJsonObject(val: unknown): Record<string, unknown> {
   if (typeof val === "string") {
     try {
       return JSON.parse(val) || {};
@@ -68,7 +68,7 @@ function parseJsonObject(val: unknown): Record<string, any> {
     }
   }
   if (typeof val === "object" && val !== null) {
-    return val as Record<string, any>;
+    return val as Record<string, unknown>;
   }
   return {};
 }
@@ -113,7 +113,7 @@ export async function getSiteConfig(): Promise<SiteConfig> {
   try {
     const res = await fetch(
       `${FRAPPE_API_URL}/api/method/redcross_digital.api.get_site_config`,
-      { next: { revalidate: 300 } }
+      { next: { revalidate: 300, tags: ["frappe:Site"] } }
     );
     if (!res.ok) throw new Error(`Frappe returned ${res.status}`);
     const json = await res.json();

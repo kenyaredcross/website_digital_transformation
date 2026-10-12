@@ -1,4 +1,4 @@
-import { frappeList, frappeGet, frappeFileUrl } from "./client";
+import { frappeListAll, frappeGet, frappeFileUrl } from "./client";
 import type { Partner } from "@/types";
 
 export interface FrappePartnerDoc {
@@ -55,10 +55,8 @@ function mapPartner(raw: FrappePartnerDoc & Record<string, unknown>): Partner {
 }
 
 export async function getPartners(): Promise<Partner[]> {
-  const response = await frappeList<FrappePartnerDoc>("Partners", {
-    limit: 100,
-  });
-  return response.data.map((item) =>
+  const records = await frappeListAll<FrappePartnerDoc>("Partners", { limit: 100 });
+  return records.map((item) =>
     mapPartner(item as FrappePartnerDoc & Record<string, unknown>)
   );
 }

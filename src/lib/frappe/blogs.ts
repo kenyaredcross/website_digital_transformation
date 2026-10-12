@@ -1,4 +1,4 @@
-import { frappeList, frappeGet, frappeFileUrl } from "./client";
+import { frappeListAll, frappeGet, frappeFileUrl } from "./client";
 import type { BlogPost } from "@/types";
 
 export interface FrappeBlogDoc {
@@ -120,10 +120,8 @@ function mapBlogPost(raw: FrappeBlogDoc & Record<string, unknown>): BlogPost {
 }
 
 export async function getBlogs(): Promise<BlogPost[]> {
-  const response = await frappeList<FrappeBlogDoc>("Blogs", {
-    limit: 100,
-  });
-  return response.data.map((item) =>
+  const records = await frappeListAll<FrappeBlogDoc>("Blogs", { limit: 100 });
+  return records.map((item) =>
     mapBlogPost(item as FrappeBlogDoc & Record<string, unknown>)
   );
 }

@@ -1,4 +1,4 @@
-import { frappeList } from "./client";
+import { frappeListAll } from "./client";
 import type { InnovationProject } from "@/data/innovationData";
 
 export interface FrappeInnovationDoc {
@@ -47,29 +47,28 @@ function parseJsonIfNeeded<T>(val: unknown, fallback: T): T {
 }
 
 export async function getInnovations(): Promise<InnovationProject[]> {
-  try {
-    const [response, countries, people] = await Promise.all([
-      frappeList<FrappeInnovationDoc>("Innovations", { limit: 100 }),
-      frappeList<FrappeCountryRef>("Countries", { limit: 500 }),
-      frappeList<FrappePersonRef>("Person", { limit: 500 }),
-    ]);
+  const [records, countries, people] = await Promise.all([
+    frappeListAll<FrappeInnovationDoc>("Innovations", { limit: 100 }),
+    frappeListAll<FrappeCountryRef>("Countries", { limit: 500 }),
+    frappeListAll<FrappePersonRef>("Person", { limit: 500 }),
+  ]);
 
-    const countryNames = new Map<string, string>();
-    for (const country of countries.data) {
-      const label = country.country_name || country.name;
-      countryNames.set(country.name, label);
-      if (country.external_id) countryNames.set(country.external_id, label);
-    }
+  const countryNames = new Map<string, string>();
+  for (const country of countries) {
+    const label = country.country_name || country.name;
+    countryNames.set(country.name, label);
+    if (country.external_id) countryNames.set(country.external_id, label);
+  }
 
-    const personNames = new Map<string, string>();
-    for (const person of people.data) {
-      const label = person.full_name || person.name;
-      personNames.set(person.name, label);
-      if (person.external_id) personNames.set(person.external_id, label);
-    }
+  const personNames = new Map<string, string>();
+  for (const person of people) {
+    const label = person.full_name || person.name;
+    personNames.set(person.name, label);
+    if (person.external_id) personNames.set(person.external_id, label);
+  }
 
-    if (response?.data && response.data.length > 0) {
-      return response.data.map((doc) => {
+  if (records.length > 0) {
+    return records.map((doc) => {
         const extId = doc.external_id || doc.name;
         const whatWorked = parseJsonIfNeeded<string[]>(doc.what_worked, []);
         const whatDidntWork = parseJsonIfNeeded<string[]>(doc.what_didnt_work, []);
@@ -98,10 +97,7 @@ export async function getInnovations(): Promise<InnovationProject[]> {
           featured: false,
           color: "blue",
         };
-      });
-    }
-  } catch (err) {
-    console.warn("Failed to fetch Innovations from Frappe:", err);
+    });
   }
 
   return [];

@@ -1,4 +1,4 @@
-import { frappeList, frappeGet, frappeFileUrl } from "./client";
+import { frappeListAll, frappeGet, frappeFileUrl } from "./client";
 import type { Country } from "@/types";
 
 export interface FrappeCountryDoc {
@@ -114,10 +114,8 @@ function mapCountry(raw: FrappeCountryDoc & Record<string, unknown>): Country {
 }
 
 export async function getCountries(): Promise<Country[]> {
-  const response = await frappeList<FrappeCountryDoc>("Countries", {
-    limit: 100,
-  });
-  return response.data.map((item) =>
+  const records = await frappeListAll<FrappeCountryDoc>("Countries", { limit: 100 });
+  return records.map((item) =>
     mapCountry(item as FrappeCountryDoc & Record<string, unknown>)
   );
 }

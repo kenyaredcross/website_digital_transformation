@@ -1,4 +1,4 @@
-import { frappeList, frappeGet, frappeFileUrl } from "./client";
+import { frappeListAll, frappeGet, frappeFileUrl } from "./client";
 import type { Person } from "@/types";
 
 export interface FrappePersonDoc {
@@ -81,8 +81,8 @@ function mapPerson(raw: FrappePersonDoc & Record<string, unknown>): Person {
 }
 
 export async function getPeople(): Promise<Person[]> {
-  const response = await frappeList<FrappePersonDoc>("Person", { limit: 100 });
-  return response.data.map((item) =>
+  const records = await frappeListAll<FrappePersonDoc>("Person", { limit: 100 });
+  return records.map((item) =>
     mapPerson(item as FrappePersonDoc & Record<string, unknown>)
   ).sort((a, b) => {
     const aNumber = /^p(\d+)$/i.exec(a.id)?.[1];

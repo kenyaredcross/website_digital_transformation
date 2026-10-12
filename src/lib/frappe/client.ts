@@ -47,29 +47,44 @@ export async function frappeList<T>(
     params.set("filters", JSON.stringify(options.filters));
   }
 
-  try {
-    const response = await fetch(
-      `${FRAPPE_API_URL}/api/method/redcross_digital.api.list_docs?${params.toString()}`,
-      {
-        next: {
-          revalidate: 300,
-        },
+  const response = await fetch(
+    `${FRAPPE_API_URL}/api/method/redcross_digital.api.list_docs?${params.toString()}`,
+    {
+      next: {
+        revalidate: 300,
+        tags: [`frappe:${doctype}`],
       },
+    },
+  );
+
+  if (!response.ok) {
+    throw new Error(
+      `Frappe list_docs failed for ${doctype}: ${response.status} ${response.statusText}`,
     );
-
-    if (!response.ok) {
-      throw new Error(
-        `Frappe API error: ${response.status} ${response.statusText}`,
-      );
-    }
-
-    const result: FrappeListResponse<T> = await response.json();
-
-    return result.message;
-  } catch (err) {
-    console.warn(`Frappe list_docs offline or unreachable for ${doctype}:`, err instanceof Error ? err.message : err);
-    return { data: [], total: 0, limit: options.limit ?? 100, start: options.start ?? 0, has_next: false };
   }
+
+  const result: FrappeListResponse<T> = await response.json();
+  if (!result.message || !Array.isArray(result.message.data)) {
+    throw new Error(`Frappe list_docs returned an invalid response for ${doctype}.`);
+  }
+  return result.message;
+}
+
+export async function frappeListAll<T>(
+  doctype: string,
+  options: { limit?: number; filters?: Record<string, unknown> } = {},
+): Promise<T[]> {
+  const limit = Math.max(1, Math.min(options.limit ?? 100, 500));
+  const first = await frappeList<T>(doctype, { ...options, limit, start: 0 });
+  const pages: T[][] = [first.data];
+
+  for (let start = limit; start < first.total; start += limit) {
+    const page = await frappeList<T>(doctype, { ...options, limit, start });
+    if (page.data.length === 0) break;
+    pages.push(page.data);
+  }
+
+  return pages.flat();
 }
 
 export async function frappeGet<T>(
@@ -86,6 +101,7 @@ export async function frappeGet<T>(
     {
       next: {
         revalidate: 300,
+        tags: [`frappe:${doctype}`],
       },
     },
   );
@@ -141,4 +157,3 @@ export async function frappeCreateDoc<T = Record<string, unknown>>(
   const result = await response.json();
   return (result.message || result.data || result) as T;
 }
-

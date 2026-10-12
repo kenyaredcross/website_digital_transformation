@@ -1,4 +1,4 @@
-import { frappeList, frappeGet, frappeFileUrl } from "./client";
+import { frappeListAll, frappeGet, frappeFileUrl } from "./client";
 import type { ThematicArea } from "@/types";
 
 export interface FrappeThematicAreaDoc {
@@ -91,11 +91,9 @@ function mapThematicArea(
 }
 
 export async function getThematicAreas(): Promise<ThematicArea[]> {
-  const response = await frappeList<FrappeThematicAreaDoc>("Thematic Areas", {
-    limit: 100,
-  });
+  const records = await frappeListAll<FrappeThematicAreaDoc>("Thematic Areas", { limit: 100 });
 
-  const list = response.data.map((item) =>
+  const list = records.map((item) =>
     mapThematicArea(item as FrappeThematicAreaDoc & Record<string, unknown>)
   );
 

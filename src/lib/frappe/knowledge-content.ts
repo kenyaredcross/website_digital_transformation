@@ -1,4 +1,4 @@
-import { frappeFileUrl, frappeGet, frappeList } from "./client";
+import { frappeFileUrl, frappeGet, frappeListAll } from "./client";
 import type { KnowledgeResource } from "@/data/knowledgeHubData";
 import type { DigitalStory } from "@/data/digitalStories";
 import type { NewsItem } from "@/data/newsUpdates";
@@ -69,11 +69,7 @@ function mapNews(doc: FrappeDoc): NewsItem {
 }
 
 async function allDocs<T extends FrappeDoc>(doctype: string): Promise<T[]> {
-  const first = await frappeList<T>(doctype, { limit: 100 });
-  const later = await Promise.all(Array.from({ length: Math.ceil(Math.max(first.total - first.data.length, 0) / 100) }, (_, index) =>
-    frappeList<T>(doctype, { limit: 100, start: first.data.length + index * 100 }),
-  ));
-  return [ ...first.data, ...later.flatMap((page) => page.data) ];
+  return frappeListAll<T>(doctype, { limit: 100 });
 }
 
 export async function getKnowledgeResources(): Promise<KnowledgeResource[]> {

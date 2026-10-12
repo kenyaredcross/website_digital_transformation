@@ -29,8 +29,7 @@ const collaborationAreas = [
 ];
 
 export default async function PartnersPage() {
-  const partners = await getPartners();
-  const projects = await getProjects();
+  const [partners, projects] = await Promise.all([getPartners(), getProjects()]);
 
   return (
     <div className="pt-25 pb-20 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white min-h-screen transition-colors duration-300">

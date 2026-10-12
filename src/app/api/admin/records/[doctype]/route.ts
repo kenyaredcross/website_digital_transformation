@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidateTag } from "next/cache";
 import { frappeAdminRequest } from "@/lib/frappe/admin-session";
 import { isAdminDoctype, isSubmissionDoctype } from "@/lib/frappe/admin-doctypes";
 
@@ -41,7 +42,9 @@ export async function POST(request: Request, context: Context) {
   if (!resource || !isAdminDoctype(resource.doctype)) return NextResponse.json({ error: "Unsupported or read-only DocType." }, { status: 400 });
   const response = await frappeAdminRequest(resource.url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(await request.json()) });
   const payload = await response.json().catch(() => ({}));
-  return response.ok ? NextResponse.json(payload.data, { status: 201 }) : NextResponse.json({ error: errorMessage(payload, "Unable to create record.") }, { status: response.status });
+  if (!response.ok) return NextResponse.json({ error: errorMessage(payload, "Unable to create record.") }, { status: response.status });
+  revalidateTag(`frappe:${resource.doctype}`, "max");
+  return NextResponse.json(payload.data, { status: 201 });
 }
 
 export async function PUT(request: Request, context: Context) {
@@ -52,7 +55,9 @@ export async function PUT(request: Request, context: Context) {
   if (!name) return NextResponse.json({ error: "Record name is required." }, { status: 400 });
   const response = await frappeAdminRequest(`${resource.url}/${encodeURIComponent(name)}`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
   const payload = await response.json().catch(() => ({}));
-  return response.ok ? NextResponse.json(payload.data) : NextResponse.json({ error: errorMessage(payload, "Unable to update record.") }, { status: response.status });
+  if (!response.ok) return NextResponse.json({ error: errorMessage(payload, "Unable to update record.") }, { status: response.status });
+  revalidateTag(`frappe:${resource.doctype}`, "max");
+  return NextResponse.json(payload.data);
 }
 
 export async function DELETE(request: Request, context: Context) {
@@ -62,5 +67,7 @@ export async function DELETE(request: Request, context: Context) {
   if (!name) return NextResponse.json({ error: "Record name is required." }, { status: 400 });
   const response = await frappeAdminRequest(`${resource.url}/${encodeURIComponent(name)}`, { method: "DELETE" });
   const payload = await response.json().catch(() => ({}));
-  return response.ok ? NextResponse.json({ success: true, name }) : NextResponse.json({ error: errorMessage(payload, "Unable to delete record.") }, { status: response.status });
+  if (!response.ok) return NextResponse.json({ error: errorMessage(payload, "Unable to delete record.") }, { status: response.status });
+  revalidateTag(`frappe:${resource.doctype}`, "max");
+  return NextResponse.json({ success: true, name });
 }

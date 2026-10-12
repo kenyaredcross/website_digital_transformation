@@ -1,5 +1,4 @@
 import { Hero } from "@/components/home/Hero";
-import { ImpactStats } from "@/components/home/ImpactStats";
 import { ThematicAreas } from "@/components/home/ThematicAreas";
 import { FeaturedProjects } from "@/components/home/FeaturedProjects";
 import { WhereWeWorkPreview } from "@/components/home/WhereWeWorkPreview";
@@ -14,9 +13,6 @@ import {
   getThematicAreas,
   getPartners,
 } from "@/lib/get-data";
-import Link from "next/link";
-import Image from "next/image";
-import { ArrowRight, Users, Sparkles } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -26,12 +22,15 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
-  const people = await getPeople();
-  const projects = await getProjects();
-  const testimonials = await getTestimonials();
-  const countries = await getCountries();
-  const thematicAreas = await getThematicAreas();
-  const partners = await getPartners();
+  const [people, projects, testimonials, countries, thematicAreas, partners] =
+    await Promise.all([
+      getPeople(),
+      getProjects(),
+      getTestimonials(),
+      getCountries(),
+      getThematicAreas(),
+      getPartners(),
+    ]);
 
   return (
     <div className="flex flex-col min-h-screen">
