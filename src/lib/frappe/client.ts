@@ -1,5 +1,19 @@
-const FRAPPE_API_URL =
-  process.env.NEXT_PUBLIC_FRAPPE_API_URL || "http://redcross.local:8000";
+const LOCAL_FRAPPE_API_URL = "http://redcross.local:8000";
+
+/**
+ * Keep the local bench default for development, but require a public Frappe
+ * origin in production so deployments never silently target redcross.local.
+ */
+export function getFrappeApiUrl(): string {
+  const configuredUrl = process.env.NEXT_PUBLIC_FRAPPE_API_URL?.trim();
+  if (configuredUrl) return configuredUrl.replace(/\/$/, "");
+
+  if (process.env.NODE_ENV !== "production") return LOCAL_FRAPPE_API_URL;
+
+  throw new Error(
+    "NEXT_PUBLIC_FRAPPE_API_URL is required in production. Set it to the public URL of the Frappe backend in Vercel Project Settings > Environment Variables.",
+  );
+}
 
 export function frappeFileUrl(path: string | null | undefined): string {
   if (!path) return "";
@@ -8,11 +22,13 @@ export function frappeFileUrl(path: string | null | undefined): string {
     return path;
   }
 
+  const frappeApiUrl = getFrappeApiUrl();
+
   if (path.startsWith("/")) {
-    return `${FRAPPE_API_URL}${path}`;
+    return `${frappeApiUrl}${path}`;
   }
 
-  return `${FRAPPE_API_URL}/${path}`;
+  return `${frappeApiUrl}/${path}`;
 }
 
 interface FrappeListResponse<T> {
@@ -48,7 +64,7 @@ export async function frappeList<T>(
   }
 
   const response = await fetch(
-    `${FRAPPE_API_URL}/api/method/redcross_digital.api.list_docs?${params.toString()}`,
+    `${getFrappeApiUrl()}/api/method/redcross_digital.api.list_docs?${params.toString()}`,
     {
       next: {
         revalidate: 300,
@@ -97,7 +113,7 @@ export async function frappeGet<T>(
   });
 
   const response = await fetch(
-    `${FRAPPE_API_URL}/api/method/redcross_digital.api.get_doc?${params.toString()}`,
+    `${getFrappeApiUrl()}/api/method/redcross_digital.api.get_doc?${params.toString()}`,
     {
       next: {
         revalidate: 300,
@@ -121,7 +137,8 @@ export async function frappeCreateDoc<T = Record<string, unknown>>(
   doctype: string,
   doc: Record<string, unknown>
 ): Promise<T> {
-  const url = `${FRAPPE_API_URL}/api/resource/${encodeURIComponent(doctype)}`;
+  const frappeApiUrl = getFrappeApiUrl();
+  const url = `${frappeApiUrl}/api/resource/${encodeURIComponent(doctype)}`;
   try {
     const res = await fetch(url, {
       method: "POST",
@@ -140,7 +157,7 @@ export async function frappeCreateDoc<T = Record<string, unknown>>(
     console.warn("Resource POST to Frappe failed, trying method call:", err);
   }
 
-  const methodUrl = `${FRAPPE_API_URL}/api/method/redcross_digital.api.create_doc`;
+  const methodUrl = `${frappeApiUrl}/api/method/redcross_digital.api.create_doc`;
   const response = await fetch(methodUrl, {
     method: "POST",
     headers: {

@@ -8,10 +8,8 @@ import type { Metadata } from "next";
 export const dynamicParams = true;
 
 export async function generateStaticParams() {
-  const thematicAreas = await getThematicAreas();
-  return thematicAreas.map((area) => ({
-    slug: area.slug,
-  }));
+  // Thematic-area slugs are resolved on demand so builds do not require Frappe access.
+  return [];
 }
 
 export async function generateMetadata({

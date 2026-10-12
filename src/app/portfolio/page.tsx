@@ -3,6 +3,7 @@ import { PortfolioFilterableGrid } from "@/components/portfolio/PortfolioFiltera
 import { getProjects, getThematicAreas } from "@/lib/get-data";
 import { Layers } from "lucide-react";
 import type { Metadata } from "next";
+import { connection } from "next/server";
 
 export const metadata: Metadata = {
   title: "Digital Portfolio | Kenya Red Cross Society",
@@ -11,6 +12,7 @@ export const metadata: Metadata = {
 };
 
 export default async function PortfolioPage() {
+  await connection();
   const projects = await getProjects();
   const thematicAreas = await getThematicAreas();
 

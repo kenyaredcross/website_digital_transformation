@@ -2,6 +2,7 @@ import Image from "next/image";
 import { BlogFilterableGrid } from "@/components/blog/BlogFilterableGrid";
 import { getBlogs } from "@/lib/frappe/blogs";
 import type { Metadata } from "next";
+import { connection } from "next/server";
 
 export const metadata: Metadata = {
   title: "Insights & Field Stories | Kenya Red Cross Digital",
@@ -10,6 +11,7 @@ export const metadata: Metadata = {
 };
 
 export default async function BlogPage() {
+  await connection();
   const blogs = await getBlogs();
 
   return (

@@ -3,6 +3,7 @@ import { FlaskConical } from "lucide-react";
 import type { Metadata } from "next";
 import { InnovationResearchSection } from "@/components/knowledge-hub/InnovationResearchSection";
 import { getInnovations } from "@/lib/get-data";
+import { connection } from "next/server";
 
 export const metadata: Metadata = {
   title: "Innovation & Research | Kenya Red Cross Digital Transformation",
@@ -11,6 +12,7 @@ export const metadata: Metadata = {
 };
 
 export default async function InnovationResearchPage() {
+  await connection();
   const innovations = await getInnovations();
 
   return (

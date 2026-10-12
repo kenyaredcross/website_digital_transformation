@@ -3,6 +3,7 @@ import { PeopleDirectory } from "@/components/people/PeopleDirectory";
 import { getPeople } from "@/lib/frappe/people";
 import { Users } from "lucide-react";
 import type { Metadata } from "next";
+import { connection } from "next/server";
 
 export const metadata: Metadata = {
   title: "People & Innovators | Kenya Red Cross Digital Transformation",
@@ -11,6 +12,7 @@ export const metadata: Metadata = {
 };
 
 export default async function PeoplePage() {
+  await connection();
   const people = await getPeople();
 
   return (

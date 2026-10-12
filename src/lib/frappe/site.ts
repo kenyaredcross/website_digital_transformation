@@ -1,7 +1,5 @@
 import type { SiteConfig } from "@/types";
-
-const FRAPPE_API_URL =
-  process.env.NEXT_PUBLIC_FRAPPE_API_URL ?? "http://redcross.local:8000";
+import { getFrappeApiUrl } from "./client";
 
 interface FrappeSiteDoc {
   name: string | number;
@@ -112,7 +110,7 @@ function mapSiteConfig(raw: FrappeSiteDoc): SiteConfig {
 export async function getSiteConfig(): Promise<SiteConfig> {
   try {
     const res = await fetch(
-      `${FRAPPE_API_URL}/api/method/redcross_digital.api.get_site_config`,
+      `${getFrappeApiUrl()}/api/method/redcross_digital.api.get_site_config`,
       { next: { revalidate: 300, tags: ["frappe:Site"] } }
     );
     if (!res.ok) throw new Error(`Frappe returned ${res.status}`);

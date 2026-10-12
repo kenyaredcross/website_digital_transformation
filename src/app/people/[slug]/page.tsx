@@ -10,10 +10,8 @@ import type { Metadata } from "next";
 export const dynamicParams = true;
 
 export async function generateStaticParams() {
-  const people = await getPeople();
-  return people.map((p) => ({
-    slug: p.slug,
-  }));
+  // People slugs are resolved on demand so builds do not require Frappe access.
+  return [];
 }
 
 export async function generateMetadata({

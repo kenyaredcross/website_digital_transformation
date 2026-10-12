@@ -3,6 +3,7 @@ import { AfricaMap } from "@/components/geography/AfricaMap";
 import { CountryMarquee } from "@/components/geography/CountryMarquee";
 import { getCountries } from "@/lib/get-data";
 import type { Metadata } from "next";
+import { connection } from "next/server";
 
 export const metadata: Metadata = {
   title: "Where We Work | Regional Reach & Geographic Operations",
@@ -11,6 +12,7 @@ export const metadata: Metadata = {
 };
 
 export default async function WhereWeWorkPage() {
+  await connection();
   const countries = await getCountries();
 
   return (

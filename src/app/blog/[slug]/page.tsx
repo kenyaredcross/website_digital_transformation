@@ -6,11 +6,12 @@ import { getPeople } from "@/lib/frappe/people";
 import { ArrowLeft, ArrowRight, Calendar, Clock, Video, ExternalLink, Tag } from "lucide-react";
 import type { Metadata } from "next";
 
+// Blog slugs omitted from the build-time list are rendered on demand.
+export const dynamicParams = true;
+
 export async function generateStaticParams() {
-  const blogs = await getBlogs();
-  return blogs.map((b) => ({
-    slug: b.slug,
-  }));
+  // Blog slugs are resolved on demand so builds do not require Frappe access.
+  return [];
 }
 
 export async function generateMetadata({

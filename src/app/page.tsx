@@ -14,6 +14,7 @@ import {
   getPartners,
 } from "@/lib/get-data";
 import type { Metadata } from "next";
+import { connection } from "next/server";
 
 export const metadata: Metadata = {
   title: "Kenya Red Cross Society — Digital Transformation",
@@ -22,6 +23,7 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
+  await connection();
   const [people, projects, testimonials, countries, thematicAreas, partners] =
     await Promise.all([
       getPeople(),

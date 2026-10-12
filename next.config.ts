@@ -1,9 +1,19 @@
 import type { NextConfig } from "next";
 
+const frappeApiUrl =
+  process.env.NEXT_PUBLIC_FRAPPE_API_URL || "http://redcross.local:8000";
+const frappeApiOrigin = new URL(frappeApiUrl);
+
 const nextConfig: NextConfig = {
   images: {
     dangerouslyAllowLocalIP: true,
     remotePatterns: [
+      {
+        protocol: frappeApiOrigin.protocol.slice(0, -1) as "http" | "https",
+        hostname: frappeApiOrigin.hostname,
+        ...(frappeApiOrigin.port ? { port: frappeApiOrigin.port } : {}),
+        pathname: "/**",
+      },
       {
         protocol: "http",
         hostname: "redcross.local",
@@ -60,10 +70,16 @@ const nextConfig: NextConfig = {
     ],
   },
   async rewrites() {
+    // A deployment without the production backend URL must not proxy files to
+    // the developer's local hostname.
+    if (!process.env.NEXT_PUBLIC_FRAPPE_API_URL && process.env.NODE_ENV === "production") {
+      return [];
+    }
+
     return [
       {
         source: "/files/:path*",
-        destination: "http://redcross.local:8000/files/:path*",
+        destination: `${frappeApiUrl}/files/:path*`,
       },
     ];
   },

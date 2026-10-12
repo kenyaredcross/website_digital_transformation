@@ -2,6 +2,7 @@ import Image from "next/image";
 import { getThematicAreas } from "@/lib/get-data";
 import ThematicAreasGrid from "./ThematicAreasGrid";
 import type { Metadata } from "next";
+import { connection } from "next/server";
 
 export const metadata: Metadata = {
   title: "What We Do | Thematic Areas",
@@ -10,6 +11,7 @@ export const metadata: Metadata = {
 };
 
 export default async function WhatWeDoPage() {
+  await connection();
   const thematicAreas = await getThematicAreas();
 
   return (

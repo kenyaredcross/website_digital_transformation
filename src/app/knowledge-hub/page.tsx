@@ -3,6 +3,7 @@ import { BookOpen, Library } from "lucide-react";
 import type { Metadata } from "next";
 import { ResourceLibrary } from "@/components/knowledge-hub/ResourceLibrary";
 import { getKnowledgeResources } from "@/lib/frappe/knowledge-content";
+import { connection } from "next/server";
 
 export const metadata: Metadata = {
   title: "Knowledge Hub | Kenya Red Cross Digital Transformation",
@@ -11,6 +12,7 @@ export const metadata: Metadata = {
 };
 
 export default async function KnowledgeHubPage() {
+  await connection();
   const resources = await getKnowledgeResources();
   return (
     <div className="pt-20 min-h-screen bg-background text-foreground transition-colors duration-300">
