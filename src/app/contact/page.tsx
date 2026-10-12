@@ -3,6 +3,7 @@ import { ContactPageClient } from "@/components/contact/ContactPageClient";
 import { ContactInformation } from "@/components/contact/ContactInformation";
 import { ContactMap } from "@/components/contact/ContactMap";
 import { getSiteConfig } from "@/lib/get-data";
+import { connection } from "next/server";
 
 export const metadata: Metadata = {
   title: "Contact & Inquiries | Kenya Red Cross Digital Transformation",
@@ -12,6 +13,7 @@ export const metadata: Metadata = {
 };
 
 export default async function ContactPage() {
+  await connection();
   const siteConfig = await getSiteConfig();
   return (
     <>

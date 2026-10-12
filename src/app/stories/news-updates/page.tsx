@@ -3,6 +3,7 @@ import Link from "next/link";
 import { getNewsItems } from "@/lib/frappe/knowledge-content";
 import { Calendar, Tag, User, Building2, ArrowRight, ExternalLink, Newspaper } from "lucide-react";
 import { EmptyState } from "@/components/ui/EmptyState";
+import { connection } from "next/server";
 
 export const metadata: Metadata = {
   title: "News & Updates | Kenya Red Cross Digital",
@@ -24,6 +25,7 @@ const CATEGORY_COLORS: Record<string, string> = {
 };
 
 export default async function NewsUpdatesPage() {
+  await connection();
   const newsItems = await getNewsItems();
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white pb-24 pt-24">

@@ -3,6 +3,7 @@ import { Inter, Playfair_Display, DM_Mono } from "next/font/google";
 import { ConditionalLayout } from "@/components/layout/ConditionalLayout";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import { getSiteConfig } from "@/lib/get-data";
+import { EMPTY_SITE_CONFIG } from "@/lib/frappe/site";
 import "./globals.css";
 
 const inter = Inter({
@@ -31,14 +32,23 @@ const dmMono = DM_Mono({
 });
 
 export async function generateMetadata(): Promise<Metadata> {
-  const siteConfig = await getSiteConfig();
+  // Site metadata can use a static fallback during builds where the public
+  // Frappe origin is not configured. Runtime content pages still fetch Frappe.
+  const siteConfig = process.env.NEXT_PUBLIC_FRAPPE_API_URL
+    ? await getSiteConfig()
+    : EMPTY_SITE_CONFIG;
+  const siteName = siteConfig.name || "Kenya Red Cross Society — Digital Transformation";
+  const shortName = siteConfig.shortName || "Kenya Red Cross Digital";
+  const description =
+    siteConfig.description ||
+    "Digital innovation for a more resilient Kenya. Explore the people, products, data and partnerships transforming humanitarian action across Kenya and East Africa.";
 
   return {
     title: {
-      default: siteConfig.name,
-      template: `%s | ${siteConfig.shortName}`,
+      default: siteName,
+      template: `%s | ${shortName}`,
     },
-    description: siteConfig.description,
+    description,
     keywords: [
       "Kenya Red Cross",
       "Digital Transformation",
@@ -51,10 +61,10 @@ export async function generateMetadata(): Promise<Metadata> {
     ],
     authors: [{ name: "Kenya Red Cross Society" }],
     openGraph: {
-      title: siteConfig.name,
-      description: siteConfig.description,
-      url: siteConfig.url,
-      siteName: siteConfig.name,
+      title: siteName,
+      description,
+      ...(siteConfig.url ? { url: siteConfig.url } : {}),
+      siteName,
       locale: "en_KE",
       type: "website",
     },

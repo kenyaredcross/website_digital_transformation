@@ -14,6 +14,7 @@ import {
   BookOpenCheck,
 } from "lucide-react";
 import { EmptyState } from "@/components/ui/EmptyState";
+import { connection } from "next/server";
 
 export const metadata: Metadata = {
   title: "Digital Stories | Kenya Red Cross Digital",
@@ -31,6 +32,7 @@ const SECTION_META = [
 ] as const;
 
 export default async function DigitalStoriesPage() {
+  await connection();
   const digitalStories = await getDigitalStories();
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white pb-24 pt-24">
