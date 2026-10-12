@@ -354,9 +354,7 @@ function PriorityDetailCard({
 
   return (
     <div className="relative rounded-2xl sm:rounded-3xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 shadow-2xl overflow-hidden transition-all duration-300">
-      
-      {/* Top Gradient Accent Bar */}
-      <div className={`h-1.5 w-full bg-gradient-to-r ${style.accentBar}`} />
+
 
       <div className="p-6 sm:p-8 lg:p-10 space-y-6">
 
