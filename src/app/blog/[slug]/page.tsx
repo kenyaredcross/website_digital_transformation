@@ -5,6 +5,7 @@ import { getBlogs, getBlogBySlug } from "@/lib/get-data";
 import { getPeople } from "@/lib/frappe/people";
 import { ArrowLeft, ArrowRight, Calendar, Clock, Video, ExternalLink, Tag } from "lucide-react";
 import type { Metadata } from "next";
+import type { BlogPost, Person } from "@/types";
 import { ContentErrorState } from "@/components/ui/ContentErrorState";
 
 // Blog slugs omitted from the build-time list are rendered on demand.
@@ -56,8 +57,8 @@ export default async function BlogPostPage({
     notFound();
   }
 
-  let allBlogs = [];
-  let people = [];
+  let allBlogs: BlogPost[] = [];
+  let people: Person[] = [];
   try {
     [allBlogs, people] = await Promise.all([getBlogs(), getPeople()]);
   } catch (error) {
