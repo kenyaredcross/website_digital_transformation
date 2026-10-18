@@ -1,9 +1,9 @@
 import Image from "next/image";
 import { AfricaMap } from "@/components/geography/AfricaMap";
-import { CountryMarquee } from "@/components/geography/CountryMarquee";
 import { getCountries } from "@/lib/get-data";
 import type { Metadata } from "next";
 import { connection } from "next/server";
+import { ContentErrorState } from "@/components/ui/ContentErrorState";
 
 export const metadata: Metadata = {
   title: "Where We Work | Regional Reach & Geographic Operations",
@@ -13,12 +13,18 @@ export const metadata: Metadata = {
 
 export default async function WhereWeWorkPage() {
   await connection();
-  const countries = await getCountries();
+  let countries;
+  try {
+    countries = await getCountries();
+  } catch (error) {
+    console.error("Failed to load regional operations:", error);
+    countries = null;
+  }
 
   return (
-    <div className="pt-25 pb-20 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white min-h-screen transition-colors duration-300">
+    <div className="pt-20 sm:pt-25 pb-14 sm:pb-20 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white min-h-screen transition-colors duration-300">
       {/* ── Hero Section ──────────────────────────────────── */}
-      <section className="relative py-15 md:py-15 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 overflow-hidden transition-colors duration-300">
+      <section className="relative py-10 sm:py-15 md:py-15 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 overflow-hidden transition-colors duration-300">
 
         {/* Dark mode only: full-bleed background image + gradient overlays */}
         <div className="absolute inset-0 z-0 hidden dark:block">
@@ -48,14 +54,14 @@ export default async function WhereWeWorkPage() {
 
         {/* Two-column layout: text left, image right (light) / text only (dark) */}
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row lg:items-center gap-12 lg:gap-16">
+          <div className="flex flex-col lg:flex-row lg:items-center gap-7 sm:gap-12 lg:gap-16">
 
             {/* ── Left: Text content ── */}
-            <div className="flex-1 space-y-7">
+            <div className="min-w-0 flex-1 space-y-5 sm:space-y-7">
               
 
               {/* Headline */}
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-slate-900 dark:text-white tracking-tight leading-[1.05]">
+              <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-slate-900 dark:text-white tracking-tight leading-[1.05]">
                 Our{" "}
                 <span className="relative inline-block">
                   <span className="relative z-10 text-red-600 dark:text-red-500">reach.</span>
@@ -67,14 +73,14 @@ export default async function WhereWeWorkPage() {
               </h1>
 
               {/* Sub-copy */}
-              <p className="text-xl text-slate-600 dark:text-slate-300 leading-relaxed">
+              <p className="text-base sm:text-xl text-slate-600 dark:text-slate-300 leading-relaxed">
                 Digital transformation supporting humanitarian action across 47 Kenyan counties and 8 East & Horn of Africa nations.
               </p>
             </div>
 
             {/* ── Right: Image square — light mode only, zero gradient overlay ── */}
             <div className="block dark:hidden lg:flex-shrink-0 lg:w-[420px] xl:w-[480px] w-full">
-              <div className="relative w-full aspect-square rounded-3xl overflow-hidden shadow-2xl ring-1 ring-slate-200">
+              <div className="relative w-full aspect-[16/10] sm:aspect-[16/9] lg:aspect-square rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl ring-1 ring-slate-200">
                 <Image
                   src="/assets/images/dt_updates/meeting.jpg"
                   alt="Humanitarian Technology & Field Operations"
@@ -91,9 +97,9 @@ export default async function WhereWeWorkPage() {
       </section>
 
       {/* Interactive Map Showcase */}
-      <section className="py-16 border-b border-slate-200 dark:border-slate-800 bg-slate-100/50 dark:bg-slate-900/50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AfricaMap countries={countries} isCompact={true} />
+      <section className="py-8 sm:py-16 border-b border-slate-200 dark:border-slate-800 bg-slate-100/50 dark:bg-slate-900/50">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+          {countries === null ? <ContentErrorState title="Regional operations couldn’t load" /> : <AfricaMap countries={countries} isCompact={true} />}
         </div>
       </section>
 

@@ -10,10 +10,12 @@ interface ContactFormPanelProps {
   loading: boolean;
   submitted: boolean;
   submissionResult: ContactSubmissionResult | null;
+  submissionError: string | null;
   onModeChange: (mode: ContactMode) => void;
   onSubmissionModeChange: (mode: FeedbackSubmissionMode) => void;
   onFormDataChange: (formData: ContactFormData) => void;
   onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+  onClearError: () => void;
   onSubmitAnother: () => void;
 }
 
@@ -27,10 +29,12 @@ export function ContactFormPanel({
   loading,
   submitted,
   submissionResult,
+  submissionError,
   onModeChange,
   onSubmissionModeChange,
   onFormDataChange,
   onSubmit,
+  onClearError,
   onSubmitAnother,
 }: ContactFormPanelProps) {
   const update = <K extends keyof ContactFormData>(key: K, value: ContactFormData[K]) => {
@@ -67,6 +71,12 @@ export function ContactFormPanel({
         </div>
       ) : (
         <form onSubmit={onSubmit} className="space-y-4">
+          {submissionError && (
+            <div role="alert" className="flex items-start gap-3 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-800 dark:border-red-900/60 dark:bg-red-950/40 dark:text-red-200">
+              <span className="min-w-0 flex-1">{submissionError}</span>
+              <button type="button" onClick={onClearError} className="shrink-0 font-semibold underline underline-offset-2">Dismiss</button>
+            </div>
+          )}
           {(mode !== "feedback" || submissionMode === "identified") && <div className="grid grid-cols-1 sm:grid-cols-2 gap-4"><div className="space-y-1.5"><label className={labelClass}>{mode === "partner" ? "Contact Person Full Name *" : "Full Name *"}</label><input type="text" required placeholder="e.g. Dr. Jane Doe" value={formData.name} onChange={(e) => update("name", e.target.value)} className={inputClass} /></div><div className="space-y-1.5"><label className={labelClass}>Email Address *</label><input type="email" required placeholder="jane.doe@organization.org" value={formData.email} onChange={(e) => update("email", e.target.value)} className={inputClass} /></div></div>}
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4"><div className="space-y-1.5"><label className={labelClass}>{mode === "partner" ? "Organisation / Academic Institution *" : "Organisation (Optional)"}</label><input type="text" required={mode === "partner"} placeholder="e.g. National Society / UN Agency / Tech Org" value={formData.organization} onChange={(e) => update("organization", e.target.value)} className={inputClass} /></div><div className="space-y-1.5"><label className={labelClass}>Phone / WhatsApp (Optional)</label><input type="tel" placeholder="+254 7XX XXX XXX" value={formData.phone} onChange={(e) => update("phone", e.target.value)} className={inputClass} /></div></div>

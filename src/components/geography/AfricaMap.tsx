@@ -216,13 +216,13 @@ export function AfricaMap({ countries = [], isCompact = false }: AfricaMapProps)
   const dynamicViewBox = `${viewBoxX} ${viewBoxY} ${viewBoxWidth} ${viewBoxHeight}`;
 
   return (
-    <div className="relative w-full rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 shadow-xl overflow-hidden text-slate-900 dark:text-white transition-colors duration-300">
+    <div className="relative w-full rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-3 sm:p-6 shadow-xl overflow-hidden text-slate-900 dark:text-white transition-colors duration-300">
       {/* Map Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-4 mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 border-b border-slate-200 dark:border-slate-800 pb-4 mb-4 sm:mb-6">
         <div>
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-red-600 dark:bg-red-500 animate-ping" />
-            <h3 className="text-base font-extrabold text-slate-900 dark:text-white tracking-wide uppercase font-mono">
+            <h3 className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-white tracking-wide uppercase font-mono">
               Regional Operations Map
             </h3>
           </div>
@@ -232,7 +232,7 @@ export function AfricaMap({ countries = [], isCompact = false }: AfricaMapProps)
         </div>
 
         {/* Legend */}
-        <div className="flex items-center gap-4 text-xs font-mono">
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-[10px] sm:text-xs font-mono">
           <div className="flex items-center gap-1.5">
             <span className="w-3 h-3 rounded bg-red-600 border border-red-400" />
             <span className="text-slate-700 dark:text-slate-300">Active Operational Hub</span>

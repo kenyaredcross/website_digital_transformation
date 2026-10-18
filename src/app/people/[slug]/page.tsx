@@ -1,10 +1,11 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { getPeople, getPerson } from "@/lib/frappe/people";
+import { getPerson } from "@/lib/frappe/people";
 import { getProjects } from "@/lib/frappe/projects";
 import { ArrowLeft, ArrowRight, Mail, Globe, ExternalLink, Layers, Award, CheckCircle2 } from "lucide-react";
 import type { Metadata } from "next";
+import { ContentErrorState } from "@/components/ui/ContentErrorState";
 
 // Allow slugs not pre-rendered at build time to be SSR'd on demand
 export const dynamicParams = true;
@@ -20,7 +21,12 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const resolvedParams = await params;
-  const person = await getPerson(resolvedParams.slug);
+  let person;
+  try {
+    person = await getPerson(resolvedParams.slug);
+  } catch {
+    return { title: "Team Profile Temporarily Unavailable" };
+  }
 
   if (!person) {
     return { title: "Team Profile Not Found" };
@@ -38,8 +44,14 @@ export default async function PersonProfilePage({
   params: Promise<{ slug: string }>;
 }) {
   const resolvedParams = await params;
-  const person = await getPerson(resolvedParams.slug);
-  const projects = await getProjects();
+  let person;
+  let projects;
+  try {
+    [person, projects] = await Promise.all([getPerson(resolvedParams.slug), getProjects()]);
+  } catch (error) {
+    console.error("Failed to load team profile:", error);
+    return <div className="mx-auto max-w-4xl px-4 py-20"><ContentErrorState title="This team profile couldn’t load" /></div>;
+  }
 
   if (!person) {
     notFound();

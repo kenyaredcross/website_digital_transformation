@@ -44,18 +44,18 @@ export function PeopleDirectory({ people, initialPeople }: PeopleDirectoryProps 
   }, [peopleList, searchQuery, selectedDepartment]);
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-7 sm:space-y-10">
       {/* Search & Department Filters */}
-      <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-4 shadow-sm transition-colors">
+      <div className="p-4 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-4 shadow-sm transition-colors">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
           <div className="md:col-span-8 relative">
             <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
-              type="text"
+              type="search"
               placeholder="Search team member by name, role, or skill (e.g. Next.js, GIS, AI)..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-red-500 font-medium"
+              className="w-full min-w-0 pl-10 pr-4 py-3 sm:py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-base sm:text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-red-500 font-medium"
             />
           </div>
 
@@ -63,7 +63,7 @@ export function PeopleDirectory({ people, initialPeople }: PeopleDirectoryProps 
             <select
               value={selectedDepartment}
               onChange={(e) => setSelectedDepartment(e.target.value)}
-              className="w-full px-3 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-xs text-slate-700 dark:text-slate-200 focus:outline-none focus:border-red-500 font-mono"
+              className="w-full min-w-0 px-3 py-3 sm:py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-sm sm:text-xs text-slate-700 dark:text-slate-200 focus:outline-none focus:border-red-500 font-mono"
             >
               <option value="All">All Departments / Specializations</option>
               {departments.filter((d) => d !== "All").map((dept) => (
@@ -77,7 +77,7 @@ export function PeopleDirectory({ people, initialPeople }: PeopleDirectoryProps 
 
         {/* Filter Pills */}
         <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-slate-200 dark:border-slate-800">
-          <span className="text-xs font-mono font-bold text-slate-500 dark:text-slate-400 mr-2 flex items-center gap-1">
+          <span className="text-xs font-mono font-bold text-slate-500 dark:text-slate-400 mr-2 flex items-center gap-1 basis-full sm:basis-auto">
             <Filter className="w-3.5 h-3.5" /> Department:
           </span>
           {departments.map((dept) => (
@@ -104,15 +104,15 @@ export function PeopleDirectory({ people, initialPeople }: PeopleDirectoryProps 
           description={peopleList.length === 0 ? "Our people profiles will appear here as soon as they are available." : "No profiles match your search or selected department. Try changing your search or filter."}
           action={peopleList.length > 0 ? <button onClick={() => { setSearchQuery(""); setSelectedDepartment("All"); }} className="rounded-xl bg-red-600 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-red-700">Clear search and filters</button> : undefined}
         />
-      ) : <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      ) : <div className="grid grid-cols-1 min-[480px]:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-8">
         {filteredPeople.map((person) => (
           <Link
             key={person.id}
             href={`/people/${person.slug}`}
-            className="group rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-red-500/50 hover:shadow-xl hover:shadow-red-500/5 transition-all duration-300 p-6 flex flex-col justify-between cursor-pointer"
+            className="group rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-red-500/50 hover:shadow-xl hover:shadow-red-500/5 transition-all duration-300 p-4 sm:p-6 flex flex-col justify-between cursor-pointer"
           >
             <div>
-              <div className="relative w-full aspect-square overflow-hidden rounded-xl bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 mb-6 group-hover:border-red-500/30 transition-colors">
+              <div className="relative w-full aspect-[4/3] sm:aspect-square overflow-hidden rounded-xl bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 mb-4 sm:mb-6 group-hover:border-red-500/30 transition-colors">
                 <Image
                   src={person.avatar}
                   alt={`Portrait of ${person.name}`}

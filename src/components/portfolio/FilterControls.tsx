@@ -74,7 +74,7 @@ export function FilterControls({
   const activeThematicAreas = thematicAreas;
 
   return (
-    <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-6 shadow-sm">
+    <div className="p-4 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-5 sm:space-y-6 shadow-sm">
       {/* Top row: Search, Thematic Area, Year + View Mode */}
       <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
         {/* Search Input */}
@@ -85,7 +85,7 @@ export function FilterControls({
             placeholder="Search by title, technology (e.g. Next.js, Python), or keyword..."
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
-            className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-red-500 transition-colors font-medium"
+            className="w-full min-w-0 pl-10 pr-4 py-3 sm:py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-base sm:text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-red-500 transition-colors font-medium"
           />
           {searchQuery && (
             <button
@@ -102,7 +102,7 @@ export function FilterControls({
           <select
             value={selectedThematicArea}
             onChange={(e) => onThematicAreaChange(e.target.value)}
-            className="w-full px-3 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:border-red-500 font-mono"
+            className="w-full min-w-0 px-3 py-3 sm:py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-sm sm:text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:border-red-500 font-mono"
             aria-label="Filter by thematic area"
           >
             <option value="All">All Thematic Areas</option>
@@ -119,7 +119,7 @@ export function FilterControls({
           <select
             value={selectedYear}
             onChange={(e) => onYearChange(e.target.value)}
-            className="w-full px-3 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:border-red-500 font-mono"
+            className="w-full min-w-0 px-3 py-3 sm:py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-sm sm:text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:border-red-500 font-mono"
             aria-label="Filter by year"
           >
             <option value="All">All Years</option>
@@ -165,7 +165,7 @@ export function FilterControls({
 
       {/* Category Pills */}
       <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-slate-200 dark:border-slate-800">
-        <span className="text-xs font-mono font-bold text-slate-500 dark:text-slate-400 mr-2 flex items-center gap-1">
+        <span className="text-xs font-mono font-bold text-slate-500 dark:text-slate-400 mr-2 flex items-center gap-1 basis-full sm:basis-auto">
           <Filter className="w-3.5 h-3.5" /> Category:
         </span>
         {categories.map((cat) => (

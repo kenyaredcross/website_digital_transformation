@@ -3,6 +3,7 @@ import Link from "next/link";
 import { getNewsItems } from "@/lib/frappe/knowledge-content";
 import { Calendar, Tag, User, Building2, ArrowRight, ExternalLink, Newspaper } from "lucide-react";
 import { EmptyState } from "@/components/ui/EmptyState";
+import { ContentErrorState } from "@/components/ui/ContentErrorState";
 import { connection } from "next/server";
 
 export const metadata: Metadata = {
@@ -26,22 +27,28 @@ const CATEGORY_COLORS: Record<string, string> = {
 
 export default async function NewsUpdatesPage() {
   await connection();
-  const newsItems = await getNewsItems();
+  let newsItems;
+  try {
+    newsItems = await getNewsItems();
+  } catch (error) {
+    console.error("Failed to load news updates:", error);
+    newsItems = null;
+  }
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white pb-24 pt-24">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white pb-16 sm:pb-24 pt-20 sm:pt-24">
       {/* ── Hero ─────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 py-20 md:py-24">
+      <section className="relative overflow-hidden border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 py-12 sm:py-16 md:py-24">
         <div
           aria-hidden
           className="pointer-events-none absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full bg-slate-900/3 dark:bg-white/3 blur-3xl"
         />
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl space-y-6">
-            <h1 className="text-5xl font-bold leading-[1.05] tracking-tight text-slate-900 dark:text-white sm:text-6xl lg:text-7xl font-heading">
+            <h1 className="text-4xl font-bold leading-[1.05] tracking-tight text-slate-900 dark:text-white sm:text-6xl lg:text-7xl font-heading">
               Progress, Documented
             </h1>
 
-            <p className="text-lg leading-relaxed text-slate-600 dark:text-slate-300 sm:text-xl max-w-[58ch]">
+            <p className="text-base leading-relaxed text-slate-600 dark:text-slate-300 sm:text-xl max-w-[58ch]">
               Announcements, milestones, partnerships, and events from the Kenya
               Red Cross Digital Transformation Unit. Real progress, honestly
               reported.
@@ -53,9 +60,9 @@ export default async function NewsUpdatesPage() {
       </section>
 
       {/* ── News List ────────────────────────────────────────── */}
-      <section className="py-16 md:py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-8">
-          {newsItems.length === 0 ? <EmptyState icon={Newspaper} title="No updates to share yet" description="News, announcements and milestones will appear here as soon as they are published." /> : newsItems.map((item) => {
+      <section className="py-10 sm:py-16 md:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-6 sm:space-y-8">
+          {newsItems === null ? <ContentErrorState title="News updates couldn’t load" /> : newsItems.length === 0 ? <EmptyState icon={Newspaper} title="No updates to share yet" description="News, announcements and milestones will appear here as soon as they are published." /> : newsItems.map((item) => {
             const catClass =
               CATEGORY_COLORS[item.category] ??
               "bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700";
@@ -63,10 +70,10 @@ export default async function NewsUpdatesPage() {
             return (
               <article
                 key={item.id}
-                className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-md transition-all duration-300"
+                className="bg-white dark:bg-slate-900 rounded-2xl sm:rounded-3xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-md transition-all duration-300"
               >
                 {/* Header */}
-                <div className="p-8 md:p-10 border-b border-slate-100 dark:border-slate-800">
+                <div className="p-5 sm:p-8 md:p-10 border-b border-slate-100 dark:border-slate-800">
                   <div className="flex flex-wrap items-start justify-between gap-4">
                     <div className="space-y-3 flex-1">
                       {/* Meta row */}
@@ -111,7 +118,7 @@ export default async function NewsUpdatesPage() {
                 </div>
 
                 {/* Content */}
-                <div className="p-8 md:p-10 space-y-5">
+                <div className="p-5 sm:p-8 md:p-10 space-y-5">
                   {item.content.split("\n\n").map((para, i) => (
                     <p
                       key={i}
@@ -152,9 +159,9 @@ export default async function NewsUpdatesPage() {
       </section>
 
       {/* ── Subscribe CTA ─────────────────────────────────────── */}
-      <section className="py-12">
+      <section className="py-8 sm:py-12">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-10 md:p-14 flex flex-col md:flex-row items-center justify-between gap-8 shadow-sm">
+          <div className="rounded-2xl sm:rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 sm:p-10 md:p-14 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-6 sm:gap-8 shadow-sm">
             <div className="space-y-3">
               <h2 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white font-heading">
                 Stay in the loop
@@ -166,7 +173,7 @@ export default async function NewsUpdatesPage() {
             </div>
             <Link
               href="/contact"
-              className="shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-red-600 text-white font-semibold text-sm hover:bg-red-700 transition-colors shadow-md"
+              className="inline-flex w-full sm:w-auto justify-center items-center gap-2 px-6 py-3 rounded-xl bg-red-600 text-white font-semibold text-sm hover:bg-red-700 transition-colors shadow-md"
             >
               Contact us
               <ArrowRight className="w-4 h-4" />

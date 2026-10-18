@@ -18,10 +18,12 @@ export function ContactPageClient({ contactInformation }: { contactInformation: 
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [submissionResult, setSubmissionResult] = useState<ContactSubmissionResult | null>(null);
+  const [submissionError, setSubmissionError] = useState<string | null>(null);
 
   const changeMode = useCallback((nextMode: ContactMode) => {
     setMode(nextMode);
     setSubmitted(false);
+    setSubmissionError(null);
     if (nextMode === "partner") setFormData((previous) => ({ ...previous, subject: "Partnering Inquiry" }));
     if (nextMode === "feedback") setFormData((previous) => ({ ...previous, subject: "User Feedback" }));
   }, []);
@@ -60,6 +62,7 @@ export function ContactPageClient({ contactInformation }: { contactInformation: 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setLoading(true);
+    setSubmissionError(null);
 
     try {
       let endpoint: string;
@@ -117,7 +120,7 @@ export function ContactPageClient({ contactInformation }: { contactInformation: 
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-      const data = await response.json();
+      const data = await response.json().catch(() => ({}));
       if (!response.ok) {
         const defaultError = mode === "feedback" ? "Failed to submit feedback." : mode === "partner" ? "Failed to submit partner inquiry." : "Failed to submit inquiry.";
         throw new Error(data.error || defaultError);
@@ -130,7 +133,7 @@ export function ContactPageClient({ contactInformation }: { contactInformation: 
         : { frappeSynced: true, docName: data.name, message: data.message || "Thank you for reaching out. Your inquiry has been received." });
       setSubmitted(true);
     } catch (error: unknown) {
-      alert(error instanceof Error ? error.message : "Error submitting form. Please try again.");
+      setSubmissionError(error instanceof Error ? error.message : "We couldn’t send your message. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -166,6 +169,8 @@ export function ContactPageClient({ contactInformation }: { contactInformation: 
               onSubmissionModeChange={setSubmissionMode}
               onFormDataChange={setFormData}
               onSubmit={handleSubmit}
+              onClearError={() => setSubmissionError(null)}
+              submissionError={submissionError}
               onSubmitAnother={() => { setSubmitted(false); setSubmissionResult(null); }}
             />
             {contactInformation}

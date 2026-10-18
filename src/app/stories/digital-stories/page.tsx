@@ -14,6 +14,7 @@ import {
   BookOpenCheck,
 } from "lucide-react";
 import { EmptyState } from "@/components/ui/EmptyState";
+import { ContentErrorState } from "@/components/ui/ContentErrorState";
 import { connection } from "next/server";
 
 export const metadata: Metadata = {
@@ -33,11 +34,17 @@ const SECTION_META = [
 
 export default async function DigitalStoriesPage() {
   await connection();
-  const digitalStories = await getDigitalStories();
+  let digitalStories;
+  try {
+    digitalStories = await getDigitalStories();
+  } catch (error) {
+    console.error("Failed to load digital stories:", error);
+    digitalStories = null;
+  }
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white pb-24 pt-24">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white pb-16 sm:pb-24 pt-20 sm:pt-24">
       {/* ── Hero ─────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 py-20 md:py-24">
+      <section className="relative overflow-hidden border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 py-12 sm:py-16 md:py-24">
         {/* Decorative gradient orb */}
         <div
           aria-hidden
@@ -47,12 +54,12 @@ export default async function DigitalStoriesPage() {
           <div className="max-w-3xl space-y-6">
             
 
-            <h1 className="text-5xl font-bold leading-[1.05] tracking-tight text-slate-900 dark:text-white sm:text-6xl lg:text-7xl font-heading">
+            <h1 className="text-4xl font-bold leading-[1.05] tracking-tight text-slate-900 dark:text-white sm:text-6xl lg:text-7xl font-heading">
               People Behind the{" "}
               <span className="text-red-600">Transformation</span>
             </h1>
 
-            <p className="text-lg leading-relaxed text-slate-600 dark:text-slate-300 sm:text-xl max-w-[58ch]">
+            <p className="text-base leading-relaxed text-slate-600 dark:text-slate-300 sm:text-xl max-w-[58ch]">
               Digital transformation is about people, not only systems. Through
               stories and case studies, we share how staff, volunteers, partners
               and communities interact with digital tools and contribute to
@@ -65,15 +72,15 @@ export default async function DigitalStoriesPage() {
       </section>
 
       {/* ── Stories Grid ─────────────────────────────────────── */}
-      <section className="py-16 md:py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12">
-          {digitalStories.length === 0 ? <EmptyState icon={BookOpenCheck} title="No digital stories yet" description="Stories from our staff, volunteers, partners and communities will appear here as they are published." /> : digitalStories.map((story, index) => (
+      <section className="py-10 sm:py-16 md:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12">
+          {digitalStories === null ? <ContentErrorState title="Digital stories couldn’t load" /> : digitalStories.length === 0 ? <EmptyState icon={BookOpenCheck} title="No digital stories yet" description="Stories from our staff, volunteers, partners and communities will appear here as they are published." /> : digitalStories.map((story, index) => (
             <article
               key={story.id}
-              className="group relative bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300"
+              className="group relative bg-white dark:bg-slate-900 rounded-2xl sm:rounded-3xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300"
             >
               {/* Story header */}
-              <div className="p-8 md:p-10 border-b border-slate-100 dark:border-slate-800">
+              <div className="p-5 sm:p-8 md:p-10 border-b border-slate-100 dark:border-slate-800">
                 <div className="flex flex-wrap items-start justify-between gap-4">
                   <div className="space-y-3 flex-1">
                     <div className="flex flex-wrap items-center gap-3">
@@ -99,14 +106,14 @@ export default async function DigitalStoriesPage() {
                     </p>
                   </div>
 
-                  <div className="shrink-0 flex items-center justify-center w-12 h-12 rounded-2xl bg-red-50 dark:bg-red-950/40 border border-red-100 dark:border-red-900/50">
+                  <div className="shrink-0 flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-red-50 dark:bg-red-950/40 border border-red-100 dark:border-red-900/50">
                     <span className="text-xl font-bold font-sans text-red-600 dark:text-red-400">
                       {String(index + 1).padStart(2, "0")}
                     </span>
                   </div>
                 </div>
 
-                <div className="mt-4 flex items-center gap-3">
+              <div className="mt-4 flex items-start gap-3">
                   <div className="w-8 h-8 rounded-full bg-gradient-to-br from-red-400 to-red-600 flex items-center justify-center text-white text-xs font-bold shrink-0">
                     {story.author.charAt(0)}
                   </div>
@@ -122,7 +129,7 @@ export default async function DigitalStoriesPage() {
               </div>
 
               {/* Story sections */}
-              <div className="p-8 md:p-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="p-5 sm:p-8 md:p-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
                 {SECTION_META.map(({ key, icon: Icon, label }) => (
                   <div key={key} className="space-y-2">
                     <div className="flex items-center gap-2">
@@ -142,7 +149,7 @@ export default async function DigitalStoriesPage() {
 
               {/* Safeguarding note */}
               {story.safeguardingNote && (
-                <div className="px-8 md:px-10 pb-8 md:pb-10">
+                <div className="px-5 sm:px-8 md:px-10 pb-5 sm:pb-8 md:pb-10">
                   <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
                     <p className="text-xs text-slate-500 dark:text-slate-400 italic">
                       🔒 <strong>Safeguarding:</strong> {story.safeguardingNote}
@@ -156,9 +163,9 @@ export default async function DigitalStoriesPage() {
       </section>
 
       {/* ── CTA ───────────────────────────────────────────────── */}
-      <section className="py-12">
+      <section className="py-8 sm:py-12">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="rounded-3xl bg-gradient-to-br from-red-600 to-red-700 p-10 md:p-14 text-white flex flex-col md:flex-row items-center justify-between gap-8">
+          <div className="rounded-2xl sm:rounded-3xl bg-gradient-to-br from-red-600 to-red-700 p-5 sm:p-10 md:p-14 text-white flex flex-col md:flex-row items-stretch md:items-center justify-between gap-6 sm:gap-8">
             <div className="space-y-3">
               <h2 className="text-2xl md:text-3xl font-bold font-heading">
                 Have a story to tell?
@@ -170,7 +177,7 @@ export default async function DigitalStoriesPage() {
             </div>
             <Link
               href="/contact"
-              className="shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white text-red-600 font-semibold text-sm hover:bg-red-50 transition-colors shadow-md"
+              className="inline-flex w-full sm:w-auto justify-center items-center gap-2 px-6 py-3 rounded-xl bg-white text-red-600 font-semibold text-sm hover:bg-red-50 transition-colors shadow-md"
             >
               Get in touch
               <ArrowRight className="w-4 h-4" />

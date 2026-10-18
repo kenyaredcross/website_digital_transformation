@@ -5,6 +5,7 @@ import { getBlogs, getBlogBySlug } from "@/lib/get-data";
 import { getPeople } from "@/lib/frappe/people";
 import { ArrowLeft, ArrowRight, Calendar, Clock, Video, ExternalLink, Tag } from "lucide-react";
 import type { Metadata } from "next";
+import { ContentErrorState } from "@/components/ui/ContentErrorState";
 
 // Blog slugs omitted from the build-time list are rendered on demand.
 export const dynamicParams = true;
@@ -20,7 +21,12 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const resolvedParams = await params;
-  const post = await getBlogBySlug(resolvedParams.slug);
+  let post;
+  try {
+    post = await getBlogBySlug(resolvedParams.slug);
+  } catch {
+    return { title: "Article temporarily unavailable" };
+  }
 
   if (!post) {
     return { title: "Article Not Found" };
@@ -38,15 +44,26 @@ export default async function BlogPostPage({
   params: Promise<{ slug: string }>;
 }) {
   const resolvedParams = await params;
-  const post = await getBlogBySlug(resolvedParams.slug);
+  let post;
+  try {
+    post = await getBlogBySlug(resolvedParams.slug);
+  } catch (error) {
+    console.error("Failed to load blog article:", error);
+    return <div className="mx-auto max-w-4xl px-4 py-20"><ContentErrorState title="This article couldn’t load" /></div>;
+  }
 
   if (!post) {
     notFound();
   }
 
-  const allBlogs = await getBlogs();
+  let allBlogs = [];
+  let people = [];
+  try {
+    [allBlogs, people] = await Promise.all([getBlogs(), getPeople()]);
+  } catch (error) {
+    console.error("Failed to load related article information:", error);
+  }
   const relatedPosts = allBlogs.filter((b) => b.id !== post.id).slice(0, 3);
-  const people = await getPeople();
   const authorPerson = people.find(
     (p) => p.name.toLowerCase() === post.author.name.toLowerCase()
   );

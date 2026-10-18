@@ -95,9 +95,9 @@ export function BlogFilterableGrid({ blogs }: { blogs: BlogPost[] }) {
   };
 
   return (
-    <div className="space-y-12">
+    <div className="space-y-8 sm:space-y-12">
       {/* ── Controls ───────────────────────────────────────── */}
-      <div className="space-y-5">
+      <div className="space-y-4 sm:space-y-5">
         <div className="relative max-w-xl">
           <Search
             className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400"
@@ -112,7 +112,7 @@ export function BlogFilterableGrid({ blogs }: { blogs: BlogPost[] }) {
             placeholder="Search stories, topics or tags"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full rounded-full border border-slate-300 bg-white py-3 pl-11 pr-11 text-sm text-slate-900 placeholder-slate-400 transition-colors focus:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-500/25 dark:border-slate-700 dark:bg-slate-900 dark:text-white dark:placeholder-slate-500"
+            className="w-full rounded-full border border-slate-300 bg-white py-3 pl-11 pr-11 text-base sm:text-sm text-slate-900 placeholder-slate-400 transition-colors focus:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-500/25 dark:border-slate-700 dark:bg-slate-900 dark:text-white dark:placeholder-slate-500"
           />
           {searchQuery && (
             <button
@@ -135,7 +135,7 @@ export function BlogFilterableGrid({ blogs }: { blogs: BlogPost[] }) {
                 type="button"
                 onClick={() => setSelectedCategory(cat)}
                 aria-pressed={active}
-                className={`rounded-full px-4 py-2 text-sm transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-950 ${
+                className={`rounded-full px-3 sm:px-4 py-2 text-xs sm:text-sm transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-950 ${
                   active
                     ? "bg-red-600 font-semibold text-white"
                     : "border border-slate-300 bg-transparent text-slate-700 hover:border-slate-400 hover:bg-white dark:border-slate-700 dark:text-slate-300 dark:hover:border-slate-600 dark:hover:bg-slate-900"

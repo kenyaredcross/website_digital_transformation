@@ -58,7 +58,7 @@ export function DeckView({ projects, deckIndex, deckDir, onNext, onPrev }: DeckV
       className="space-y-8"
     >
       {/* The stack */}
-      <div className="relative mx-auto w-full max-w-3xl min-h-[560px] sm:min-h-[600px] pb-16">
+      <div className="relative mx-auto w-full max-w-3xl min-h-[520px] sm:min-h-[600px] pb-16 touch-pan-y">
         {deckStack.map((project, offset) => {
           const isFront = offset === 0;
           return (
