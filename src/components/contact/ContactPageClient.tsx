@@ -65,6 +65,7 @@ export function ContactPageClient({ contactInformation }: { contactInformation: 
     setSubmissionError(null);
 
     try {
+      const websiteUrl = String(new FormData(event.currentTarget).get("website_url") || "");
       let endpoint: string;
       let payload: Record<string, string | number>;
       if (mode === "feedback") {
@@ -91,6 +92,7 @@ export function ContactPageClient({ contactInformation }: { contactInformation: 
           accessibility_area: formData.accessibilityArea,
           consent_to_contact: formData.consentToContact ? 1 : 0,
           privacy_accepted: formData.privacyAccepted ? 1 : 0,
+          website_url: websiteUrl,
         };
       } else if (mode === "partner") {
         endpoint = "/api/partner-inquiry";
@@ -102,6 +104,7 @@ export function ContactPageClient({ contactInformation }: { contactInformation: 
           collaborationArea: formData.collaborationArea,
           subject: formData.subject,
           message: formData.message,
+          website_url: websiteUrl,
         };
       } else {
         endpoint = "/api/inquiry";
@@ -112,6 +115,7 @@ export function ContactPageClient({ contactInformation }: { contactInformation: 
           organization: formData.organization,
           subject: formData.subject,
           message: formData.message,
+          website_url: websiteUrl,
         };
       }
 
@@ -127,7 +131,7 @@ export function ContactPageClient({ contactInformation }: { contactInformation: 
       }
 
       setSubmissionResult(mode === "feedback"
-        ? { frappeSynced: true, docName: data.name, message: "Feedback successfully logged to MariaDB (DocType: Feedback)." }
+        ? { frappeSynced: true, docName: data.name, message: "Feedback submitted successfully" }
         : mode === "partner"
         ? { frappeSynced: data.frappeSynced, docName: data.docName, message: data.message || "Partner inquiry submitted successfully!" }
         : { frappeSynced: true, docName: data.name, message: data.message || "Thank you for reaching out. Your inquiry has been received." });

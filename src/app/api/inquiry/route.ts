@@ -1,10 +1,11 @@
 import { NextResponse } from "next/server";
+import { readPublicSubmission, requestBodyErrorResponse } from "@/lib/security/request-body";
 
 const FRAPPE_API_URL = process.env.NEXT_PUBLIC_FRAPPE_API_URL || "http://redcross.local:8000";
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
+    const body = await readPublicSubmission(request);
     const response = await fetch(`${FRAPPE_API_URL}/api/method/redcross_digital.api.submit_inquiry`, {
       method: "POST",
       headers: { "Content-Type": "application/json", Accept: "application/json" },
@@ -12,10 +13,14 @@ export async function POST(request: Request) {
     });
     const result = await response.json();
     if (!response.ok) {
-      throw new Error(result._server_messages || result.exception || "Failed to submit inquiry to Frappe.");
+      const message = result._server_messages || "Failed to submit inquiry to Frappe.";
+      const status = response.status === 429 ? 429 : response.status < 500 ? response.status : 502;
+      return NextResponse.json({ error: message }, { status });
     }
     return NextResponse.json({ success: true, frappeSynced: true, name: result.message?.name, message: "Inquiry saved to Frappe." }, { status: 201 });
   } catch (error: unknown) {
+    const bodyError = requestBodyErrorResponse(error);
+    if (bodyError) return bodyError;
     const message = error instanceof Error ? error.message : "Error processing inquiry.";
     return NextResponse.json({ error: message }, { status: 400 });
   }
