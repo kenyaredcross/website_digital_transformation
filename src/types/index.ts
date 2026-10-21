@@ -72,6 +72,7 @@ export interface Country {
  
 export interface ThematicArea {
   id: string;
+  sortOrder?: number;
   slug: string;
   number: string;
   title: string;
@@ -169,6 +170,7 @@ export interface SiteConfig {
 
 export interface BlogPost {
   id: string;
+  sortOrder?: number;
   slug: string;
   title: string;
   excerpt: string;

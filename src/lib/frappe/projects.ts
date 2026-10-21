@@ -32,6 +32,7 @@ export interface FrappeProjectDoc {
   demoUrl?: string;
   github_url?: string;
   githubUrl?: string;
+  sort_order?: number | string;
 }
 
 function parseJsonOrArray<T>(val: T[] | string | undefined | null): T[] {
@@ -125,9 +126,12 @@ function mapProject(raw: FrappeProjectDoc & Record<string, unknown>): Project {
 
 export async function getProjects(): Promise<Project[]> {
   const records = await frappeListAll<FrappeProjectDoc>("Projects", { limit: 100 });
-  return records.map((item) =>
-    mapProject(item as FrappeProjectDoc & Record<string, unknown>)
-  ).sort((a, b) => {
+  return records.map((item) => ({
+    project: mapProject(item as FrappeProjectDoc & Record<string, unknown>),
+    sortOrder: Number((item as FrappeProjectDoc & Record<string, unknown>).sort_order || 0),
+  })).sort((left, right) => left.sortOrder - right.sortOrder || (() => {
+    const a = left.project;
+    const b = right.project;
     const desiredOrder = ["vmms", "anticipatory-action"];
     const aIndex = desiredOrder.indexOf(a.id.toLowerCase());
     const bIndex = desiredOrder.indexOf(b.id.toLowerCase());
@@ -135,7 +139,7 @@ export async function getProjects(): Promise<Project[]> {
     if (aIndex !== -1) return -1;
     if (bIndex !== -1) return 1;
     return 0;
-  });
+  })()).map(({ project }) => project);
 }
 
 export async function getProject(idOrSlug: string): Promise<Project | null> {

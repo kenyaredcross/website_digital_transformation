@@ -82,16 +82,19 @@ function mapPerson(raw: FrappePersonDoc & Record<string, unknown>): Person {
 
 export async function getPeople(): Promise<Person[]> {
   const records = await frappeListAll<FrappePersonDoc>("Person", { limit: 100 });
-  return records.map((item) =>
-    mapPerson(item as FrappePersonDoc & Record<string, unknown>)
-  ).sort((a, b) => {
-    const aNumber = /^p(\d+)$/i.exec(a.id)?.[1];
-    const bNumber = /^p(\d+)$/i.exec(b.id)?.[1];
+  return records.map((item) => ({
+    person: mapPerson(item as FrappePersonDoc & Record<string, unknown>),
+    sortOrder: Number((item as FrappePersonDoc & Record<string, unknown>).sort_order || 0),
+  })).sort((left, right) => left.sortOrder - right.sortOrder || (() => {
+    const first = left.person;
+    const second = right.person;
+    const aNumber = /^p(\d+)$/i.exec(first.id)?.[1];
+    const bNumber = /^p(\d+)$/i.exec(second.id)?.[1];
     if (aNumber && bNumber) return Number(aNumber) - Number(bNumber);
     if (aNumber) return -1;
     if (bNumber) return 1;
-    return a.id.localeCompare(b.id, undefined, { numeric: true, sensitivity: "base" });
-  });
+    return first.id.localeCompare(second.id, undefined, { numeric: true, sensitivity: "base" });
+  })()).map(({ person }) => person);
 }
 
 export async function getPerson(idOrSlug: string): Promise<Person | null> {

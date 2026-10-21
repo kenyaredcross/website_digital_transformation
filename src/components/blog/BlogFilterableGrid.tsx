@@ -83,7 +83,8 @@ export function BlogFilterableGrid({ blogs }: { blogs: BlogPost[] }) {
       })
       /* Editorial prominence is data-driven: flagged posts take the
          featured slots, everything else keeps its source order. */
-      .sort((a, b) => Number(!!b.featured) - Number(!!a.featured));
+      .sort((a, b) => Number(a.sortOrder || 0) - Number(b.sortOrder || 0)
+        || Number(!!b.featured) - Number(!!a.featured));
   }, [blogs, selectedCategory, searchQuery]);
 
   const layout = useMemo(() => buildLayout(filteredBlogs.length), [filteredBlogs.length]);

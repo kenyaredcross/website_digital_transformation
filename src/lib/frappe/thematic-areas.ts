@@ -3,6 +3,7 @@ import type { ThematicArea } from "@/types";
 
 export interface FrappeThematicAreaDoc {
   name: string;
+  sort_order?: number | string;
   external_id?: string;
   slug: string;
   number: string;
@@ -76,6 +77,7 @@ function mapThematicArea(
 
   return {
     id,
+    sortOrder: Number(raw.sort_order || 0),
     slug,
     number,
     title,
@@ -97,8 +99,9 @@ export async function getThematicAreas(): Promise<ThematicArea[]> {
     mapThematicArea(item as FrappeThematicAreaDoc & Record<string, unknown>)
   );
 
-  // Sort by number (01 to 07)
-  return list.sort((a, b) => Number(a.number) - Number(b.number));
+  // Explicit Frappe display order comes first; the thematic area number remains the tie-breaker.
+  return list.sort((a, b) => Number(a.sortOrder || 0) - Number(b.sortOrder || 0)
+    || Number(a.number) - Number(b.number));
 }
 
 export async function getThematicArea(

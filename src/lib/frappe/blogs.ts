@@ -24,6 +24,7 @@ export interface FrappeBlogDoc {
   video_embed_url?: string;
   tags: string[] | string;
   featured?: boolean | number;
+  sort_order?: number | string;
 }
 
 /** Prepend the Frappe origin for files stored on the Frappe backend. */
@@ -102,6 +103,7 @@ function mapBlogPost(raw: FrappeBlogDoc & Record<string, unknown>): BlogPost {
 
   return {
     id,
+    sortOrder: Number(raw.sort_order || 0),
     slug,
     title,
     excerpt,
