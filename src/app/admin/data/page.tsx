@@ -1,11 +1,12 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Database, Inbox, Plus, Pencil, Trash2, X, Save, Upload, RefreshCw } from "lucide-react";
 import { ADMIN_DOCTYPES, SUBMISSION_DOCTYPES } from "@/lib/frappe/admin-doctypes";
 
 type FieldMeta = { fieldname: string; label?: string; fieldtype: string; options?: string; reqd?: number; description?: string; default?: unknown };
 type RecordData = Record<string, unknown>;
+const PAGE_SIZE = 100;
 
 const LABELS: Record<string, string> = {
   Person: "People", Projects: "Projects", Countries: "Countries", "Thematic Areas": "Thematic Areas", "Digital Story": "Digital Stories",
@@ -33,42 +34,50 @@ export default function AdminDataPage() {
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
   const [publicationFilter, setPublicationFilter] = useState("All statuses");
+  const [pageStart, setPageStart] = useState(0);
+  const [hasNext, setHasNext] = useState(false);
+  const requestId = useRef(0);
 
   const activeDoctype = mode === "content" ? doctype : selectedName;
   const isEditing = Boolean(editing?.name);
 
-  const loadContent = useCallback(async (target: string) => {
+  const loadContent = useCallback(async (target: string, start: number) => {
+    const currentRequest = ++requestId.current;
     setLoading(true); setError("");
     try {
+      const filters = publicationFilter === "All statuses" ? "" : `&filters=${encodeURIComponent(JSON.stringify({ publication_status: publicationFilter }))}`;
       const [schemaResponse, recordsResponse] = await Promise.all([
         fetch(`/api/admin/schema?doctype=${encodeURIComponent(target)}`, { cache: "no-store" }),
-        fetch(`/api/admin/records/${encodeURIComponent(target)}?limit=500`, { cache: "no-store" }),
+        fetch(`/api/admin/records/${encodeURIComponent(target)}?limit=${PAGE_SIZE}&start=${start}${filters}`, { cache: "no-store" }),
       ]);
       const schema = await schemaResponse.json();
       const data = await recordsResponse.json();
       if (!schemaResponse.ok) throw new Error(schema.error || "Unable to load DocType fields.");
       if (!recordsResponse.ok) throw new Error(data.error || "Unable to load records.");
-      setFields(schema.fields || []); setRecords(Array.isArray(data) ? data : []);
-    } catch (e) { setError(e instanceof Error ? e.message : "Unable to load Frappe records."); }
-    finally { setLoading(false); }
-  }, []);
+      if (currentRequest !== requestId.current) return;
+      setFields(schema.fields || []); setRecords(Array.isArray(data.data) ? data.data : []); setHasNext(Boolean(data.has_next));
+    } catch (e) { if (currentRequest === requestId.current) setError(e instanceof Error ? e.message : "Unable to load Frappe records."); }
+    finally { if (currentRequest === requestId.current) setLoading(false); }
+  }, [publicationFilter]);
 
-  const loadSubmissions = useCallback(async (target: string) => {
+  const loadSubmissions = useCallback(async (target: string, start: number) => {
+    const currentRequest = ++requestId.current;
     setLoading(true); setError("");
     try {
-      const response = await fetch(`/api/admin/records/${encodeURIComponent(target)}?limit=500`, { cache: "no-store" });
+      const response = await fetch(`/api/admin/records/${encodeURIComponent(target)}?limit=${PAGE_SIZE}&start=${start}`, { cache: "no-store" });
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || "Unable to load submissions.");
-      setSubmissions(Array.isArray(data) ? data : []);
-    } catch (e) { setError(e instanceof Error ? e.message : "Unable to load submissions."); }
-    finally { setLoading(false); }
+      if (currentRequest !== requestId.current) return;
+      setSubmissions(Array.isArray(data.data) ? data.data : []); setHasNext(Boolean(data.has_next));
+    } catch (e) { if (currentRequest === requestId.current) setError(e instanceof Error ? e.message : "Unable to load submissions."); }
+    finally { if (currentRequest === requestId.current) setLoading(false); }
   }, []);
 
   // These effects synchronize the selected Frappe resource with the visible table.
   // eslint-disable-next-line react-hooks/set-state-in-effect
-  useEffect(() => { if (mode === "content") void loadContent(doctype); }, [mode, doctype, loadContent]);
+  useEffect(() => { if (mode === "content") void loadContent(doctype, pageStart); }, [mode, doctype, pageStart, loadContent]);
   // eslint-disable-next-line react-hooks/set-state-in-effect
-  useEffect(() => { if (mode === "inbox") void loadSubmissions(selectedName); }, [mode, selectedName, loadSubmissions]);
+  useEffect(() => { if (mode === "inbox") void loadSubmissions(selectedName, pageStart); }, [mode, selectedName, pageStart, loadSubmissions]);
 
   const columns = useMemo(() => {
     if (!records.length) return fields.filter((field) => ["Data", "Link", "Select", "Date", "Check"].includes(field.fieldtype)).slice(0, 6);
@@ -79,10 +88,9 @@ export default function AdminDataPage() {
     return keys.slice(0, 6).map((key) => fields.find((field) => field.fieldname === key) || { fieldname: key, label: key, fieldtype: "Data" });
   }, [fields, records]);
 
-  const visibleRecords = useMemo(() => records
-    .filter((record) => publicationFilter === "All statuses" || record.publication_status === publicationFilter)
-    .sort((a, b) => Number(a.sort_order || 0) - Number(b.sort_order || 0)
-      || String(b.creation || "").localeCompare(String(a.creation || ""))), [records, publicationFilter]);
+  const visibleRecords = records.filter((record) =>
+    publicationFilter === "All statuses" || record.publication_status === publicationFilter,
+  );
 
   function startCreate() {
     const initial: RecordData = {};
@@ -126,7 +134,7 @@ export default function AdminDataPage() {
       const result = await response.json();
       if (!response.ok) throw new Error(result.error || "Unable to save record.");
       setEditing(null); setForm({}); setFormOpen(false); setNotice(isEditing ? "Record updated in Frappe." : "Record created in Frappe.");
-      await loadContent(doctype);
+      await loadContent(doctype, pageStart);
     } catch (e) { setError(e instanceof Error ? e.message : "Unable to save record."); }
   }
 
@@ -138,7 +146,7 @@ export default function AdminDataPage() {
       const response = await fetch(`/api/admin/records/${encodeURIComponent(doctype)}?name=${encodeURIComponent(name)}`, { method: "DELETE" });
       const result = await response.json();
       if (!response.ok) throw new Error(result.error || "Unable to delete record.");
-      setNotice("Record deleted from Frappe."); await loadContent(doctype);
+      setNotice("Record deleted from Frappe."); await loadContent(doctype, pageStart);
     } catch (e) { setError(e instanceof Error ? e.message : "Unable to delete record."); }
   }
 
@@ -179,19 +187,24 @@ export default function AdminDataPage() {
   return <div className="space-y-6">
     <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
       <div><p className="text-xs font-semibold uppercase tracking-[.18em] text-red-400">Frappe administration</p><h1 className="mt-1 text-2xl font-bold text-white">Data & submissions</h1><p className="mt-1 text-sm text-slate-400">Create, view, update and delete website records in Frappe.</p></div>
-      <div className="flex gap-2"><button onClick={() => { setMode("content"); setEditing(null); setFormOpen(false); }} className={`inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm ${mode === "content" ? "bg-red-600 text-white" : "bg-slate-800 text-slate-300"}`}><Database className="h-4 w-4" />Content</button><button onClick={() => { setMode("inbox"); setEditing(null); setFormOpen(false); }} className={`inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm ${mode === "inbox" ? "bg-red-600 text-white" : "bg-slate-800 text-slate-300"}`}><Inbox className="h-4 w-4" />Submissions</button></div>
+      <div className="flex gap-2"><button onClick={() => { setMode("content"); setPageStart(0); setEditing(null); setFormOpen(false); }} className={`inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm ${mode === "content" ? "bg-red-600 text-white" : "bg-slate-800 text-slate-300"}`}><Database className="h-4 w-4" />Content</button><button onClick={() => { setMode("inbox"); setPageStart(0); setEditing(null); setFormOpen(false); }} className={`inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm ${mode === "inbox" ? "bg-red-600 text-white" : "bg-slate-800 text-slate-300"}`}><Inbox className="h-4 w-4" />Submissions</button></div>
     </div>
     {error && <div className="rounded-lg border border-red-900 bg-red-950/50 p-3 text-sm text-red-200">{error}</div>}{notice && <div className="rounded-lg border border-emerald-900 bg-emerald-950/40 p-3 text-sm text-emerald-200">{notice}</div>}
 
     <div className="flex flex-wrap items-end justify-between gap-3 rounded-xl border border-slate-800 bg-slate-900 p-4">
-      <label className="min-w-64 flex-1 text-xs font-semibold uppercase tracking-wide text-slate-400">{mode === "content" ? "DocType" : "Submission inbox"}<select className="mt-2 block w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2.5 text-sm text-white" value={activeDoctype} onChange={(event) => mode === "content" ? (setDoctype(event.target.value), setEditing(null), setForm({}), setFormOpen(false)) : setSelectedName(event.target.value)}>{(mode === "content" ? ADMIN_DOCTYPES : SUBMISSION_DOCTYPES).map((item) => <option key={item} value={item}>{LABELS[item] || item}</option>)}</select></label>
-      <div className="flex flex-wrap items-end gap-2">{mode === "content" && <label className="text-xs font-semibold uppercase tracking-wide text-slate-400">Publishing status<select className="mt-2 block min-w-40 rounded-lg border border-slate-700 bg-slate-950 px-3 py-2.5 text-sm normal-case text-white" value={publicationFilter} onChange={(event) => setPublicationFilter(event.target.value)}><option>All statuses</option><option>Draft</option><option>Published</option><option>Archived</option></select></label>}<button onClick={() => mode === "content" ? void loadContent(doctype) : void loadSubmissions(selectedName)} className="inline-flex items-center gap-2 rounded-lg bg-slate-800 px-3 py-2.5 text-sm text-slate-200 hover:bg-slate-700"><RefreshCw className="h-4 w-4" />Refresh</button>{mode === "content" && <button onClick={startCreate} className="inline-flex items-center gap-2 rounded-lg bg-red-600 px-3 py-2.5 text-sm font-semibold text-white hover:bg-red-500"><Plus className="h-4 w-4" />New record</button>}</div>
+      <label className="min-w-64 flex-1 text-xs font-semibold uppercase tracking-wide text-slate-400">{mode === "content" ? "DocType" : "Submission inbox"}<select className="mt-2 block w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2.5 text-sm text-white" value={activeDoctype} onChange={(event) => { setPageStart(0); if (mode === "content") { setDoctype(event.target.value); setEditing(null); setForm({}); setFormOpen(false); } else setSelectedName(event.target.value); }}>{(mode === "content" ? ADMIN_DOCTYPES : SUBMISSION_DOCTYPES).map((item) => <option key={item} value={item}>{LABELS[item] || item}</option>)}</select></label>
+      <div className="flex flex-wrap items-end gap-2">{mode === "content" && <label className="text-xs font-semibold uppercase tracking-wide text-slate-400">Publishing status<select className="mt-2 block min-w-40 rounded-lg border border-slate-700 bg-slate-950 px-3 py-2.5 text-sm normal-case text-white" value={publicationFilter} onChange={(event) => { setPublicationFilter(event.target.value); setPageStart(0); }}><option>All statuses</option><option>Draft</option><option>Published</option><option>Archived</option></select></label>}<button onClick={() => mode === "content" ? void loadContent(doctype, pageStart) : void loadSubmissions(selectedName, pageStart)} className="inline-flex items-center gap-2 rounded-lg bg-slate-800 px-3 py-2.5 text-sm text-slate-200 hover:bg-slate-700"><RefreshCw className="h-4 w-4" />Refresh</button>{mode === "content" && <button onClick={startCreate} className="inline-flex items-center gap-2 rounded-lg bg-red-600 px-3 py-2.5 text-sm font-semibold text-white hover:bg-red-500"><Plus className="h-4 w-4" />New record</button>}</div>
     </div>
     {mode === "content" && <p className="-mt-3 text-xs leading-relaxed text-slate-500">Draft and Archived records stay hidden from the public website. Published records are public. Lower display order numbers appear first; use unique values for a predictable order.</p>}
 
     {mode === "content" && formOpen && <form onSubmit={saveRecord} className="rounded-xl border border-slate-800 bg-slate-900 p-5"><div className="mb-4 flex items-center justify-between"><h2 className="text-lg font-semibold text-white">{isEditing ? `Edit ${String(editing?.name)}` : `New ${LABELS[doctype] || doctype} record`}</h2><button type="button" onClick={() => { setEditing(null); setForm({}); setFormOpen(false); }} className="rounded-md p-1.5 text-slate-400 hover:bg-slate-800 hover:text-white"><X className="h-4 w-4" /></button></div><div className="grid gap-4 md:grid-cols-2">{fields.map((field) => <label key={field.fieldname} className={`block text-xs font-medium text-slate-300 ${["Text", "Long Text", "Text Editor", "Code", "JSON", "Table", "Table MultiSelect"].includes(field.fieldtype) ? "md:col-span-2" : ""}`}><span className="mb-1.5 block">{field.label || field.fieldname}{field.reqd ? <span className="text-red-400"> *</span> : null}</span>{renderInput(field)}{field.description && <span className="mt-1 block text-[11px] text-slate-500">{field.description}</span>}</label>)}</div><button type="submit" className="mt-5 inline-flex items-center gap-2 rounded-lg bg-red-600 px-4 py-2.5 text-sm font-semibold text-white"><Save className="h-4 w-4" />{isEditing ? "Save changes" : "Create record"}</button></form>}
 
-    <div className="overflow-hidden rounded-xl border border-slate-800 bg-slate-900"><div className="flex items-center justify-between border-b border-slate-800 px-4 py-3"><h2 className="font-semibold text-white">{LABELS[activeDoctype] || activeDoctype}</h2><span className="text-xs text-slate-500">{mode === "content" ? `${visibleRecords.length} shown · ${records.length} records` : `${submissions.length} submissions`}</span></div>{loading ? <div className="p-10 text-center text-sm text-slate-400">Loading from Frappe…</div> : mode === "content" ? visibleRecords.length === 0 ? <p className="p-10 text-center text-sm text-slate-500">No records found.</p> : <div className="overflow-x-auto"><table className="w-full min-w-[720px] text-left text-sm"><thead className="bg-slate-950/70 text-xs uppercase tracking-wide text-slate-500"><tr>{columns.map((column) => <th key={column.fieldname} className="px-4 py-3">{column.label || column.fieldname}</th>)}<th className="px-4 py-3 text-right">Actions</th></tr></thead><tbody className="divide-y divide-slate-800">{visibleRecords.map((record, index) => <tr key={String(record.name || index)} className="hover:bg-slate-800/40">{columns.map((column) => <td key={column.fieldname} className="max-w-sm truncate px-4 py-3 text-slate-300" title={display(record[column.fieldname])}>{column.fieldname === "publication_status" ? <select aria-label={`Publishing status for ${display(record.name)}`} className="rounded-md border border-slate-700 bg-slate-950 px-2 py-1 text-xs text-white" value={String(record.publication_status || "Draft")} onChange={(event) => void updateWorkflowField(record, "publication_status", event.target.value)}><option>Draft</option><option>Published</option><option>Archived</option></select> : column.fieldname === "sort_order" ? <input aria-label={`Display order for ${display(record.name)}`} type="number" className="w-24 rounded-md border border-slate-700 bg-slate-950 px-2 py-1 text-xs text-white" defaultValue={Number(record.sort_order || 0)} onBlur={(event) => { const value = Number(event.target.value); if (Number.isFinite(value) && value !== Number(record.sort_order || 0)) void updateWorkflowField(record, "sort_order", value); }} onKeyDown={(event) => { if (event.key === "Enter") event.currentTarget.blur(); }} /> : column.fieldtype === "Check" ? (record[column.fieldname] ? "Yes" : "No") : display(record[column.fieldname])}</td>)}<td className="whitespace-nowrap px-4 py-3 text-right"><button onClick={() => startEdit(record)} title="Edit" className="mr-1 rounded-md p-2 text-sky-300 hover:bg-slate-700"><Pencil className="h-4 w-4" /></button><button onClick={() => void deleteRecord(record)} title="Delete" className="rounded-md p-2 text-red-300 hover:bg-slate-700"><Trash2 className="h-4 w-4" /></button></td></tr>)}</tbody></table></div> : submissions.length === 0 ? <p className="p-10 text-center text-sm text-slate-500">No submissions found.</p> : <div className="divide-y divide-slate-800">{submissions.map((record, index) => <details key={String(record.name || index)} className="group px-4 py-3"><summary className="flex cursor-pointer list-none items-center justify-between gap-4"><span className="min-w-0"><span className="block truncate font-medium text-white">{display(record.subject || record.proposal_title || record.full_name || record.organization || record.name)}</span><span className="mt-1 block truncate text-xs text-slate-500">{display(record.full_name || record.contact_person || record.email)} · {display(record.submitted_at || record.creation)}</span></span><span className="rounded-full bg-slate-800 px-2.5 py-1 text-xs text-slate-300">{display(record.status)}</span></summary><dl className="mt-4 grid gap-x-6 gap-y-3 border-t border-slate-800 pt-4 sm:grid-cols-2">{Object.entries(record).filter(([key, value]) => value != null && !["doctype", "docstatus", "idx", "owner", "modified_by"].includes(key) && typeof value !== "object").map(([key, value]) => <div key={key}><dt className="text-[10px] uppercase tracking-wider text-slate-500">{key.replaceAll("_", " ")}</dt><dd className="mt-1 whitespace-pre-wrap break-words text-sm text-slate-200">{display(value)}</dd></div>)}</dl></details>)}</div>}</div>
+    <div className="overflow-hidden rounded-xl border border-slate-800 bg-slate-900"><div className="flex items-center justify-between border-b border-slate-800 px-4 py-3"><h2 className="font-semibold text-white">{LABELS[activeDoctype] || activeDoctype}</h2><span className="text-xs text-slate-500">Page {Math.floor(pageStart / PAGE_SIZE) + 1} · {mode === "content" ? `${visibleRecords.length} records` : `${submissions.length} submissions`}</span></div>{loading ? <div className="p-10 text-center text-sm text-slate-400">Loading from Frappe…</div> : mode === "content" ? visibleRecords.length === 0 ? <p className="p-10 text-center text-sm text-slate-500">No records found.</p> : <div className="overflow-x-auto"><table className="w-full min-w-[720px] text-left text-sm"><thead className="bg-slate-950/70 text-xs uppercase tracking-wide text-slate-500"><tr>{columns.map((column) => <th key={column.fieldname} className="px-4 py-3">{column.label || column.fieldname}</th>)}<th className="px-4 py-3 text-right">Actions</th></tr></thead><tbody className="divide-y divide-slate-800">{visibleRecords.map((record, index) => <tr key={String(record.name || index)} className="hover:bg-slate-800/40">{columns.map((column) => <td key={column.fieldname} className="max-w-sm truncate px-4 py-3 text-slate-300" title={display(record[column.fieldname])}>{column.fieldname === "publication_status" ? <select aria-label={`Publishing status for ${display(record.name)}`} className="rounded-md border border-slate-700 bg-slate-950 px-2 py-1 text-xs text-white" value={String(record.publication_status || "Draft")} onChange={(event) => void updateWorkflowField(record, "publication_status", event.target.value)}><option>Draft</option><option>Published</option><option>Archived</option></select> : column.fieldname === "sort_order" ? <input aria-label={`Display order for ${display(record.name)}`} type="number" className="w-24 rounded-md border border-slate-700 bg-slate-950 px-2 py-1 text-xs text-white" defaultValue={Number(record.sort_order || 0)} onBlur={(event) => { const value = Number(event.target.value); if (Number.isFinite(value) && value !== Number(record.sort_order || 0)) void updateWorkflowField(record, "sort_order", value); }} onKeyDown={(event) => { if (event.key === "Enter") event.currentTarget.blur(); }} /> : column.fieldtype === "Check" ? (record[column.fieldname] ? "Yes" : "No") : display(record[column.fieldname])}</td>)}<td className="whitespace-nowrap px-4 py-3 text-right"><button onClick={() => startEdit(record)} title="Edit" className="mr-1 rounded-md p-2 text-sky-300 hover:bg-slate-700"><Pencil className="h-4 w-4" /></button><button onClick={() => void deleteRecord(record)} title="Delete" className="rounded-md p-2 text-red-300 hover:bg-slate-700"><Trash2 className="h-4 w-4" /></button></td></tr>)}</tbody></table></div> : submissions.length === 0 ? <p className="p-10 text-center text-sm text-slate-500">No submissions found.</p> : <div className="divide-y divide-slate-800">{submissions.map((record, index) => <details key={String(record.name || index)} className="group px-4 py-3"><summary className="flex cursor-pointer list-none items-center justify-between gap-4"><span className="min-w-0"><span className="block truncate font-medium text-white">{display(record.subject || record.proposal_title || record.full_name || record.organization || record.name)}</span><span className="mt-1 block truncate text-xs text-slate-500">{display(record.full_name || record.contact_person || record.email)} · {display(record.submitted_at || record.creation)}</span></span><span className="rounded-full bg-slate-800 px-2.5 py-1 text-xs text-slate-300">{display(record.status)}</span></summary><dl className="mt-4 grid gap-x-6 gap-y-3 border-t border-slate-800 pt-4 sm:grid-cols-2">{Object.entries(record).filter(([key, value]) => value != null && !["doctype", "docstatus", "idx", "owner", "modified_by"].includes(key) && typeof value !== "object").map(([key, value]) => <div key={key}><dt className="text-[10px] uppercase tracking-wider text-slate-500">{key.replaceAll("_", " ")}</dt><dd className="mt-1 whitespace-pre-wrap break-words text-sm text-slate-200">{display(value)}</dd></div>)}</dl></details>)}</div>}</div>
+    <div className="flex items-center justify-between rounded-xl border border-slate-800 bg-slate-900 px-4 py-3">
+      <button disabled={loading || pageStart === 0} onClick={() => setPageStart((start) => Math.max(0, start - PAGE_SIZE))} className="rounded-lg bg-slate-800 px-3 py-2 text-xs text-slate-200 disabled:cursor-not-allowed disabled:opacity-40">Previous</button>
+      <span className="text-xs text-slate-500">Rows {pageStart + 1}–{pageStart + (mode === "content" ? visibleRecords.length : submissions.length)}</span>
+      <button disabled={loading || !hasNext} onClick={() => setPageStart((start) => start + PAGE_SIZE)} className="rounded-lg bg-slate-800 px-3 py-2 text-xs text-slate-200 disabled:cursor-not-allowed disabled:opacity-40">Next</button>
+    </div>
     <p className="text-xs text-slate-500">The submissions inbox is read-only. Record changes are checked and saved by Frappe using your System Manager session.</p>
   </div>;
 }

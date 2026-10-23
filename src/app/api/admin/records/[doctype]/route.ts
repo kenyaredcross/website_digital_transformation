@@ -23,9 +23,14 @@ export async function GET(request: Request, context: Context) {
   const resource = await target(context);
   if (!resource) return NextResponse.json({ error: "Unsupported DocType." }, { status: 400 });
   const search = new URL(request.url).searchParams;
-  const requestedLimit = Math.max(1, Math.min(Number(search.get("limit") || 100), 500));
-  const start = Math.max(0, Number(search.get("start") || 0));
-  const params = new URLSearchParams({ fields: JSON.stringify(["*"]), limit_page_length: String(requestedLimit), limit_start: String(start), order_by: "modified desc" });
+  const rawLimit = Number(search.get("limit") || 100);
+  const rawStart = Number(search.get("start") || 0);
+  const requestedLimit = Number.isFinite(rawLimit) ? Math.max(1, Math.min(Math.trunc(rawLimit), 100)) : 100;
+  const start = Number.isFinite(rawStart) ? Math.max(0, Math.trunc(rawStart)) : 0;
+  const orderBy = isSubmissionDoctype(resource.doctype) || resource.doctype === "Site"
+    ? "modified desc"
+    : "sort_order asc, creation desc";
+  const params = new URLSearchParams({ fields: JSON.stringify(["*"]), limit_page_length: String(requestedLimit + 1), limit_start: String(start), order_by: orderBy });
   if (search.has("filters")) params.set("filters", search.get("filters")!);
   if (search.has("name")) {
     const response = await frappeAdminRequest(`${resource.url}/${encodeURIComponent(search.get("name")!)}?fields=${encodeURIComponent(JSON.stringify(["*"]))}`);
@@ -34,7 +39,10 @@ export async function GET(request: Request, context: Context) {
   }
   const response = await frappeAdminRequest(`${resource.url}?${params.toString()}`);
   const payload = await response.json().catch(() => ({}));
-  return response.ok ? NextResponse.json(payload.data || []) : NextResponse.json({ error: errorMessage(payload, "Unable to load records.") }, { status: response.status });
+  if (!response.ok) return NextResponse.json({ error: errorMessage(payload, "Unable to load records.") }, { status: response.status });
+  const rows = Array.isArray(payload.data) ? payload.data : [];
+  const hasNext = rows.length > requestedLimit;
+  return NextResponse.json({ data: rows.slice(0, requestedLimit), has_next: hasNext, limit: requestedLimit, start });
 }
 
 export async function POST(request: Request, context: Context) {
